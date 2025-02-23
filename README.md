@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio - M Hasbi Hasbullah
 
-## Getting Started
+Welcome to my technology portfolio repository! This is a personal project showcasing my skills, projects, and experience in web development and related technologies. The portfolio is built using modern technologies such as Next.js, React, Tailwind CSS, and several supporting libraries.
 
-First, run the development server:
+## Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Here’s a list of the technologies and libraries used in this project:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Next.js**: A React framework for building web applications with server-side rendering (SSR) and static site generation (SSG) features.
+- **React**: A JavaScript library for building user interfaces.
+- **Tailwind CSS**: A utility-first CSS framework for fast and responsive design.
+- **TypeScript**: A JavaScript superset that adds static types for improved safety and development.
+- **GSAP**: An animation library for creating smooth and complex animations.
+- **Lucide React**: An open-source icon library for user interfaces.
+- **Radix UI**: Accessible and customizable UI components.
+- **Vercel Analytics**: Analytics for tracking application performance and usage.
+- **React GitHub Calendar**: A component to display GitHub contribution calendars.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To run this project locally, follow these steps:
 
-## Learn More
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/hasbihasbullh/portfolio.git
+2. **Navigate to the project directory**:
+   ```bash
+   cd portfolio
+3. **Install dependencies**:
+   ```bash
+   npm install
+4. **Run the development server**:
+   ```bash
+   npm run dev
+5. **Open your browser** and visit [`http://localhost:3000`](http://localhost:3000) to view the portfolio.
 
-To learn more about Next.js, take a look at the following resources:
+## Available Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `npm run dev:` Starts the development server.
+- `npm run build:` Builds the project for production.
+- `npm run start:` Runs the built project.
+- `npm run lint:` Runs ESLint to check the code.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+- `/components:` Contains React components used in the application.
+- `/pages:` Contains Next.js pages.
+- `/lib:` Contains utility functions, helpers, or custom logic used across the project.
+- `/public:` Contains static assets such as images and fonts.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you'd like to contribute to this project, please open an issue or submit a pull request. All contributions are welcome!
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
