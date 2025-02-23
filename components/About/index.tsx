@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { BorderBeam } from "@/components/ui/magicui/border-beam";
 import { Card } from "@/components/ui/card";
 import { TextReveal } from "./TextReveal";
+import Experiences from "./Experiences";
 import { Skills } from "./Skills";
 import GitHubCalendar from "react-github-calendar";
 import { Briefcase, CheckCircle, Book } from "lucide-react";
@@ -27,7 +28,7 @@ export default function About() {
   }, []);
 
   const stats = [
-    { value: "1", label: "Years of Experience", icon: Briefcase },
+    { value: "2", label: "Years of Experience", icon: Briefcase },
     { value: projects.length, label: "Projects", icon: CheckCircle },
     { value: repoCount !== null ? repoCount : "Loading...", label: "Repositories", icon: Book },
   ];
@@ -37,8 +38,12 @@ export default function About() {
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 sm:mb-20">
           <h2 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold tracking-tight mb-6 text-zinc-50">About Me</h2>
-          <div className="mb-12">
+          <div className="mb-6">
             <TextReveal text="I am M Hasbi Hasbullah, currently living in Sukabumi, Indonesia. With experience across various fields of technology and development, I specialize in creating, developing, and managing interactive and informative websites. My expertise in technologies like React.js, Next.js, and Laravel allows me to deliver innovative and efficient solutions. As a self-taught learner, I am driven by a strong curiosity and a passion for continuous skill development. I am not just a coder but also a creative thinker, a problem solver, and a lifelong learner always eager to explore new technologies." />
+          </div>
+
+          <div className="mb-6">
+            <Experiences />
           </div>
 
           <div className="grid sm:grid-cols-3 gap-6">
