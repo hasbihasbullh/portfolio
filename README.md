@@ -1,4 +1,4 @@
-# Portfolio - M Hasbi Hasbullah
+<h1 align="center">My Portfolio</h1>
 
 Welcome to my technology portfolio repository! This is a personal project showcasing my skills, projects, and experience in web development and related technologies. The portfolio is built using modern technologies such as Next.js, React, Tailwind CSS, and several supporting libraries.
 
@@ -43,8 +43,8 @@ To run this project locally, follow these steps:
 
 ## Project Structure
 
+- `/app:` Contains Next.js pages using the App Router.
 - `/components:` Contains React components used in the application.
-- `/pages:` Contains Next.js pages.
 - `/lib:` Contains utility functions, helpers, or custom logic used across the project.
 - `/public:` Contains static assets such as images and fonts.
 
