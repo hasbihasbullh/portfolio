@@ -19,7 +19,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="px-4 sm:px-8 py-10 lg:py-20 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 pt-20 pb-16 lg:pt-0 lg:pb-20">
+    <section className="px-4 sm:px-8 py-10 lg:py-20 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10 pt-20 pb-0 lg:pt-0 lg:pb-0">
       <div className="space-y-8 text-center lg:text-left md:w-7/12">
         <div className="space-y-4">
           <h2 className="text-sm sm:text-base text-yellow-500 font-semibold tracking-wider uppercase">Welcome to</h2>
