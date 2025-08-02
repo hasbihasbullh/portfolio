@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import gsap from "gsap";
+import Image from "next/image";
 
 const Loader = ({ onComplete }: { onComplete?: () => void }) => {
   const [isVisible, setIsVisible] = useState(true);
-  const [isTextVisible, setIsTextVisible] = useState(true); // State untuk teks
+  const [isLogoVisible, setIsLogoVisible] = useState(true); // State untuk logo
 
   useEffect(() => {
     const banners = [document.getElementById("banner-1"), document.getElementById("banner-2"), document.getElementById("banner-3"), document.getElementById("banner-4")];
@@ -28,10 +29,10 @@ const Loader = ({ onComplete }: { onComplete?: () => void }) => {
       })
         // Wait for content to load
         .to({}, { duration: 1.5 }) // Loading time
-        .to(".loading-text", {
+        .to(".loading-logo", {
           opacity: 0,
           duration: 0.5,
-          onComplete: () => setIsTextVisible(false), // Sembunyikan teks setelah animasi
+          onComplete: () => setIsLogoVisible(false), // Sembunyikan logo setelah animasi
         })
         // Animate banners out
         .to(banners, {
@@ -72,10 +73,10 @@ const Loader = ({ onComplete }: { onComplete?: () => void }) => {
       <div id="banner-3" className="min-h-screen bg-neutral-50 fixed top-0 left-2/4 w-1/4" />
       <div id="banner-4" className="min-h-screen bg-neutral-50 fixed top-0 left-3/4 w-1/4" />
 
-      {/* Loading text */}
-      {isTextVisible && (
-        <div className="fixed inset-0 flex items-center justify-center z-10 loading-text">
-          <div className="text-black text-3xl font-mono font-bold animate-pulse">HSB</div>
+      {/* Loading logo */}
+      {isLogoVisible && (
+        <div className="fixed inset-0 flex items-center justify-center z-10 loading-logo">
+          <Image src="/HSB.svg" alt="HSB Logo" width={160} height={160} className="w-16 sm:w-20 md:w-24 lg:w-32 xl:w-40 max-w-[40vw] h-auto animate-pulse" priority />
         </div>
       )}
     </div>
