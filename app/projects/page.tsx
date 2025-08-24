@@ -79,16 +79,8 @@ export default function ProjectsPage() {
 
                       {/* Status Badge */}
                       <div className="absolute top-4 left-4">
-                        <Badge className={`${
-                          project.status === "Live" 
-                            ? "bg-green-500/90 text-white border-0 shadow-lg" 
-                            : "bg-red-500/90 text-white border-0 shadow-lg"
-                          } text-xs font-semibold px-3 py-1`}>
-                          <div className={`w-2 h-2 rounded-full mr-2 ${
-                            project.status === "Live" 
-                              ? "bg-green-300" 
-                              : "bg-red-300"
-                            } animate-pulse`} />
+                        <Badge className={`${project.status === "Live" ? "bg-green-500/90 text-white border-0 shadow-lg" : "bg-red-500/90 text-white border-0 shadow-lg"} text-xs font-semibold px-3 py-1`}>
+                          <div className={`w-2 h-2 rounded-full mr-2 ${project.status === "Live" ? "bg-green-300" : "bg-red-300"} animate-pulse`} />
                           {project.status}
                         </Badge>
                       </div>
@@ -110,18 +102,8 @@ export default function ProjectsPage() {
                     <CardContent className="py-0">
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.slice(0, 3).map((tech, techIndex) => (
-                          <div
-                            key={techIndex}
-                            className="flex items-center justify-center bg-zinc-800/60 hover:bg-zinc-700 w-10 h-10 rounded-lg transition-colors duration-200"
-                            title={tech.name}
-                          >
-                            <Image
-                              src={tech.svgPath}
-                              alt={`${tech.name} icon`}
-                              width={24}
-                              height={24}
-                              className={tech.color || ""}
-                            />
+                          <div key={techIndex} className="flex items-center justify-center bg-zinc-800/60 hover:bg-zinc-700 w-10 h-10 rounded-lg transition-colors duration-200" title={tech.name}>
+                            <Image src={tech.svgPath} alt={`${tech.name} icon`} width={24} height={24} className={tech.color || ""} />
                           </div>
                         ))}
                         {project.technologies.length > 3 && (
@@ -151,9 +133,7 @@ export default function ProjectsPage() {
             {/* Enhanced Footer */}
             <div className="lg:hidden mt-20 pt-8 border-t border-zinc-800/50">
               <div className="text-center">
-                <p className="text-zinc-500 text-xs leading-relaxed">
-                  Made with <span className="text-red-400">♥</span> by {profileData.name}
-                </p>
+                <p className="text-zinc-500 text-xs leading-relaxed">Made with by {profileData.name}</p>
                 <p className="text-zinc-600 text-xs mt-1">© 2025 All rights reserved</p>
               </div>
             </div>

@@ -176,9 +176,12 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="lg:hidden mt-16 pt-8 border-t border-zinc-800">
-              <p className="text-zinc-400 text-xs text-center leading-relaxed">COPYRIGHT ©2025 {profileData.name}. All rights reserved.</p>
+            {/* Enhanced Footer */}
+            <div className="lg:hidden mt-20 pt-8 border-t border-zinc-800/50">
+              <div className="text-center">
+                <p className="text-zinc-500 text-xs leading-relaxed">Made with by {profileData.name}</p>
+                <p className="text-zinc-600 text-xs mt-1">© 2025 All rights reserved</p>
+              </div>
             </div>
           </div>
         </div>

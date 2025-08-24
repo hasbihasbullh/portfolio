@@ -13,9 +13,13 @@ export default function ContactPage() {
           <div className="pt-20 lg:pt-0 flex flex-col items-center justify-center min-h-[calc(100vh-100px)]">
             <h1 className="text-5xl lg:text-7xl font-bold text-white mb-4 text-center">Contact</h1>
             <p className="text-gray-400 text-xl lg:text-2xl text-center">Coming Soon! Were working on something awesome.</p>
-            {/* Mobile Copyright Footer (optional, bisa dihapus jika tidak diperlukan di halaman ini) */}
-            <div className="lg:hidden mt-16 pt-8 border-t border-gray-700 w-full text-center">
-              <p className="text-gray-400 text-xs text-center leading-relaxed">Copyright ©2025 {profileData.name}. All rights reserved.</p>
+
+            {/* Enhanced Footer */}
+            <div className="lg:hidden mt-20 pt-8 border-t border-zinc-800/50">
+              <div className="text-center">
+                <p className="text-zinc-500 text-xs leading-relaxed">Made with by {profileData.name}</p>
+                <p className="text-zinc-600 text-xs mt-1">© 2025 All rights reserved</p>
+              </div>
             </div>
           </div>
         </div>

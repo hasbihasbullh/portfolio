@@ -1,6 +1,6 @@
 import { DesktopSidebar } from "@/components/common/DesktopSidebar";
 import { MobileNavbar } from "@/components/common/MobileNavbar";
-import { profileData } from "@/lib/data/profileData";
+import { profileData } from "@/lib/data";
 import { projects } from "@/lib/data/projectData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -57,14 +57,10 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                     </a>
                   </Button>
                 )}
-                
+
                 {/* Show unavailable Preview button for offline projects */}
                 {!hasLiveDemo && (
-                  <Button
-                    disabled
-                    className="bg-zinc-700 text-zinc-400 cursor-not-allowed font-semibold rounded-xl px-6 py-2.5 shadow-lg"
-                    title="This project is currently offline"
-                  >
+                  <Button disabled className="bg-zinc-700 text-zinc-400 cursor-not-allowed font-semibold rounded-xl px-6 py-2.5 shadow-lg" title="This project is currently offline">
                     <FaExternalLinkAlt className="mr-2 h-4 w-4" />
                     Preview Unavailable
                   </Button>
@@ -72,10 +68,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
                 {/* Conditional GitHub Button */}
                 {project.githubLink && (
-                  <Button 
-                    asChild 
-                    className="bg-zinc-800 hover:bg-zinc-700 text-white font-semibold transition-all duration-300 rounded-xl px-6 py-2.5 shadow-lg hover:scale-105 border border-zinc-700"
-                  >
+                  <Button asChild className="bg-zinc-800 hover:bg-zinc-700 text-white font-semibold transition-all duration-300 rounded-xl px-6 py-2.5 shadow-lg hover:scale-105 border border-zinc-700">
                     <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
                       <FaGithub className="mr-2 h-4 w-4" />
                       Source Code
@@ -101,16 +94,8 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                   <FaClock className="w-4 h-4 text-green-400" />
                   <span className="text-zinc-300 text-sm font-medium">{project.launchDate}</span>
                 </div>
-                <Badge className={`${
-                  project.status === "Live" 
-                    ? "bg-green-500/10 text-green-400 border-green-500/30" 
-                    : "bg-red-500/10 text-red-400 border-red-500/30"
-                  } px-4 py-2 text-sm font-semibold border`}>
-                  <div className={`w-2 h-2 rounded-full mr-2 ${
-                    project.status === "Live" 
-                      ? "bg-green-400" 
-                      : "bg-red-400"
-                    } animate-pulse`} />
+                <Badge className={`${project.status === "Live" ? "bg-green-500/10 text-green-400 border-green-500/30" : "bg-red-500/10 text-red-400 border-red-500/30"} px-4 py-2 text-sm font-semibold border`}>
+                  <div className={`w-2 h-2 rounded-full mr-2 ${project.status === "Live" ? "bg-green-400" : "bg-red-400"} animate-pulse`} />
                   {project.status}
                 </Badge>
               </div>
@@ -144,17 +129,8 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 <CardContent>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {project.technologies.map((tech, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-3 bg-zinc-800/50 hover:bg-zinc-700/50 px-4 py-3 rounded-lg transition-all duration-200 hover:scale-105 border border-zinc-700/50"
-                      >
-                        <Image
-                          src={tech.svgPath}
-                          alt={`${tech.name} icon`}
-                          width={24}
-                          height={24}
-                          className={`flex-shrink-0 ${tech.color || ""}`}
-                        />
+                      <div key={index} className="flex items-center gap-3 bg-zinc-800/50 hover:bg-zinc-700/50 px-4 py-3 rounded-lg transition-all duration-200 hover:scale-105 border border-zinc-700/50">
+                        <Image src={tech.svgPath} alt={`${tech.name} icon`} width={24} height={24} className={`flex-shrink-0 ${tech.color || ""}`} />
                         <span className="text-zinc-300 font-medium">{tech.name}</span>
                       </div>
                     ))}
@@ -181,13 +157,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                   </div>
                   <div>
                     <p className="text-zinc-400 text-sm mb-1">Status</p>
-                    <Badge className={`${
-                      project.status === "Live" 
-                        ? "bg-green-500/20 text-green-400 border-green-500/30" 
-                        : "bg-red-500/20 text-red-400 border-red-500/30"
-                      } border font-semibold`}>
-                      {project.status}
-                    </Badge>
+                    <Badge className={`${project.status === "Live" ? "bg-green-500/20 text-green-400 border-green-500/30" : "bg-red-500/20 text-red-400 border-red-500/30"} border font-semibold`}>{project.status}</Badge>
                   </div>
                   <div>
                     <p className="text-zinc-400 text-sm mb-1">Technologies</p>
@@ -195,9 +165,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                   </div>
                   <div>
                     <p className="text-zinc-400 text-sm mb-1">Demo Status</p>
-                    <p className={`font-semibold ${hasLiveDemo ? 'text-green-400' : 'text-red-400'}`}>
-                      {hasLiveDemo ? 'Available' : 'Unavailable'}
-                    </p>
+                    <p className={`font-semibold ${hasLiveDemo ? "text-green-400" : "text-red-400"}`}>{hasLiveDemo ? "Available" : "Unavailable"}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -244,9 +212,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
             {/* Enhanced Footer */}
             <div className="lg:hidden mt-20 pt-8 border-t border-zinc-800/50">
               <div className="text-center">
-                <p className="text-zinc-500 text-xs leading-relaxed">
-                  Made with <span className="text-red-400">♥</span> by {profileData.name}
-                </p>
+                <p className="text-zinc-500 text-xs leading-relaxed">Made with by {profileData.name}</p>
                 <p className="text-zinc-600 text-xs mt-1">© 2025 All rights reserved</p>
               </div>
             </div>
