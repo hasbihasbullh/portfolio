@@ -46,33 +46,33 @@ export default function ContactPage() {
         title: "Follow My Journey",
         description: "Follow my creative journey and daily insights",
         action: "Go to Instagram",
-        gradient: "from-purple-500 via-pink-500 to-orange-500",
+        gradient: "from-purple-700 via-pink-700 to-orange-700",
         icon: SiInstagram,
-        iconBg: "bg-pink-500/20",
+        iconBg: "bg-pink-700/20",
         onClick: () => handleSocialClick(profileData.social?.instagram, "Instagram"),
-        accent: "border-pink-400/30 shadow-pink-500/20",
+        accent: "",
         link: profileData.social?.instagram,
       },
       {
         title: "Let's Connect",
         description: "Connect with me professionally on LinkedIn",
         action: "Go to LinkedIn",
-        gradient: "from-blue-500 via-blue-600 to-cyan-600",
+        gradient: "from-blue-700 via-blue-800 to-cyan-800",
         icon: SiLinkedin,
-        iconBg: "bg-blue-500/20",
+        iconBg: "bg-blue-700/20",
         onClick: () => handleSocialClick(profileData.social?.linkedin, "LinkedIn"),
-        accent: "border-blue-400/30 shadow-blue-500/20",
+        accent: "",
         link: profileData.social?.linkedin,
       },
       {
         title: "Explore the Code",
         description: "Dive into my open-source projects & contributions.",
         action: "Go to GitHub",
-        gradient: "from-gray-700 via-gray-800 to-zinc-900",
+        gradient: "from-gray-800 via-gray-900 to-zinc-950",
         icon: SiGithub,
-        iconBg: "bg-gray-500/20",
+        iconBg: "bg-gray-700/20",
         onClick: () => handleSocialClick(profileData.social?.github, "GitHub"),
-        accent: "border-gray-400/30 shadow-gray-500/20",
+        accent: "",
         link: profileData.social?.github,
       },
     ],
@@ -183,7 +183,7 @@ export default function ContactPage() {
           <div className="pt-20 lg:pt-0">
             {/* Error Toast */}
             {error && (
-              <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-red-500/90 backdrop-blur-sm text-white px-4 py-3 rounded-lg shadow-lg animate-in slide-in-from-top-2 duration-300">
+              <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-red-500/90 backdrop-blur-sm text-zinc-200 px-4 py-3 rounded-lg shadow-lg animate-in slide-in-from-top-2 duration-300">
                 <AlertCircle size={16} />
                 <span className="text-sm font-medium">{error}</span>
               </div>
@@ -191,7 +191,7 @@ export default function ContactPage() {
 
             {/* Success Toast */}
             {isSubmitted && (
-              <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-green-500/90 backdrop-blur-sm text-white px-4 py-3 rounded-lg shadow-lg animate-in slide-in-from-top-2 duration-300">
+              <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-green-500/90 backdrop-blur-sm text-zinc-200 px-4 py-3 rounded-lg shadow-lg animate-in slide-in-from-top-2 duration-300">
                 <CheckCircle size={16} />
                 <span className="text-sm font-medium">Message sent successfully!</span>
               </div>
@@ -292,14 +292,10 @@ export default function ContactPage() {
                       </div>
 
                       {/* Submit Button */}
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full bg-zinc-700 hover:bg-zinc-800 text-white font-medium py-2.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
+                      <Button type="submit" disabled={isSubmitting} className="w-full bg-zinc-700 hover:bg-zinc-800 text-zinc-200 font-medium py-2.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
                         {isSubmitting ? (
                           <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                            <div className="w-4 h-4 border-2 border-zinc-200/20 border-t-zinc-200 rounded-full animate-spin" />
                             Sending...
                           </div>
                         ) : (
@@ -341,19 +337,19 @@ export default function ContactPage() {
                           animationDelay: `${index * 100}ms`,
                         }}
                       >
-                        <div className={`relative h-full bg-zinc-900/80 backdrop-blur-xl rounded-xl p-4 transition-all duration-300 ${!isDisabled && "group-hover:bg-zinc-900/60 group-focus:bg-zinc-900/60"}`}>
+                        <div className="relative h-full rounded-xl p-4 transition-all duration-300">
                           {/* Icon */}
                           <div className={`absolute -bottom-2 -right-2 opacity-10 transition-all duration-300 ${!isDisabled && "group-hover:opacity-15 group-hover:scale-110 group-focus:opacity-15 group-focus:scale-110"}`}>
-                            <card.icon size={60} className="text-white rotate-12" />
+                            <card.icon size={95} className="text-zinc-200 rotate-12" />
                           </div>
 
                           {/* Content */}
                           <div className="relative z-10 space-y-2">
-                            <h3 className="text-white text-sm font-bold pr-8">{card.title}</h3>
+                            <h3 className="text-zinc-200 text-sm font-bold pr-8">{card.title}</h3>
                             <p className="text-gray-300 text-xs leading-relaxed pr-4">{card.description}</p>
 
                             {/* CTA */}
-                            <div className={`flex items-center gap-1 text-white text-xs font-medium transition-all duration-300 ${!isDisabled && "group-hover:gap-2 group-focus:gap-2"}`}>
+                            <div className={`flex items-center gap-1 text-zinc-200 text-xs font-medium transition-all duration-300 ${!isDisabled && "group-hover:gap-2 group-focus:gap-2"}`}>
                               <span>{isDisabled ? "Not Available" : card.action}</span>
                               {!isDisabled && <ArrowUpRight size={12} className="group-hover:rotate-45 group-focus:rotate-45 transition-transform duration-300" />}
                             </div>
@@ -361,11 +357,8 @@ export default function ContactPage() {
 
                           {/* Hover Effect */}
                           {!isDisabled && (
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 rounded-xl"></div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-200/5 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 rounded-xl"></div>
                           )}
-
-                          {/* Focus Ring */}
-                          <div className="absolute inset-0 rounded-xl ring-2 ring-white/20 ring-offset-2 ring-offset-zinc-950 opacity-0 group-focus:opacity-100 transition-opacity duration-200"></div>
                         </div>
                       </div>
                     );
