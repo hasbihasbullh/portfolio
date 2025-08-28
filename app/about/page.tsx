@@ -2,9 +2,12 @@
 import { DesktopSidebar } from "@/components/common/DesktopSidebar";
 import { MobileNavbar } from "@/components/common/MobileNavbar";
 import { profileData, experiences, education } from "@/lib/data";
-import { Briefcase, GraduationCap, MapPin, Clock, ChevronDown, ChevronUp } from "lucide-react";
+
+import SpotlightCard from "@/components/elements/SpotlightCard";
 import Image from "next/image";
 import { useState } from "react";
+
+import { Briefcase, GraduationCap, MapPin, Clock, ChevronDown, ChevronUp } from "lucide-react";
 
 export default function AboutPage() {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
@@ -45,10 +48,10 @@ export default function AboutPage() {
 
                 <div className="space-y-6">
                   {experiences.map((exp) => (
-                    <div key={exp.id} className="bg-zinc-800/70 border border-zinc-700 rounded-xl p-6 hover:bg-zinc-800/90 transition-colors duration-200">
+                    <SpotlightCard key={exp.id} className="bg-zinc-800/70 border border-zinc-700 rounded-xl hover:bg-zinc-800/90 transition-colors duration-200 !p-6 md:col-span-2">
                       <div className="flex items-start space-x-6">
                         <div className="flex-shrink-0">
-                          <div className="w-20 h-20 bg-white rounded-lg flex items-center justify-center p-3">
+                          <div className="w-36 h-36 bg-zinc-200 rounded-lg flex items-center justify-center p-3">
                             <Image src={exp.logo} alt={`${exp.company} Logo`} width={80} height={80} className="w-full h-full object-contain rounded" />
                           </div>
                         </div>
@@ -66,6 +69,8 @@ export default function AboutPage() {
                               <Clock className="w-4 h-4 mr-1" />
                               <span>{exp.duration}</span>
                             </div>
+                          </div>
+                          <div className="flex flex-wrap items-center text-zinc-400 text-sm mb-3 space-x-4">
                             {exp.tags.map((tag) => (
                               <span key={tag} className={`px-2 py-1 rounded text-xs ${tag === "Internship" ? "bg-blue-600/20 text-blue-400" : tag === "Remote" ? "bg-orange-600/20 text-orange-400" : "bg-green-600/20 text-green-400"}`}>
                                 {tag}
@@ -92,7 +97,7 @@ export default function AboutPage() {
                           )}
                         </div>
                       </div>
-                    </div>
+                    </SpotlightCard>
                   ))}
                 </div>
               </div>
@@ -106,50 +111,14 @@ export default function AboutPage() {
                     <GraduationCap className="w-10 h-10 text-white" />
                     <h2 className="text-2xl lg:text-3xl font-bold text-white">Education</h2>
                   </div>
-                  <div className="hidden sm:flex space-x-3">
-                    <a href="/portfolio.pdf" download className="flex items-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-4 py-2 rounded-lg transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
-                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M3 17a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3 12a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3 7a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V7z"></path>
-                      </svg>
-                      Download Portfolio
-                    </a>
-                    <a href="/resume.pdf" download className="flex items-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-4 py-2 rounded-lg transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
-                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M3 17a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3 12a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3 7a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V7z"></path>
-                      </svg>
-                      Download Resume
-                    </a>
-                  </div>
                 </div>
                 <p className="text-zinc-400 mb-6">My academic journey in software engineering and informatics, equipping me with a strong technical foundation.</p>
-                <div className="sm:hidden flex flex-col space-y-3 mb-6">
-                  <a
-                    href="/portfolio.pdf"
-                    download
-                    className="flex items-center justify-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-4 py-3 rounded-lg transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M3 17a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3 12a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3 7a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V7z"></path>
-                    </svg>
-                    Download Portfolio
-                  </a>
-                  <a
-                    href="/resume.pdf"
-                    download
-                    className="flex items-center justify-center bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-4 py-3 rounded-lg transition-colors text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M3 17a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3 12a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2zM3 7a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V7z"></path>
-                    </svg>
-                    Download Resume
-                  </a>
-                </div>
                 <div className="space-y-6">
                   {education.map((edu) => (
-                    <div key={edu.id} className="bg-zinc-800/70 border border-zinc-700 rounded-xl p-6 hover:bg-zinc-800/90 transition-colors duration-200">
+                    <SpotlightCard key={edu.id} className="bg-zinc-800/70 border border-zinc-700 rounded-xl hover:bg-zinc-800/90 transition-colors duration-200 !p-6 md:col-span-2">
                       <div className="flex items-start space-x-6">
                         <div className="flex-shrink-0">
-                          <div className="w-20 h-20 bg-white rounded-lg flex items-center justify-center p-3">
+                          <div className="w-36 h-36 bg-zinc-200 rounded-lg flex items-center justify-center p-3">
                             <Image src={edu.logo} alt={`${edu.title} Logo`} width={80} height={80} className="w-full h-full object-contain rounded" />
                           </div>
                         </div>
@@ -159,18 +128,20 @@ export default function AboutPage() {
                             <span>{edu.degree}</span>
                           </div>
                           <div className="flex flex-wrap items-center text-zinc-400 text-sm space-x-4">
-                            <div className="flex items-center">
-                              <Clock className="w-4 h-4 mr-1" />
-                              <span>{edu.duration}</span>
-                            </div>
-                            <div className="flex items-center">
-                              <MapPin className="w-4 h-4 mr-1" />
-                              <span>{edu.location}</span>
+                            <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
+                              <div className="flex items-center">
+                                <Clock className="w-4 h-4 mr-1" />
+                                <span>{edu.duration}</span>
+                              </div>
+                              <div className="flex items-center">
+                                <MapPin className="w-4 h-4 mr-1" />
+                                <span>{edu.location}</span>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </SpotlightCard>
                   ))}
                 </div>
               </div>
