@@ -76,7 +76,7 @@ export default function ContactPage() {
         link: profileData.social?.github,
       },
     ],
-    [profileData]
+    []
   );
 
   const handleSocialClick = (url: string | undefined, platform: string) => {

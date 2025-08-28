@@ -1,9 +1,3 @@
-interface SocialLinks {
-  instagram?: string;
-  linkedin?: string;
-  github?: string;
-}
-
 interface ProfileData {
   name: string;
   position: string;
@@ -13,6 +7,12 @@ interface ProfileData {
   username: string;
   email: string;
   social?: SocialLinks;
+}
+
+interface SocialLinks {
+  instagram?: string;
+  linkedin?: string;
+  github?: string;
 }
 
 export const profileData: ProfileData = {
@@ -29,3 +29,9 @@ export const profileData: ProfileData = {
     github: "https://github.com/hasbihasbullh",
   },
 };
+
+export const profileImages = [
+  { id: 1, img: "images/3.jpg" },
+  { id: 2, img: "images/2.jpg" },
+  { id: 3, img: "images/1.jpg" },
+];
