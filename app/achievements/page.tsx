@@ -5,9 +5,9 @@ import { Search, ExternalLink, Award, Trophy, Filter } from "lucide-react";
 import { DesktopSidebar } from "@/components/common/DesktopSidebar";
 import { MobileNavbar } from "@/components/common/MobileNavbar";
 import { profileData, Achievement, achievementsData } from "@/lib/data";
+import SpotlightCard from "@/components/elements/SpotlightCard";
 
 // shadcn/ui components
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -118,11 +118,7 @@ export default function AchievementsPage() {
                 </div>
               ) : (
                 filteredAchievements.map((item: Achievement) => (
-                  <Card
-                    key={item.id}
-                    className="group overflow-hidden hover:shadow-lg hover:shadow-zinc-900/50 transition-all duration-300 hover:-translate-y-1 cursor-pointer bg-zinc-900 border-zinc-800"
-                    onClick={() => window.open(item.credentialUrl, "_blank", "noopener,noreferrer")}
-                  >
+                  <SpotlightCard key={item.id} className="group overflow-hidden transition-all duration-300 cursor-pointer !p-0">
                     {/* Certificate Image */}
                     <div className="relative aspect-[4/3] overflow-hidden bg-zinc-800">
                       {imageErrors[item.id] ? (
@@ -147,7 +143,7 @@ export default function AchievementsPage() {
                       )}
 
                       {/* Achievement Type Badge */}
-                      <div className="absolute top-3 right-3">
+                      <div className="absolute top-1 right-1 p-1">
                         <Badge variant={getTypeBadgeVariant(item.type)} className={`gap-1 ${item.type === "badge" ? "bg-zinc-700 text-zinc-100 hover:bg-zinc-600" : "bg-zinc-100 text-zinc-900 hover:bg-zinc-200"}`}>
                           {getTypeIcon(item.type)}
                           <span className="capitalize text-xs">{item.type}</span>
@@ -156,7 +152,7 @@ export default function AchievementsPage() {
 
                       {/* Credential ID Badge */}
                       {item.credentialId && (
-                        <div className="absolute bottom-3 left-3">
+                        <div className="absolute bottom-1 left-1 p-1">
                           <Badge variant="outline" className="gap-1 bg-zinc-900 text-zinc-100 border-zinc-700 hover:bg-zinc-800 text-xs">
                             <span>{item.credentialId}</span>
                           </Badge>
@@ -164,8 +160,13 @@ export default function AchievementsPage() {
                       )}
 
                       {/* Hover Overlay */}
-                      <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <Button variant="secondary" size="sm" className="gap-2 bg-transparent text-white hover:bg-white/20">
+                      <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6">
+                        <Button 
+                          variant="secondary" 
+                          size="sm" 
+                          className="gap-2 bg-transparent text-white hover:bg-white/20"
+                          onClick={() => window.open(item.credentialUrl, "_blank", "noopener,noreferrer")}
+                        >
                           View Credentials
                           <ExternalLink className="h-4 w-4" />
                         </Button>
@@ -173,18 +174,15 @@ export default function AchievementsPage() {
                     </div>
 
                     {/* Card Content */}
-                    <CardHeader className="pb-1">
-                      <CardTitle className="text-base line-clamp-2 leading-tight text-zinc-100">{item.title}</CardTitle>
-                      <CardDescription className="font-medium text-zinc-400">{item.issuer}</CardDescription>
-                    </CardHeader>
-
-                    <CardFooter className="pt-0 flex flex-col items-start gap-1">
+                    <div className="p-4 space-y-1">
+                      <h3 className="text-base line-clamp-2 leading-tight text-zinc-100">{item.title}</h3>
+                      <p className="font-medium text-zinc-400">{item.issuer}</p>
                       <p className="text-sm font-medium text-zinc-700">Issued on</p>
                       <div className="flex items-center gap-2 text-sm text-zinc-400">
                         <span>{item.issuedOn}</span>
                       </div>
-                    </CardFooter>
-                  </Card>
+                    </div>
+                  </SpotlightCard>
                 ))
               )}
             </div>
