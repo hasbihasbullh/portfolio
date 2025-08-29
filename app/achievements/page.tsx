@@ -96,14 +96,14 @@ export default function AchievementsPage() {
                   </div>
                 </div>
 
-                <p className="text-zinc-400 text-base lg:text-lg max-w-2xl">A showcase of my professional certificates and badges, highlighting my skills and accomplishments in technology and innovation.</p>
+                <p className="text-zinc-400 text-base lg:text-lg max-w-1xl">A showcase of my professional certificates and badges, highlighting my skills and accomplishments in technology and innovation.</p>
 
                 <Separator className="my-6 bg-zinc-800" />
               </div>
             </div>
 
             {/* Achievements Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {filteredAchievements.length === 0 ? (
                 <div className="col-span-full">
                   <Alert className="bg-zinc-900 border-zinc-800">

@@ -26,7 +26,7 @@ export default function AboutPage() {
           <div className="pt-20 lg:pt-0">
             {/* Introduction */}
             <div className="mb-8 lg:mb-10">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mb-4">About Me</h1>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-zinc-200 leading-tight mb-4">About Me</h1>
               <p className="text-lg lg:text-xl text-zinc-300 leading-relaxed mb-4 max-w-4xl">
                 I am a passionate and detail-oriented software developer with a robust background in full-stack web development and digital marketing. My expertise spans crafting dynamic, user-centric web applications using modern
                 frameworks like Laravel, Next.js, and React.js, complemented by a strong ability to strategize and execute impactful digital advertising campaigns.
@@ -41,14 +41,14 @@ export default function AboutPage() {
             <div className="mb-8 lg:mb-10">
               <div className="border-t border-zinc-800 pt-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <Briefcase className="w-10 h-10 text-white" />
-                  <h2 className="text-2xl lg:text-3xl font-bold text-white">Professional Experience</h2>
+                  <Briefcase className="w-10 h-10 text-zinc-200" />
+                  <h2 className="text-2xl lg:text-3xl font-bold text-zinc-200">Professional Experience</h2>
                 </div>
                 <p className="text-zinc-400 mb-6">A journey through my diverse roles in web development, digital marketing, and technical administration, showcasing my ability to deliver impactful solutions.</p>
 
                 <div className="space-y-6">
                   {experiences.map((exp) => (
-                    <SpotlightCard key={exp.id} className="bg-zinc-800/70 border border-zinc-700 rounded-xl hover:bg-zinc-800/90 transition-colors duration-200 !p-6 md:col-span-2">
+                    <SpotlightCard key={exp.id} className="custom-spotlight-card !p-6 md:col-span-2">
                       <div className="flex items-start space-x-6">
                         <div className="flex-shrink-0">
                           <div className="w-36 h-36 bg-zinc-200 rounded-lg flex items-center justify-center p-3">
@@ -56,7 +56,7 @@ export default function AboutPage() {
                           </div>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-xl font-semibold text-white mb-1">{exp.title}</h3>
+                          <h3 className="text-xl font-semibold text-zinc-200 mb-1">{exp.title}</h3>
                           <div className="flex flex-col sm:flex-row sm:items-center text-zinc-400 text-sm mb-2 space-y-1 sm:space-y-0 sm:space-x-4">
                             <span>{exp.company}</span>
                             <div className="flex items-center">
@@ -81,7 +81,7 @@ export default function AboutPage() {
                             onClick={() => toggleExpand(exp.id)}
                             aria-expanded={expandedCard === exp.id}
                             aria-controls={`responsibilities-${exp.id}`}
-                            className="flex items-center text-zinc-400 hover:text-white text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="flex items-center text-zinc-400 hover:text-zinc-200 text-sm transition-colors focus:outline-none"
                           >
                             {expandedCard === exp.id ? <ChevronUp className="w-4 h-4 mr-1" /> : <ChevronDown className="w-4 h-4 mr-1" />}
                             {expandedCard === exp.id ? "Hide responsibilities" : "Show responsibilities"}
@@ -108,14 +108,14 @@ export default function AboutPage() {
               <div className="border-t border-zinc-800 pt-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <GraduationCap className="w-10 h-10 text-white" />
-                    <h2 className="text-2xl lg:text-3xl font-bold text-white">Education</h2>
+                    <GraduationCap className="w-10 h-10 text-zinc-200" />
+                    <h2 className="text-2xl lg:text-3xl font-bold text-zinc-200">Education</h2>
                   </div>
                 </div>
                 <p className="text-zinc-400 mb-6">My academic journey in software engineering and informatics, equipping me with a strong technical foundation.</p>
                 <div className="space-y-6">
                   {education.map((edu) => (
-                    <SpotlightCard key={edu.id} className="bg-zinc-800/70 border border-zinc-700 rounded-xl hover:bg-zinc-800/90 transition-colors duration-200 !p-6 md:col-span-2">
+                    <SpotlightCard key={edu.id} className="custom-spotlight-card !p-6 md:col-span-2">
                       <div className="flex items-start space-x-6">
                         <div className="flex-shrink-0">
                           <div className="w-36 h-36 bg-zinc-200 rounded-lg flex items-center justify-center p-3">
@@ -123,7 +123,7 @@ export default function AboutPage() {
                           </div>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-xl font-semibold text-white mb-1">{edu.title}</h3>
+                          <h3 className="text-xl font-semibold text-zinc-200 mb-1">{edu.title}</h3>
                           <div className="flex flex-col sm:flex-row sm:items-center text-zinc-400 text-sm mb-2 space-y-1 sm:space-y-0 sm:space-x-4">
                             <span>{edu.degree}</span>
                           </div>

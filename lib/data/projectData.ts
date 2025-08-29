@@ -1,9 +1,13 @@
+import { IconType } from "react-icons";
+import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaBootstrap } from "react-icons/fa";
+import { SiGooglefonts, SiGoogleanalytics, SiNextdotjs, SiTailwindcss, SiCodeigniter, SiMysql } from "react-icons/si";
+
 export interface Project {
   id: string;
   title: string;
   description: string;
   image: string;
-  technologies: { name: string; svgPath: string; color?: string }[];
+  technologies: { name: string; reactIcon: IconType; color?: string }[];
   link: string;
   status: string;
   category: string;
@@ -21,11 +25,11 @@ export const projects: Project[] = [
       "A simple e-commerce platform for coffee lovers, offering selected coffee beans from across Indonesia. Features a product catalog, shopping cart, checkout, and an informative blog, built as a frontend-only demonstration with a modern tech stack for responsiveness and interactivity.",
     image: "/images/project/pojok-coffee.png",
     technologies: [
-      { name: "HTML5", svgPath: "/icons/html.svg", color: "text-black" },
-      { name: "Tailwind CSS", svgPath: "/icons/tailwind.svg", color: "text-black" },
-      { name: "JavaScript", svgPath: "/icons/javascript.svg", color: "text-black" },
-      { name: "Google Fonts", svgPath: "/icons/googlefonts.svg", color: "text-black" },
-      { name: "Google Analytics", svgPath: "/icons/googleanalytics.svg", color: "text-black" },
+      { name: "HTML5", reactIcon: FaHtml5, color: "text-zinc-200" },
+      { name: "Tailwind CSS", reactIcon: SiTailwindcss, color: "text-zinc-200" },
+      { name: "JavaScript", reactIcon: FaJs, color: "text-zinc-200" },
+      { name: "Google Fonts", reactIcon: SiGooglefonts, color: "text-zinc-200" },
+      { name: "Google Analytics", reactIcon: SiGoogleanalytics, color: "text-zinc-200" },
     ],
     link: "https://hasbihasbullh.github.io/pojok-coffee/",
     status: "Live",
@@ -54,10 +58,10 @@ export const projects: Project[] = [
     description: "A modern web application built with Next.js App Router, Tailwind CSS, and TypeScript for the Informatika 2024 UNLIP Class, designed for internal tools, academic collaboration, or community engagement.",
     image: "/images/project/if24-unlip.png",
     technologies: [
-      { name: "React", svgPath: "/icons/react.svg", color: "text-black" },
-      { name: "Next.js", svgPath: "/icons/nextjs.svg", color: "text-black" },
-      { name: "Tailwind CSS", svgPath: "/icons/tailwind.svg", color: "text-teal-500" },
-      { name: "TypeScript", svgPath: "/icons/typescript.svg", color: "text-blue-600" },
+      { name: "React", reactIcon: FaReact, color: "text-zinc-200" },
+      { name: "Next.js", reactIcon: SiNextdotjs, color: "text-zinc-200" },
+      { name: "Tailwind CSS", reactIcon: FaCss3Alt, color: "text-zinc-200" },
+      { name: "TypeScript", reactIcon: FaJs, color: "text-zinc-200" },
     ],
     link: "https://if24-unlip.vercel.app",
     status: "Live",
@@ -73,9 +77,9 @@ export const projects: Project[] = [
     description: "A web-based platform for camera rental services, allowing users to browse, rent, and manage camera equipment with a user-friendly interface and secure booking system.",
     image: "/images/project/luky-kamera.png",
     technologies: [
-      { name: "CodeIgniter", svgPath: "/icons/codeigniter.svg", color: "text-red-600" },
-      { name: "MySQL", svgPath: "/icons/mysql.svg", color: "text-blue-600" },
-      { name: "Bootstrap", svgPath: "/icons/bootstrap.svg", color: "text-purple-600" },
+      { name: "CodeIgniter", reactIcon: SiCodeigniter, color: "text-zinc-200" },
+      { name: "MySQL", reactIcon: SiMysql, color: "text-zinc-200" },
+      { name: "Bootstrap", reactIcon: FaBootstrap, color: "text-zinc-200" },
     ],
     link: "",
     status: "Offline",
