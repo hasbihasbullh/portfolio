@@ -1,10 +1,10 @@
-import { DesktopSidebar } from "@/components/common/DesktopSidebar";
-import { MobileNavbar } from "@/components/common/MobileNavbar";
-import { profileData } from "@/lib/data";
-import { projects } from "@/lib/data/projectData";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
+import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
+import { profileData } from "@/common/data";
+import { projects } from "@/common/data/projectData";
+import { Card, CardContent, CardHeader, CardTitle } from "@/common/components/ui/card";
+import { Button } from "@/common/components/ui/button";
+import { Badge } from "@/common/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -54,9 +54,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                     return (
                       <div key={index} className="relative group">
                         <TechIcon className={`w-4 h-4 md:w-6 md:h-6 ${tech.color || ""}`} />
-                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-zinc-800 text-zinc-200 text-xs rounded px-2 py-1">
-                          {tech.name}
-                        </span>
+                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-zinc-800 text-zinc-200 text-xs rounded px-2 py-1">{tech.name}</span>
                       </div>
                     );
                   })}

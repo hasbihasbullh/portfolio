@@ -1,20 +1,15 @@
-import { DesktopSidebar } from "@/components/common/DesktopSidebar";
-import { MobileNavbar } from "@/components/common/MobileNavbar";
-import { MainContent } from "@/components/sections/MainContent";
+"use client";
+import React from "react";
+import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
+import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
+import Home from "@/modules/home";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="flex min-h-screen bg-zinc-950">
-      {/* Desktop Sidebar */}
       <DesktopSidebar />
-
-      {/* Mobile Navbar */}
       <MobileNavbar />
-
-      {/* Main Content with left margin for fixed sidebar */}
-      <div className="flex-1 lg:ml-80">
-        <MainContent />
-      </div>
+      <Home />
     </div>
   );
 }

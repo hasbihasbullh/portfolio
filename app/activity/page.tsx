@@ -1,6 +1,6 @@
-import { DesktopSidebar } from "@/components/common/DesktopSidebar";
-import { MobileNavbar } from "@/components/common/MobileNavbar";
-import { profileData } from "@/lib/data/profileData";
+import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
+import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
+import { profileData } from "@/common/data/profileData";
 
 export default function ActivityPage() {
   return (
