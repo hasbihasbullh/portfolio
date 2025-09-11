@@ -9,9 +9,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaExternalLinkAlt, FaGithub, FaArrowLeft, FaStar, FaLightbulb } from "react-icons/fa";
+import { Metadata } from "next";
+import { METADATA } from "@/common/constants/metadata";
 
 interface ProjectDetailPageProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({ params }: ProjectDetailPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const project = projects.find((p) => p.id === id);
+
+  if (!project) {
+    return {
+      title: `Not Found | ${METADATA.exTitle}`,
+      description: `Project not found on ${METADATA.creator}'s portfolio`,
+      alternates: {
+        canonical: `${process.env.DOMAIN}/projects`,
+      },
+    };
+  }
+
+  return {
+    title: `${project.title} | ${METADATA.exTitle}`,
+    description: `Explore ${project.title}, a project by ${METADATA.creator}: ${project.description}`,
+    alternates: {
+      canonical: `${process.env.DOMAIN}/projects/${id}`,
+    },
+  };
 }
 
 export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {

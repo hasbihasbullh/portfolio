@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 import { ActivityHeader } from "./ActivityHeader";
