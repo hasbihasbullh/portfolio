@@ -157,6 +157,26 @@ const rawAchievementsData: Achievement[] = [
     credentialId: "",
     credentialUrl: "https://www.credly.com/badges/f3573dc9-b0ab-41c9-aac4-23addb8837aa/public_url",
   },
+  {
+    id: 13,
+    type: "certificate",
+    title: "Belajar Membuat Front-End Web untuk Pemula",
+    issuer: "Dicoding",
+    issuedOn: "14 September 2025",
+    image: "images/achievements/sertifikat_dicoding_belajar_membuat_frontend_web_untuk_pemula.jpg",
+    credentialId: "N9ZO265ORPG5",
+    credentialUrl: "https://www.dicoding.com/certificates/N9ZO265ORPG5",
+  },
+  {
+    id: 14,
+    type: "certificate",
+    title: "Financial Literacy 101",
+    issuer: "Dicoding",
+    issuedOn: "14 September 2025",
+    image: "images/achievements/sertifikat_dicoding_financial_literacy_101.jpg",
+    credentialId: "JMZVV91DRZN9",
+    credentialUrl: "https://www.dicoding.com/certificates/JMZVV91DRZN9",
+  },
 ];
 
 export const sortAchievementsByDate = (achievements: Achievement[]): Achievement[] => {
