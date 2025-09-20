@@ -9,7 +9,7 @@ import { METADATA } from "@/common/constants/metadata";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.DOMAIN || "https://hasbihasbullh.vercel.app"),
+  metadataBase: new URL(process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.DOMAIN || "https://hasbihasbullh.my.id"),
   description: METADATA.description,
   keywords: METADATA.keyword.split(",").map((k) => k.trim()),
   creator: METADATA.creator,
