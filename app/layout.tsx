@@ -43,6 +43,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang={METADATA.openGraph.locale}>
+      <head>
+        <meta name="apple-mobile-web-app-title" content="HSB" />
+      </head>
       <body className={montserrat.className}>
         <div>{children}</div>
         <Analytics />
