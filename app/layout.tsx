@@ -45,6 +45,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang={METADATA.openGraph.locale}>
       <head>
         <meta name="apple-mobile-web-app-title" content="HSB" />
+        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/web-app-manifest-192x192.png" sizes="192x192" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <meta name="msapplication-TileImage" content="/web-app-manifest-192x192.png" />
       </head>
       <body className={montserrat.className}>
         <div>{children}</div>
