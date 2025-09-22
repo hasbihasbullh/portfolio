@@ -1,9 +1,10 @@
 import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
 import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
-import { profileData } from "@/common/data";
+import { FooterContent } from "@/common/components/layouts/FooterContent";
 import { projects } from "@/common/data/projectData";
 import { Card } from "@/common/components/ui/card";
 import { Button } from "@/common/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/common/components/ui/tooltip";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -68,21 +69,29 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
             {/* Hero Section */}
             <div className="mb-6">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 tracking-tight">{project.title}</h1>
+              <h1 className="text-3xl lg:text-4xl font-bold text-white leading-tight mb-4 tracking-tight">{project.title}</h1>
               <p className="text-zinc-300 text-lg leading-relaxed mb-4 max-w-1xl">{project.description}</p>
               <div className="flex items-center gap-2.5">
-                <span className="text-zinc-300 font-medium text-base">Tech Stack:</span>
-                <div className="flex items-center gap-3 bg-zinc-900/50 backdrop-blur-sm px-4 py-2 rounded-lg border border-zinc-800">
-                  {project.technologies.map((tech, index) => {
-                    const TechIcon = tech.reactIcon;
-                    return (
-                      <div key={index} className="relative group">
-                        <TechIcon className={`w-4 h-4 md:w-6 md:h-6 ${tech.color || ""}`} />
-                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-zinc-800 text-zinc-200 text-xs rounded px-2 py-1">{tech.name}</span>
-                      </div>
-                    );
-                  })}
-                </div>
+                <span className="text-zinc-400 font-medium text-base">Tech Stack:</span>
+                <TooltipProvider>
+                  <div className="flex items-center gap-3 bg-zinc-900/50 backdrop-blur-sm px-4 py-2 rounded-lg border border-zinc-800">
+                    {project.technologies.map((tech, index) => {
+                      const TechIcon = tech.reactIcon;
+                      return (
+                        <Tooltip key={index}>
+                          <TooltipTrigger asChild>
+                            <div className="relative">
+                              <TechIcon className={`w-4 h-4 md:w-6 md:h-6 ${tech.color}`} />
+                            </div>
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="bg-zinc-800 text-zinc-200 text-xs rounded px-2 py-1">
+                            {tech.name}
+                          </TooltipContent>
+                        </Tooltip>
+                      );
+                    })}
+                  </div>
+                </TooltipProvider>
               </div>
             </div>
 
@@ -97,7 +106,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-white/90 text-zinc-900 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
+                      className="bg-white text-zinc-900 hover:bg-zinc-300 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
                       title="Open Preview"
                     >
                       <FaExternalLinkAlt className="w-4 h-4" />
@@ -109,7 +118,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-zinc-800/90 text-white rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
+                      className="bg-zinc-800 text-white hover:bg-zinc-500 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
                       title="Source Code"
                     >
                       <FaGithub className="w-4 h-4" />
@@ -120,16 +129,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
               </div>
             </Card>
 
-            {/* Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12"></div>
-
-            {/* Enhanced Footer */}
-            <div className="lg:hidden mt-20 pt-8 border-t border-zinc-800/50">
-              <div className="text-center">
-                <p className="text-zinc-500 text-xs leading-relaxed">Made with by {profileData.name}</p>
-                <p className="text-zinc-600 text-xs mt-1">© 2025 All rights reserved</p>
-              </div>
-            </div>
+            <FooterContent />
           </div>
         </div>
       </div>
