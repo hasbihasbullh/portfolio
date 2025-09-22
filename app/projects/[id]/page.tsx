@@ -2,13 +2,12 @@ import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
 import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
 import { profileData } from "@/common/data";
 import { projects } from "@/common/data/projectData";
-import { Card, CardContent, CardHeader, CardTitle } from "@/common/components/ui/card";
+import { Card } from "@/common/components/ui/card";
 import { Button } from "@/common/components/ui/button";
-import { Badge } from "@/common/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FaExternalLinkAlt, FaGithub, FaArrowLeft, FaStar, FaLightbulb } from "react-icons/fa";
+import { FaExternalLinkAlt, FaGithub, FaArrowLeft } from "react-icons/fa";
 import { Metadata } from "next";
 import { METADATA } from "@/common/constants/metadata";
 
@@ -93,16 +92,16 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 <Image src={project.image} alt={`${project.title} screenshot`} fill className="object-cover" loading="lazy" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw" quality={80} />
                 {/* Floating Action Buttons - Conditional Rendering */}
                 <div className="absolute top-4 right-4 flex gap-2">
-                  {project.link && project.status === "Live" && (
+                  {project.link && (
                     <Link
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-white/90 text-zinc-900 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
-                      title="Live Demo"
+                      title="Open Preview"
                     >
                       <FaExternalLinkAlt className="w-4 h-4" />
-                      <span className="hidden sm:inline">Live Demo</span>
+                      <span className="hidden sm:inline">Open Preview</span>
                     </Link>
                   )}
                   {project.githubLink && (
@@ -122,69 +121,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
             </Card>
 
             {/* Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
-              {/* Project Stats Card */}
-              <Card className="lg:col-span-4 bg-gradient-to-br from-zinc-900/50 to-zinc-800/50 backdrop-blur-sm border-zinc-800 rounded-xl">
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <FaStar className="w-5 h-5 text-yellow-400" />
-                    <CardTitle className="text-white text-xl font-bold">Project Info</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <p className="text-zinc-400 text-sm mb-1">Category</p>
-                    <p className="text-white font-semibold">{project.category}</p>
-                  </div>
-                  <div>
-                    <p className="text-zinc-400 text-sm mb-1">Launch Date</p>
-                    <p className="text-white font-semibold">{project.launchDate}</p>
-                  </div>
-                  <div>
-                    <p className="text-zinc-400 text-sm mb-1">Status</p>
-                    <Badge className={`${project.status === "Live" ? "bg-green-500/20 text-green-400 border-green-500/30" : "bg-red-500/20 text-red-400 border-red-500/30"} border font-semibold`}>{project.status}</Badge>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Challenges Card */}
-              {project.challenges && (
-                <Card className="lg:col-span-8 bg-zinc-900/50 backdrop-blur-sm border-zinc-800 rounded-xl">
-                  <CardHeader>
-                    <div className="flex items-center gap-2">
-                      <FaLightbulb className="w-5 h-5 text-orange-400" />
-                      <CardTitle className="text-white text-xl font-bold">Technical Challenges</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-zinc-300 leading-relaxed">{project.challenges}</p>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-
-            {/* Features & Challenges */}
-            <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 mb-12">
-              {/* Features Card */}
-              <Card className="bg-zinc-900/50 backdrop-blur-sm border-zinc-800 rounded-xl">
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <FaStar className="w-5 h-5 text-purple-400" />
-                    <CardTitle className="text-white text-xl font-bold">Key Features</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {project.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-zinc-300 leading-relaxed">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12"></div>
 
             {/* Enhanced Footer */}
             <div className="lg:hidden mt-20 pt-8 border-t border-zinc-800/50">

@@ -13,7 +13,7 @@ const Projects = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filterCategory, setFilterCategory] = useState<FilterCategory>("all");
 
-  // Filter and search logic
+  // Filter and search logic dengan pengurutan pinned projects
   const filteredProjects = useMemo((): Project[] => {
     let filtered: Project[] = projects;
 
@@ -22,11 +22,21 @@ const Projects = () => {
     }
 
     if (searchTerm) {
-      filtered = filtered.filter((project: Project) => project.title.toLowerCase().includes(searchTerm.toLowerCase()) || project.description.toLowerCase().includes(searchTerm.toLowerCase()));
+      filtered = filtered.filter((project: Project) => 
+        project.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        project.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     }
 
-    return filtered;
+    // Urutkan proyek yang dipin di atas
+    return filtered.sort((a, b) => {
+      if (a.isPinned && !b.isPinned) return -1;
+      if (!a.isPinned && b.isPinned) return 1;
+      return 0;
+    });
   }, [searchTerm, filterCategory]);
+  
+
   return (
     <div className="flex-1 lg:ml-80 overflow-y-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
