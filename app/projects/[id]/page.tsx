@@ -1,3 +1,4 @@
+import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
 import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
 import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
 import { FooterContent } from "@/common/components/layouts/FooterContent";
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
 
   if (!project) {
     return {
-      title: `Not Found | ${METADATA.exTitle}`,
+      title: `Not Found ${METADATA.exTitle}`,
       description: `Project not found on ${METADATA.creator}'s portfolio`,
       alternates: {
         canonical: `${process.env.DOMAIN}/projects`,
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
   }
 
   return {
-    title: `${project.title} | ${METADATA.exTitle}`,
+    title: `${project.title} ${METADATA.exTitle}`,
     description: `Explore ${project.title}, a project by ${METADATA.creator}: ${project.description}`,
     alternates: {
       canonical: `${process.env.DOMAIN}/projects/${id}`,
@@ -53,7 +54,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
       <div className="flex-1 lg:ml-80 overflow-y-auto">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
-          <div className="pt-20 lg:pt-0">
+          <AnimateEaseOut>
             {/* Enhanced Navigation */}
             <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
               <Link href="/projects">
@@ -130,7 +131,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
             </Card>
 
             <FooterContent />
-          </div>
+          </AnimateEaseOut>
         </div>
       </div>
     </div>

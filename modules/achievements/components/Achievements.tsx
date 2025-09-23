@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useMemo } from "react";
+import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
 import { achievementsData, Achievement } from "@/common/data";
 import { AchievementsHeader } from "./AchievementsHeader";
 import { AchievementsGrid } from "./AchievementsGrid";
@@ -34,11 +35,11 @@ export const Achievements = () => {
   return (
     <div className="flex-1 lg:ml-80 overflow-y-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
-        <div className="pt-20 lg:pt-0">
+        <AnimateEaseOut>
           <AchievementsHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterType={filterType} setFilterType={setFilterType} />
           <AchievementsGrid filteredAchievements={filteredAchievements} imageErrors={imageErrors} handleImageError={handleImageError} />
           <FooterContent />
-        </div>
+        </AnimateEaseOut>
       </div>
     </div>
   );

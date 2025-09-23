@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
 import { AboutHeader } from "./AboutHeader";
 import { ExperienceSection } from "./ExperienceSection";
 import { EducationSection } from "./EducationSection";
@@ -15,12 +16,12 @@ export default function About() {
   return (
     <div className="flex-1 lg:ml-80 overflow-y-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
-        <div className="pt-20 lg:pt-0">
+        <AnimateEaseOut>
           <AboutHeader />
           <ExperienceSection expandedCard={expandedCard} toggleExpand={toggleExpand} />
           <EducationSection />
           <FooterContent />
-        </div>
+        </AnimateEaseOut>
       </div>
     </div>
   );

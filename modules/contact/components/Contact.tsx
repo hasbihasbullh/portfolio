@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useMemo } from "react";
+import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
 import { profileData } from "@/common/data/profileData";
 import { SiInstagram, SiLinkedin, SiGithub } from "react-icons/si";
 import { ContactHeader } from "./ContactHeader";
@@ -91,7 +92,7 @@ const Contact = () => {
   return (
     <div className="flex-1 lg:ml-80 overflow-y-auto">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
-        <div className="pt-20 lg:pt-0">
+        <AnimateEaseOut>
           <ContactHeader />
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-0">
             <ContactForm
@@ -109,7 +110,7 @@ const Contact = () => {
             <SocialCard socialCard={socialCard} />
           </div>
           <FooterContent />
-        </div>
+        </AnimateEaseOut>
       </div>
     </div>
   );
