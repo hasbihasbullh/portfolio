@@ -2,7 +2,7 @@
 import React from "react";
 import { profileData } from "@/common/data";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
-import { Download } from "lucide-react";
+import { FileText } from "lucide-react";
 import Link from "next/link";
 
 export function WelcomeCard() {
@@ -29,11 +29,12 @@ export function WelcomeCard() {
             <div className="space-y-2">
               <Link
                 href="/document/resume.pdf"
-                download={`${profileData.name}_Resume.pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-zinc-200 text-zinc-900 rounded-lg text-sm font-medium hover:bg-zinc-200 transition-all shadow-sm"
               >
-                <Download className="w-4 h-4" />
-                <span>Download PDF Resume</span>
+                <FileText className="w-4 h-4" />
+                <span>View Resume</span>
               </Link>
             </div>
           </div>
