@@ -39,11 +39,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: METADATA.openGraph.url,
   },
+  themeColor: "#09090b",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={METADATA.openGraph.locale}>
+    <html lang={METADATA.openGraph.locale} className="dark">
       <head>
         <meta name="apple-mobile-web-app-title" content="HSB" />
         <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />

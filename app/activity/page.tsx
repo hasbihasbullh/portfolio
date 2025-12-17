@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function ActivityPage() {
   return (
-    <div className="flex min-h-screen bg-zinc-950">
+    <div className="flex min-h-screen">
       <DesktopSidebar />
       <MobileNavbar />
       <Activity />

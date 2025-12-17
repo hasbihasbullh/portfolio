@@ -48,7 +48,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
   }
 
   return (
-    <div className="flex min-h-screen bg-zinc-950">
+    <div className="flex min-h-screen">
       <DesktopSidebar />
       <MobileNavbar />
 

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="flex min-h-screen bg-zinc-950">
+    <div className="flex min-h-screen">
       <DesktopSidebar />
       <MobileNavbar />
       <About />
