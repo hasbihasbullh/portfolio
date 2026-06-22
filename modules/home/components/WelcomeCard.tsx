@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export function WelcomeCard() {
   return (
-    <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-2" spotlightColor="rgba(255, 255, 255, 0.25)">
+    <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-2 h-full w-full" spotlightColor="rgba(255, 255, 255, 0.12)">
       <div className="p-6 space-y-6">
         <div className="text-center space-y-4">
           <div className="space-y-2">

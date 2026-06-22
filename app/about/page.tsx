@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: `About ${METADATA.exTitle}`,
   description: `A short story of ${METADATA.creator}`,
   alternates: {
-    canonical: `${process.env.DOMAIN}/about`,
+    canonical: "/about",
   },
 };
 

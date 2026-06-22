@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export function AboutMeCard() {
   return (
-    <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-1 flex flex-col" spotlightColor="rgba(255, 255, 255, 0.25)">
+    <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-1 flex flex-col h-full w-full" spotlightColor="rgba(245, 158, 11, 0.12)">
       <div className="flex flex-col p-6 pb-0 items-center text-center">
         <Link href="/about" aria-label="Go to About Me page">
           <div className="bg-zinc-200 rounded-lg w-fit p-3 text-zinc-900">
@@ -19,7 +19,7 @@ export function AboutMeCard() {
         <p className="text-xs text-zinc-400">Who I am and what I do.</p>
       </div>
       <div className="flex items-center justify-center p-6">
-        <StackImages randomRotation={true} sensitivity={180} sendToBackOnClick={false} cardDimensions={{ width: 150, height: 200 }} cardsData={profileImages} />
+        <StackImages randomRotation={true} sensitivity={180} sendToBackOnClick={true} cardDimensions={{ width: 150, height: 200 }} cardsData={profileImages} />
       </div>
     </SpotlightCard>
   );

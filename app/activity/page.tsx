@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: `Activity ${METADATA.exTitle}`,
   description: `A collection of activities and projects by ${METADATA.creator}`,
   alternates: {
-    canonical: `${process.env.DOMAIN}/activity`,
+    canonical: "/activity",
   },
 };
 

@@ -3,8 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import { navigationItems } from "@/common/constants/navigation";
 import { profileData } from "@/common/data/profileData";
+import { CommandPalette } from "../elements/CommandPalette";
 
 export function DesktopSidebar() {
   const pathname = usePathname();
@@ -15,7 +17,6 @@ export function DesktopSidebar() {
   })();
 
   const isActive = (href: string) => {
-    // simple match; adapt if you use nested routes or dynamic segments
     return pathname === href || pathname?.startsWith(href + "/");
   };
 
@@ -32,19 +33,33 @@ export function DesktopSidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-4 overflow-y-auto" aria-label="Primary">
+        <nav className="flex-1 px-4 overflow-y-auto space-y-4" aria-label="Primary">
+          <div className="px-1">
+            <CommandPalette />
+          </div>
           <ul className="space-y-1">
             {navigationItems.map((item) => {
               const active = isActive(item.href);
               return (
-                <li key={item.name}>
+                <li key={item.name} className="relative">
                   <Link
                     href={item.href}
-                    className={`group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${active ? "bg-zinc-800 text-white" : "text-zinc-400 hover:bg-zinc-800 hover:text-white"}`}
+                    className={`group relative flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${active ? "text-white" : "text-zinc-400 hover:text-white"}`}
                     aria-current={active ? "page" : undefined}
                   >
+                    {active && (
+                      <motion.div
+                        layoutId="active-pill"
+                        className="absolute inset-0 bg-zinc-800 rounded-lg -z-10"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    {/* Hover indicator overlay */}
+                    {!active && (
+                      <div className="absolute inset-0 bg-zinc-800/0 group-hover:bg-zinc-800/20 rounded-lg -z-10 transition-colors duration-200" />
+                    )}
                     <item.icon className={`mr-3 flex-shrink-0 h-5 w-5 ${active ? "text-white" : "text-zinc-400 group-hover:text-white"}`} aria-hidden="true" />
-                    <span>{item.name}</span>
+                    <span className="relative z-10">{item.name}</span>
                   </Link>
                 </li>
               );

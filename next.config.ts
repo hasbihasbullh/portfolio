@@ -9,7 +9,6 @@ const nextConfig: NextConfig = {
   },
   images: {
     domains: ["placeholder.svg"],
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",

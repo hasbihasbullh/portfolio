@@ -9,6 +9,10 @@ import { METADATA } from "@/common/constants/metadata";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
+export const viewport = {
+  themeColor: "#09090b",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.DOMAIN || "https://hasbihasbullh.my.id"),
   description: METADATA.description,
@@ -39,7 +43,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: METADATA.openGraph.url,
   },
-  themeColor: "#09090b",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -55,7 +58,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="msapplication-TileImage" content="/web-app-manifest-192x192.png" />
       </head>
       <body className={montserrat.className}>
-        <div>{children}</div>
+        {/* Ambient Glow Background */}
+        <div className="ambient-glow-container">
+          <div className="ambient-glow-orb-1" />
+          <div className="ambient-glow-orb-2" />
+          <div className="ambient-grid" />
+        </div>
+        <div className="relative z-10">{children}</div>
         <Analytics />
         <SpeedInsights />
       </body>

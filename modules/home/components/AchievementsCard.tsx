@@ -23,7 +23,7 @@ export function AchievementsCard() {
   ));
 
   return (
-    <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-1 flex flex-col" spotlightColor="rgba(255, 255, 255, 0.25)">
+    <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-1 flex flex-col h-full w-full" spotlightColor="rgba(6, 182, 212, 0.12)">
       <div className="flex flex-col p-6 items-center text-center">
         <Link href="/achievements" aria-label="Go to Achievements page">
           <div className="bg-zinc-200 rounded-lg w-fit p-3 text-zinc-900">

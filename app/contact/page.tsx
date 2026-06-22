@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `Contact ${METADATA.exTitle}`,
     description: `Get in touch with ${METADATA.creator} for project inquiries or collaborations`,
     alternates: {
-      canonical: `${process.env.DOMAIN}/contact`,
+      canonical: "/contact",
     },
   };
 }

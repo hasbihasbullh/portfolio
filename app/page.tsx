@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: `${METADATA.creator} | Personal Website`,
   description: `Personal portfolio of ${METADATA.creator}, a freelance web developer and designer specializing in user-centered design and modern web development.`,
   alternates: {
-    canonical: `${process.env.DOMAIN}`,
+    canonical: "/",
   },
 };
 

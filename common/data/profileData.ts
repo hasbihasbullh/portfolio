@@ -31,7 +31,7 @@ export const profileData: ProfileData = {
 };
 
 export const profileImages = [
-  { id: 1, img: "images/3.jpg" },
-  { id: 2, img: "images/2.jpg" },
-  { id: 3, img: "images/1.jpg" },
+  { id: 1, img: "/images/3.jpg" },
+  { id: 2, img: "/images/2.jpg" },
+  { id: 3, img: "/images/1.jpg" },
 ];

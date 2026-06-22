@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export function ProjectsShowcaseCard() {
   return (
-    <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-3 grid grid-cols-2 gap-2" spotlightColor="rgba(255, 255, 255, 0.25)">
+    <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-3 grid grid-cols-2 gap-2 h-full w-full" spotlightColor="rgba(99, 102, 241, 0.12)">
       <div className="flex flex-col p-6 item-start">
         <Link href="/projects" aria-label="Go to Projects page">
           <div className="bg-zinc-200 rounded-lg w-fit p-3 text-zinc-900">

@@ -14,11 +14,18 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <SpotlightCard className="bg-zinc-900/50 border-zinc-800 group overflow-hidden rounded-2xl !p-0 relative">
+    <SpotlightCard 
+      className={`bg-zinc-900/50 group overflow-hidden rounded-2xl !p-0 relative transition-all duration-350 border ${
+        project.isPinned 
+          ? "border-amber-500/25 hover:border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.03)] hover:shadow-[0_0_20px_rgba(245,158,11,0.08)]" 
+          : "border-zinc-800 hover:border-zinc-700/60"
+      }`}
+      spotlightColor={project.isPinned ? "rgba(245, 158, 11, 0.12)" : "rgba(255, 255, 255, 0.12)"}
+    >
       {/* Pin Badge */}
       {project.isPinned && (
         <div className="absolute top-0 right-0 z-10">
-          <div className="bg-amber-500 text-zinc-50 rounded-bl-lg flex items-center justify-center px-4 py-2 shadow-lg" title="Pinned Project">
+          <div className="bg-amber-500 text-zinc-50 rounded-bl-lg flex items-center justify-center px-4 py-2 shadow-lg animate-pulse" title="Pinned Project">
             <Pin className="w-4 h-4 fill-current mr-1" />
             <span className="text-sm font-medium">Featured</span>
           </div>
@@ -31,13 +38,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
           src={project.image}
           alt={`${project.title} screenshot`}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           onError={(e) => (e.currentTarget.src = "/images/fallback.jpg")}
           loading="lazy"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           quality={80}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/20 to-transparent opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/25 to-transparent opacity-60" />
       </div>
 
       <div className="pb-4 px-8 pt-6">

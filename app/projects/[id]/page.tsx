@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
       title: `Not Found ${METADATA.exTitle}`,
       description: `Project not found on ${METADATA.creator}'s portfolio`,
       alternates: {
-        canonical: `${process.env.DOMAIN}/projects`,
+        canonical: "/projects",
       },
     };
   }
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
     title: `${project.title} ${METADATA.exTitle}`,
     description: `Explore ${project.title}, a project by ${METADATA.creator}: ${project.description}`,
     alternates: {
-      canonical: `${process.env.DOMAIN}/projects/${id}`,
+      canonical: `/projects/${id}`,
     },
   };
 }
