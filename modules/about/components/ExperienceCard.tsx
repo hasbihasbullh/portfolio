@@ -125,7 +125,7 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
                 onClick={handleToggleExpand}
                 aria-expanded={isExpanded}
                 aria-controls={`responsibilities-${experience.id}`}
-                className="flex items-center text-zinc-400 hover:text-zinc-200 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-600 rounded-md px-2 py-1"
+                className="flex items-center text-zinc-400 hover:text-zinc-200 text-sm transition-colors rounded-md px-2 py-1"
               >
                 {isExpanded ? <ChevronUp className="w-4 h-4 mr-1" /> : <ChevronDown className="w-4 h-4 mr-1" />}
                 {isExpanded ? "Hide responsibilities" : "Show responsibilities"}

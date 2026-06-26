@@ -7,6 +7,7 @@ export interface Project {
   title: string;
   description: string;
   image: string;
+  fullPageImage?: string;
   technologies: { name: string; reactIcon: IconType; color?: string }[];
   link: string;
   isPinned?: boolean;
@@ -21,7 +22,8 @@ export const projects: Project[] = [
     title: "PojokCoffee",
     description:
       "A simple e-commerce platform for coffee lovers, offering selected coffee beans from across Indonesia. Features a product catalog, shopping cart, checkout, and an informative blog, built as a frontend-only demonstration with a modern tech stack for responsiveness and interactivity.",
-    image: "/images/project/pojok-coffee.png",
+    image: "/images/project/pojok-coffee.webp",
+    fullPageImage: "/images/project/pojok-coffee-fullpage.webp",
     technologies: [
       { name: "HTML5", reactIcon: FaHtml5, color: "text-orange-600" },
       { name: "Tailwind CSS", reactIcon: SiTailwindcss, color: "text-teal-500" },
@@ -31,7 +33,7 @@ export const projects: Project[] = [
     ],
     link: "https://hasbihasbullh.github.io/pojok-coffee/",
     isPinned: true,
-    category: "E-commerce",
+    category: "Web Application",
     launchDate: "July 2025",
     githubLink: "https://github.com/hasbihasbullh/pojok-coffee",
   },
@@ -39,14 +41,15 @@ export const projects: Project[] = [
     id: "if24-unlip",
     title: "IF24 UNLIP",
     description: "A modern web application built with Next.js App Router, Tailwind CSS, and TypeScript for the Informatika 2024 UNLIP Class, designed for internal tools, academic collaboration, or community engagement.",
-    image: "/images/project/if24-unlip.png",
+    image: "/images/project/if24-unlip.webp",
+    fullPageImage: "/images/project/if24-unlip-fullpage.webp",
     technologies: [
       { name: "React", reactIcon: FaReact, color: "text-cyan-400" },
       { name: "Next.js", reactIcon: SiNextdotjs, color: "text-white" },
       { name: "Tailwind CSS", reactIcon: SiTailwindcss, color: "text-teal-500" },
       { name: "TypeScript", reactIcon: SiTypescript, color: "text-blue-600" },
     ],
-    link: "https://if24-unlip.vercel.app",
+    link: "https://inf24-unlip.vercel.app/",
     isPinned: true,
     category: "Web Application",
     launchDate: "July 2025",
@@ -56,7 +59,8 @@ export const projects: Project[] = [
     id: "lucky-kamera",
     title: "Lucky Kamera",
     description: "A web-based platform for camera rental services, allowing users to browse, rent, and manage camera equipment with a user-friendly interface and secure booking system.",
-    image: "/images/project/luky-kamera.png",
+    image: "/images/project/lucky-kamera.webp",
+    fullPageImage: "/images/project/lucky-kamera-fullpage.webp",
     technologies: [
       { name: "CodeIgniter", reactIcon: SiCodeigniter, color: "text-red-600" },
       { name: "MySQL", reactIcon: SiMysql, color: "text-blue-700" },

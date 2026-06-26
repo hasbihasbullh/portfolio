@@ -19,15 +19,13 @@ export function ProjectsGrid({ filteredProjects }: ProjectsGridProps) {
             <AlertDescription className="text-center py-8">
               <div className="space-y-2">
                 <h3 className="font-semibold text-zinc-100">No projects found</h3>
-                <p className="text-zinc-400">
-                  Try adjusting your search terms or select a different filter to find what you’re looking for.
-                </p>
+                <p className="text-zinc-400">Try adjusting your search terms or select a different filter to find what you’re looking for.</p>
               </div>
             </AlertDescription>
           </Alert>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}

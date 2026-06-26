@@ -20,7 +20,7 @@ export const profileData: ProfileData = {
   position: "Software Developer",
   location: "Sukabumi, Jawa Barat, Indonesia",
   status: "Available for Projects",
-  image: "/images/Me.png",
+  image: "/images/Me.webp",
   username: "@hasbihasbullh",
   email: "mhasbihasbullah@gmail.com",
   social: {

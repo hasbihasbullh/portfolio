@@ -53,7 +53,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
       <MobileNavbar />
 
       <div className="flex-1 lg:ml-80 overflow-y-auto">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
           <AnimateEaseOut>
             {/* Enhanced Navigation */}
             <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
@@ -96,39 +96,40 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
               </div>
             </div>
 
-            {/* Enhanced Project Image */}
-            <Card className="mb-6 overflow-hidden rounded-2xl border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
-              <div className="relative w-full aspect-[16/9] group">
-                <Image src={project.image} alt={`${project.title} screenshot`} fill className="object-cover" loading="lazy" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw" quality={80} />
-                {/* Floating Action Buttons - Conditional Rendering */}
-                <div className="absolute top-4 right-4 flex gap-2">
-                  {project.link && (
-                    <Link
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-white text-zinc-900 hover:bg-zinc-300 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
-                      title="Open Preview"
-                    >
-                      <FaExternalLinkAlt className="w-4 h-4" />
-                      <span className="hidden sm:inline">Open Preview</span>
-                    </Link>
-                  )}
-                  {project.githubLink && (
-                    <Link
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-zinc-800 text-white hover:bg-zinc-500 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
-                      title="Source Code"
-                    >
-                      <FaGithub className="w-4 h-4" />
-                      <span className="hidden sm:inline">Source Code</span>
-                    </Link>
-                  )}
+            {/* Full Page Image Section */}
+            {project.fullPageImage && (
+              <Card className="mb-16 overflow-hidden rounded-[2rem] border border-zinc-800 bg-zinc-900/80 shadow-[0_20px_60px_-40px_rgba(0,0,0,0.5)]">
+                <div className="relative w-full">
+                  <Image src={project.fullPageImage} alt={`${project.title} full page preview`} width={1600} height={900} className="w-full rounded-[2rem] object-contain" loading="lazy" sizes="100vw" quality={90} />
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    {Boolean(project.link) && (
+                      <Link
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-zinc-900 hover:bg-zinc-300 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
+                        title="Open Preview"
+                      >
+                        <FaExternalLinkAlt className="w-4 h-4" />
+                        <span className="hidden sm:inline">Open Preview</span>
+                      </Link>
+                    )}
+                    {Boolean(project.githubLink) && (
+                      <Link
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-zinc-800 text-white hover:bg-zinc-500 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
+                        title="Source Code"
+                      >
+                        <FaGithub className="w-4 h-4" />
+                        <span className="hidden sm:inline">Source Code</span>
+                      </Link>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            )}
 
             <FooterContent />
           </AnimateEaseOut>

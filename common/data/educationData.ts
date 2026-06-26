@@ -7,7 +7,7 @@ export interface Education {
   logo: string;
   description?: string;
   gpa?: string;
-  status?: 'completed' | 'ongoing' | 'paused';
+  status?: "completed" | "ongoing" | "paused";
 }
 
 export const education: Education[] = [
@@ -17,9 +17,9 @@ export const education: Education[] = [
     degree: "Bachelor's degree, Informatics (S.Kom)",
     duration: "2024 - 2028",
     location: "Sukabumi, Jawa Barat",
-    logo: "/logo/univ-linggabuana.png",
+    logo: "/logo/univ-linggabuana.webp",
     description: "Currently pursuing Bachelor's degree in Informatics with focus on software engineering and web development.",
-    status: "ongoing"
+    status: "ongoing",
   },
   {
     id: "smk-pasim-plus",
@@ -27,9 +27,9 @@ export const education: Education[] = [
     degree: "Vocational High School, Software Engineering (RPL)",
     duration: "2017 - 2020",
     location: "Sukabumi, Jawa Barat",
-    logo: "/logo/smk-pasim.png",
+    logo: "/logo/smk-pasim.webp",
     description: "Specialized in Software Engineering with comprehensive training in programming, database management, and web development.",
-    status: "completed"
+    status: "completed",
   },
   {
     id: "mts-azzainiyyah",
@@ -37,8 +37,8 @@ export const education: Education[] = [
     degree: "Islamic Junior High School (MTs)",
     duration: "2014 - 2017",
     location: "Sukabumi, Jawa Barat",
-    logo: "/logo/azzainiyyah.png",
+    logo: "/logo/azzainiyyah.webp",
     description: "Islamic-based education with strong foundation in mathematics, science, and religious studies.",
-    status: "completed"
+    status: "completed",
   },
 ];

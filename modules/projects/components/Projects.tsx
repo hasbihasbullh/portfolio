@@ -7,7 +7,7 @@ import { ProjectsGrid } from "./ProjectsGrid";
 
 import { FooterContent } from "@/common/components/layouts/FooterContent";
 
-type FilterCategory = "all" | "E-commerce" | "Web Application";
+type FilterCategory = "all" | "Application" | "Web Application";
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -26,7 +26,7 @@ const Projects = () => {
     }
 
     // Urutkan proyek yang dipin di atas
-    return filtered.sort((a, b) => {
+    return [...filtered].sort((a, b) => {
       if (a.isPinned && !b.isPinned) return -1;
       if (!a.isPinned && b.isPinned) return 1;
       return 0;
