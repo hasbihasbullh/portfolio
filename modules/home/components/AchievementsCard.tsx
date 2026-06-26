@@ -9,7 +9,7 @@ import Image from "next/image";
 
 export function AchievementsCard() {
   const achievementItems = achievementsData.slice(0, 3).map((achievement, index) => (
-    <Link key={achievement.id} href={achievement.credentialUrl} aria-label={`View ${achievement.title}`}>
+    <Link key={achievement.id} href={achievement.credentialUrl} aria-label={`View ${achievement.title}`} target="_blank">
       <Image
         src={achievement.image}
         alt={`Achievement: ${achievement.title} from ${achievement.issuer}`}

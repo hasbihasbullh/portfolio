@@ -22,7 +22,7 @@ export function ProjectsShowcaseCard() {
         <div className="max-h-[300px] overflow-y-auto p-2 [scrollbar-width:none] [-ms-overflow-style:none] [::-webkit-scrollbar{display:none}]">
           {projects.map((project, index) => (
             <div key={project.id} className="mb-4 cursor-pointer" role="listitem">
-              <Link href={project.link} passHref aria-label={`View ${project.title} project`}>
+              <Link href={project.link} passHref aria-label={`View ${project.title} project`} target="_blank" >
                 <div className="rounded-xl bg-zinc-300 p-[3px] dark:bg-zinc-800">
                   <div className="overflow-hidden rounded-lg">
                     <Image
