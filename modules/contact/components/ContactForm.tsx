@@ -34,18 +34,7 @@ interface ContactFormProps {
   setIsSubmitted: (submitted: boolean) => void;
 }
 
-export function ContactForm({
-  error,
-  setError,
-  formData,
-  setFormData,
-  formErrors,
-  setFormErrors,
-  isSubmitting,
-  setIsSubmitting,
-  isSubmitted,
-  setIsSubmitted,
-}: ContactFormProps) {
+export function ContactForm({ error, setError, formData, setFormData, formErrors, setFormErrors, isSubmitting, setIsSubmitting, isSubmitted, setIsSubmitted }: ContactFormProps) {
   const validateForm = (): boolean => {
     const errors: FormErrors = {};
     if (!formData.name.trim()) {
@@ -84,15 +73,25 @@ export function ContactForm({
     if (!validateForm()) return;
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      console.log("Form submitted:", formData);
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({ message: "Failed to send message" }));
+        throw new Error(data.message || "Failed to send message");
+      }
+
       setIsSubmitted(true);
       setFormData({ name: "", email: "", subject: "", message: "" });
       setTimeout(() => setIsSubmitted(false), 5000);
-    } catch (error) {
-      console.error("Form submission error:", error);
-      setError("Failed to send message. Please try again.");
-      setTimeout(() => setError(null), 3000);
+    } catch (err: unknown) {
+      console.error("Form submission error:", err);
+      const message = err instanceof Error ? err.message : String(err ?? "Failed to send message. Please try again.");
+      setError(message);
+      setTimeout(() => setError(null), 4000);
     } finally {
       setIsSubmitting(false);
     }
@@ -134,8 +133,14 @@ export function ContactForm({
                   placeholder="Your name"
                   className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20"
                   disabled={isSubmitting}
+                  aria-invalid={!!formErrors.name}
+                  aria-describedby={formErrors.name ? "name-error" : undefined}
                 />
-                {formErrors.name && <p className="text-red-400 text-sm">{formErrors.name}</p>}
+                {formErrors.name && (
+                  <p id="name-error" className="text-red-400 text-sm">
+                    {formErrors.name}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-zinc-200 flex items-center gap-2">
@@ -150,8 +155,14 @@ export function ContactForm({
                   placeholder="your.email@example.com"
                   className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20"
                   disabled={isSubmitting}
+                  aria-invalid={!!formErrors.email}
+                  aria-describedby={formErrors.email ? "email-error" : undefined}
                 />
-                {formErrors.email && <p className="text-red-400 text-sm">{formErrors.email}</p>}
+                {formErrors.email && (
+                  <p id="email-error" className="text-red-400 text-sm">
+                    {formErrors.email}
+                  </p>
+                )}
               </div>
             </div>
             <div className="space-y-2">
@@ -165,8 +176,14 @@ export function ContactForm({
                 placeholder="What's this about?"
                 className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20"
                 disabled={isSubmitting}
+                aria-invalid={!!formErrors.subject}
+                aria-describedby={formErrors.subject ? "subject-error" : undefined}
               />
-              {formErrors.subject && <p className="text-red-400 text-sm">{formErrors.subject}</p>}
+              {formErrors.subject && (
+                <p id="subject-error" className="text-red-400 text-sm">
+                  {formErrors.subject}
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="message" className="text-zinc-200">
@@ -180,14 +197,16 @@ export function ContactForm({
                 rows={6}
                 className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20 resize-none"
                 disabled={isSubmitting}
+                aria-invalid={!!formErrors.message}
+                aria-describedby={formErrors.message ? "message-error" : undefined}
               />
-              {formErrors.message && <p className="text-red-400 text-sm">{formErrors.message}</p>}
+              {formErrors.message && (
+                <p id="message-error" className="text-red-400 text-sm">
+                  {formErrors.message}
+                </p>
+              )}
             </div>
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-zinc-700 hover:bg-zinc-800 text-zinc-200 font-medium py-2.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+            <Button type="submit" disabled={isSubmitting} className="w-full bg-zinc-700 hover:bg-zinc-800 text-zinc-200 font-medium py-2.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
               {isSubmitting ? (
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-zinc-200/20 border-t-zinc-200 rounded-full animate-spin" />
