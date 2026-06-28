@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { AlertCircle, Send, User, Mail, MessageSquare, CheckCircle } from "lucide-react";
 import { Button } from "@/common/components/ui/button";
 import { Input } from "@/common/components/ui/input";
@@ -34,29 +34,71 @@ interface ContactFormProps {
   setIsSubmitted: (submitted: boolean) => void;
 }
 
+const MAX_LENGTHS = {
+  name: 100,
+  email: 254,
+  subject: 150,
+  message: 5000,
+} as const;
+
 export function ContactForm({ error, setError, formData, setFormData, formErrors, setFormErrors, isSubmitting, setIsSubmitting, isSubmitted, setIsSubmitted }: ContactFormProps) {
+  const errorTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const successTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const honeypotRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    return () => {
+      if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+      if (successTimeoutRef.current) clearTimeout(successTimeoutRef.current);
+    };
+  }, []);
+
+  const showError = (message: string) => {
+    if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+    setError(message);
+    errorTimeoutRef.current = setTimeout(() => setError(null), 4000);
+  };
+
+  const showSuccess = () => {
+    if (successTimeoutRef.current) clearTimeout(successTimeoutRef.current);
+    setIsSubmitted(true);
+    successTimeoutRef.current = setTimeout(() => setIsSubmitted(false), 5000);
+  };
+
   const validateForm = (): boolean => {
     const errors: FormErrors = {};
     if (!formData.name.trim()) {
       errors.name = "Name is required";
     } else if (formData.name.trim().length < 2) {
       errors.name = "Name must be at least 2 characters";
+    } else if (formData.name.length > MAX_LENGTHS.name) {
+      errors.name = `Name must be at most ${MAX_LENGTHS.name} characters`;
     }
+
     if (!formData.email.trim()) {
       errors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       errors.email = "Please enter a valid email address";
+    } else if (formData.email.length > MAX_LENGTHS.email) {
+      errors.email = "Email address is too long";
     }
+
     if (!formData.subject.trim()) {
       errors.subject = "Subject is required";
     } else if (formData.subject.trim().length < 5) {
       errors.subject = "Subject must be at least 5 characters";
+    } else if (formData.subject.length > MAX_LENGTHS.subject) {
+      errors.subject = `Subject must be at most ${MAX_LENGTHS.subject} characters`;
     }
+
     if (!formData.message.trim()) {
       errors.message = "Message is required";
     } else if (formData.message.trim().length < 10) {
       errors.message = "Message must be at least 10 characters";
+    } else if (formData.message.length > MAX_LENGTHS.message) {
+      errors.message = `Message must be at most ${MAX_LENGTHS.message} characters`;
     }
+
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -71,12 +113,19 @@ export function ContactForm({ error, setError, formData, setFormData, formErrors
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
+
+    if (errorTimeoutRef.current) clearTimeout(errorTimeoutRef.current);
+    setError(null);
+
     setIsSubmitting(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          company: honeypotRef.current?.value ?? "",
+        }),
       });
 
       if (!res.ok) {
@@ -84,14 +133,12 @@ export function ContactForm({ error, setError, formData, setFormData, formErrors
         throw new Error(data.message || "Failed to send message");
       }
 
-      setIsSubmitted(true);
+      showSuccess();
       setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setIsSubmitted(false), 5000);
     } catch (err: unknown) {
       console.error("Form submission error:", err);
       const message = err instanceof Error ? err.message : String(err ?? "Failed to send message. Please try again.");
-      setError(message);
-      setTimeout(() => setError(null), 4000);
+      showError(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -100,13 +147,13 @@ export function ContactForm({ error, setError, formData, setFormData, formErrors
   return (
     <div className="xl:col-span-2">
       {error && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-red-500/90 backdrop-blur-sm text-zinc-200 px-4 py-3 rounded-lg shadow-lg animate-in slide-in-from-top-2 duration-300">
+        <div role="alert" className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-red-500/90 backdrop-blur-sm text-zinc-200 px-4 py-3 rounded-lg shadow-lg animate-in slide-in-from-top-2 duration-300">
           <AlertCircle size={16} />
           <span className="text-sm font-medium">{error}</span>
         </div>
       )}
       {isSubmitted && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-green-500/90 backdrop-blur-sm text-zinc-200 px-4 py-3 rounded-lg shadow-lg animate-in slide-in-from-top-2 duration-300">
+        <div role="status" className="fixed top-20 right-4 z-50 flex items-center gap-2 bg-green-500/90 backdrop-blur-sm text-zinc-200 px-4 py-3 rounded-lg shadow-lg animate-in slide-in-from-top-2 duration-300">
           <CheckCircle size={16} />
           <span className="text-sm font-medium">Message sent successfully!</span>
         </div>
@@ -120,6 +167,11 @@ export function ContactForm({ error, setError, formData, setFormData, formErrors
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
+            <div aria-hidden="true" style={{ position: "absolute", width: 0, height: 0, overflow: "hidden", opacity: 0 }}>
+              <label htmlFor="company">Company</label>
+              <input ref={honeypotRef} id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-zinc-200 flex items-center gap-2">
@@ -131,6 +183,7 @@ export function ContactForm({ error, setError, formData, setFormData, formErrors
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
                   placeholder="Your name"
+                  maxLength={MAX_LENGTHS.name}
                   className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20"
                   disabled={isSubmitting}
                   aria-invalid={!!formErrors.name}
@@ -153,6 +206,7 @@ export function ContactForm({ error, setError, formData, setFormData, formErrors
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                   placeholder="your.email@example.com"
+                  maxLength={MAX_LENGTHS.email}
                   className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20"
                   disabled={isSubmitting}
                   aria-invalid={!!formErrors.email}
@@ -174,6 +228,7 @@ export function ContactForm({ error, setError, formData, setFormData, formErrors
                 value={formData.subject}
                 onChange={(e) => handleInputChange("subject", e.target.value)}
                 placeholder="What's this about?"
+                maxLength={MAX_LENGTHS.subject}
                 className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20"
                 disabled={isSubmitting}
                 aria-invalid={!!formErrors.subject}
@@ -195,6 +250,7 @@ export function ContactForm({ error, setError, formData, setFormData, formErrors
                 onChange={(e) => handleInputChange("message", e.target.value)}
                 placeholder="Tell me about your project, idea, or just say hello..."
                 rows={6}
+                maxLength={MAX_LENGTHS.message}
                 className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20 resize-none"
                 disabled={isSubmitting}
                 aria-invalid={!!formErrors.message}
