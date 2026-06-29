@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { MAX_LENGTHS } from "@/common/constants/form";
 
 const resendApiKey = process.env.RESEND_API_KEY || "";
 const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || "";
@@ -20,12 +21,7 @@ setInterval(() => {
   }
 }, RATE_LIMIT_WINDOW_MS).unref?.();
 
-const MAX_LENGTHS = {
-  name: 100,
-  email: 254, 
-  subject: 150,
-  message: 5000,
-} as const;
+
 
 function validateEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= MAX_LENGTHS.email;
@@ -145,21 +141,39 @@ export async function POST(req: Request) {
     const safeMessage = escapeHtmlWithBreaks(message);
 
     const html = `
-      <div style="font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; color:#111">
-        <h2>New contact message</h2>
-        <p><strong>From:</strong> ${safeName} &lt;${safeEmail}&gt;</p>
-        <p><strong>Subject:</strong> ${safeSubjectHtml}</p>
-        <hr />
-        <div>${safeMessage}</div>
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 8px;">
+        <h2 style="color: #111; margin-top: 0;">New Message from Portfolio</h2>
+        <div style="background-color: #f9f9f9; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+          <p style="margin: 0 0 10px 0;"><strong>From:</strong> ${safeName} &lt;${safeEmail}&gt;</p>
+          <p style="margin: 0;"><strong>Subject:</strong> ${safeSubjectHtml}</p>
+        </div>
+        <div style="font-size: 16px; line-height: 1.6; color: #444; white-space: pre-wrap;">
+          ${safeMessage}
+        </div>
+        <hr style="border: none; border-top: 1px solid #eaeaea; margin: 30px 0 20px 0;" />
+        <p style="font-size: 12px; color: #888; text-align: center;">
+          This message was sent via the contact form on your portfolio website.
+        </p>
       </div>
+    `;
+
+    const text = `
+New Message from Portfolio
+
+From: ${safeName} (${safeEmail})
+Subject: ${safeSubjectLine}
+
+Message:
+${sanitizeSingleLine(message)}
     `;
 
     const resp = await resend.emails.send({
       from: `HSB <${senderEmail}>`,
       to: receiverEmail,
       replyTo: email.trim(),
-      subject: safeSubjectLine,
+      subject: `[Portfolio Contact] ${safeSubjectLine}`,
       html,
+      text,
     });
 
     if (resp?.error) {

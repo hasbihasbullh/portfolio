@@ -1,11 +1,12 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AlertCircle, Send, User, Mail, MessageSquare, CheckCircle } from "lucide-react";
 import { Button } from "@/common/components/ui/button";
 import { Input } from "@/common/components/ui/input";
 import { Textarea } from "@/common/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/common/components/ui/card";
 import { Label } from "@/common/components/ui/label";
+import { MAX_LENGTHS } from "@/common/constants/form";
 
 interface FormData {
   name: string;
@@ -21,27 +22,17 @@ interface FormErrors {
   message?: string;
 }
 
-interface ContactFormProps {
-  error: string | null;
-  setError: (error: string | null) => void;
-  formData: FormData;
-  setFormData: (data: FormData) => void;
-  formErrors: FormErrors;
-  setFormErrors: (errors: FormErrors) => void;
-  isSubmitting: boolean;
-  setIsSubmitting: (submitting: boolean) => void;
-  isSubmitted: boolean;
-  setIsSubmitted: (submitted: boolean) => void;
-}
-
-const MAX_LENGTHS = {
-  name: 100,
-  email: 254,
-  subject: 150,
-  message: 5000,
-} as const;
-
-export function ContactForm({ error, setError, formData, setFormData, formErrors, setFormErrors, isSubmitting, setIsSubmitting, isSubmitted, setIsSubmitted }: ContactFormProps) {
+export function ContactForm() {
+  const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const errorTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const successTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const honeypotRef = useRef<HTMLInputElement>(null);
@@ -256,11 +247,16 @@ export function ContactForm({ error, setError, formData, setFormData, formErrors
                 aria-invalid={!!formErrors.message}
                 aria-describedby={formErrors.message ? "message-error" : undefined}
               />
-              {formErrors.message && (
-                <p id="message-error" className="text-red-400 text-sm">
-                  {formErrors.message}
-                </p>
-              )}
+              <div className="flex justify-between items-start pt-1">
+                {formErrors.message ? (
+                  <p id="message-error" className="text-red-400 text-sm">
+                    {formErrors.message}
+                  </p>
+                ) : <span />}
+                <span className="text-xs text-zinc-500">
+                  {formData.message.length} / {MAX_LENGTHS.message}
+                </span>
+              </div>
             </div>
             <Button type="submit" disabled={isSubmitting} className="w-full bg-zinc-700 hover:bg-zinc-800 text-zinc-200 font-medium py-2.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
               {isSubmitting ? (
