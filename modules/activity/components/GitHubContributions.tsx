@@ -12,7 +12,7 @@ export const GitHubContributions: React.FC = () => {
     <section className="space-y-6">
       <div className="space-y-2">
         <div className="flex items-center justify-center sm:justify-start gap-2 text-lg sm:text-xl font-semibold text-zinc-200">
-          <SiGithub className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+          <SiGithub className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-green-500" />
           <h2 className="capitalize truncate">GitHub Contributions</h2>
         </div>
 

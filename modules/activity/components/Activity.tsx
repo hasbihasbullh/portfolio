@@ -4,6 +4,7 @@ import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
 import { ActivityHeader } from "./ActivityHeader";
 import { GitHubContributions } from "./GitHubContributions";
 import { MonkeytypeStats } from "./MonkeytypeStats";
+import { WakatimeStats } from "./WakatimeStats";
 import { FooterContent } from "@/common/components/layouts/FooterContent";
 
 import { Separator } from "@/common/components/ui/separator";
@@ -17,6 +18,11 @@ export const Activity = () => {
           <GitHubContributions />
           <Separator className="my-8 bg-zinc-800" />
           <MonkeytypeStats/>
+          <Separator className="my-8 bg-zinc-800" />
+          
+          <WakatimeStats />
+          
+          <Separator className="my-8 bg-zinc-800" />
           <FooterContent />
         </AnimateEaseOut>
       </div>
