@@ -9,18 +9,22 @@ export const GitHubContributions: React.FC = () => {
   const username = "hasbihasbullh";
 
   return (
-    <section className="space-y-2">
-      <div className="flex items-center justify-center sm:justify-start gap-2 text-lg sm:text-xl font-semibold text-zinc-200">
-        <SiGithub className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
-        <h2 className="capitalize truncate">GitHub Contributions</h2>
+    <section className="space-y-6">
+      <div className="space-y-2">
+        <div className="flex items-center justify-center sm:justify-start gap-2 text-lg sm:text-xl font-semibold text-zinc-200">
+          <SiGithub className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+          <h2 className="capitalize truncate">GitHub Contributions</h2>
+        </div>
+
+        <div className="flex flex-col items-center gap-2 sm:gap-3 text-zinc-500 sm:flex-row sm:justify-between sm:items-center">
+          <p className="text-xs sm:text-sm text-center sm:text-left">My GitHub activity and statistics over time.</p>
+          <Link target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm text-green-500 hover:text-green-300 transition-colors duration-200 font-medium" href={`https://github.com/${username}`}>
+            @{username}
+          </Link>
+        </div>
       </div>
 
-      <div className="flex flex-col items-center gap-2 sm:gap-3 text-zinc-500 sm:flex-row sm:justify-between sm:items-center">
-        <p className="text-xs sm:text-sm text-center sm:text-left">My GitHub activity over the past year.</p>
-        <Link target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm text-green-500 hover:text-green-300 transition-colors duration-200 font-medium" href={`https://github.com/${username}`}>
-          @{username}
-        </Link>
-      </div>
+
 
       <div className="w-full">
         <div className="bg-zinc-900/60 border border-zinc-800/80 rounded-xl shadow-lg p-6 lg:mt-6">

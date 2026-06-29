@@ -3,7 +3,7 @@ import React from "react";
 import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
 import { ActivityHeader } from "./ActivityHeader";
 import { GitHubContributions } from "./GitHubContributions";
-// import { MonkeytypeStats } from "./MonkeytypeStats";
+import { MonkeytypeStats } from "./MonkeytypeStats";
 import { FooterContent } from "@/common/components/layouts/FooterContent";
 
 import { Separator } from "@/common/components/ui/separator";
@@ -16,7 +16,7 @@ export const Activity = () => {
           <ActivityHeader />
           <GitHubContributions />
           <Separator className="my-8 bg-zinc-800" />
-          {/* <MonkeytypeStats/> */}
+          <MonkeytypeStats/>
           <FooterContent />
         </AnimateEaseOut>
       </div>
