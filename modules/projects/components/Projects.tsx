@@ -25,11 +25,14 @@ const Projects = () => {
       filtered = filtered.filter((project: Project) => project.title.toLowerCase().includes(searchTerm.toLowerCase()) || project.description.toLowerCase().includes(searchTerm.toLowerCase()));
     }
 
-    // Urutkan proyek yang dipin di atas
+    // Urutkan proyek yang dipin di atas, lalu berdasarkan tanggal rilis (terbaru ke terlama)
     return [...filtered].sort((a, b) => {
       if (a.isPinned && !b.isPinned) return -1;
       if (!a.isPinned && b.isPinned) return 1;
-      return 0;
+      
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return dateB - dateA; // Descending order
     });
   }, [searchTerm, filterCategory]);
 

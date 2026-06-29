@@ -12,6 +12,7 @@ import { notFound } from "next/navigation";
 import { FaExternalLinkAlt, FaGithub, FaArrowLeft } from "react-icons/fa";
 import { Metadata } from "next";
 import { METADATA } from "@/common/constants/metadata";
+import { RelatedProjects } from "@/modules/projects/components/RelatedProjects";
 
 interface ProjectDetailPageProps {
   params: Promise<{ id: string }>;
@@ -36,6 +37,27 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
     description: `Explore ${project.title}, a project by ${METADATA.creator}: ${project.description}`,
     alternates: {
       canonical: `/projects/${id}`,
+    },
+    openGraph: {
+      title: `${project.title} ${METADATA.exTitle}`,
+      description: project.description,
+      url: `/projects/${id}`,
+      siteName: METADATA.creator,
+      images: [
+        {
+          url: project.image,
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} ${METADATA.exTitle}`,
+      description: project.description,
+      images: [project.image],
     },
   };
 }
@@ -96,8 +118,8 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
               </div>
             </div>
 
-            {/* Full Page Image Section */}
-            {project.fullPageImage && (
+            {/* Full Page Image Section or Fallback */}
+            {project.fullPageImage ? (
               <Card className="mb-16 overflow-hidden rounded-[2rem] border border-zinc-800 bg-zinc-900/80 shadow-[0_20px_60px_-40px_rgba(0,0,0,0.5)]">
                 <div className="relative w-full">
                   <Image src={project.fullPageImage} alt={`${project.title} full page preview`} width={1600} height={900} className="w-full rounded-[2rem] object-contain" loading="lazy" sizes="100vw" quality={90} />
@@ -129,8 +151,34 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                   </div>
                 </div>
               </Card>
+            ) : (
+              <div className="mb-16 flex gap-4">
+                {Boolean(project.link) && (
+                  <Link
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white text-zinc-900 hover:bg-zinc-300 rounded-full flex items-center justify-center shadow-lg px-6 py-3 text-sm font-medium gap-2"
+                  >
+                    <FaExternalLinkAlt className="w-4 h-4" />
+                    <span>Open Preview</span>
+                  </Link>
+                )}
+                {Boolean(project.githubLink) && (
+                  <Link
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-zinc-800 text-white hover:bg-zinc-700 rounded-full flex items-center justify-center shadow-lg px-6 py-3 text-sm font-medium gap-2"
+                  >
+                    <FaGithub className="w-4 h-4" />
+                    <span>Source Code</span>
+                  </Link>
+                )}
+              </div>
             )}
 
+            <RelatedProjects projectId={project.id} />
             <FooterContent />
           </AnimateEaseOut>
         </div>

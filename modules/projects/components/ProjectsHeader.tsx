@@ -22,7 +22,7 @@ export function ProjectsHeader({ searchTerm, setSearchTerm, filterCategory, setF
           <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-zinc-50">Projects</h1>
 
           {/* Search and Filter Controls */}
-          <div className="hidden lg:flex flex-col sm:flex-row gap-4 lg:min-w-96">
+          <div className="flex flex-col sm:flex-row gap-4 lg:min-w-96 w-full lg:w-auto mt-4 lg:mt-0">
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-zinc-400" />
               <Input

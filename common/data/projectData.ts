@@ -13,6 +13,7 @@ export interface Project {
   isPinned?: boolean;
   category: string;
   launchDate: string;
+  createdAt: string;
   githubLink?: string;
 }
 
@@ -35,6 +36,7 @@ export const projects: Project[] = [
     isPinned: true,
     category: "Web Application",
     launchDate: "July 2025",
+    createdAt: "2025-07-01",
     githubLink: "https://github.com/hasbihasbullh/pojok-coffee",
   },
   {
@@ -53,6 +55,7 @@ export const projects: Project[] = [
     isPinned: true,
     category: "Web Application",
     launchDate: "July 2025",
+    createdAt: "2025-07-01",
     githubLink: "https://github.com/informatika24-unlip/if24-unlip",
   },
   {
@@ -69,7 +72,8 @@ export const projects: Project[] = [
     link: "",
     isPinned: false,
     category: "Web Application",
-    launchDate: "Maret 2020",
+    launchDate: "March 2020",
+    createdAt: "2020-03-01",
     githubLink: "https://github.com/hasbihasbullh/LuckyKamera",
   },
 ];
