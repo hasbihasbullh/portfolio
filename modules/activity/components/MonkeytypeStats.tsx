@@ -4,6 +4,8 @@ import { SiMonkeytype } from "react-icons/si";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
+import Link from "next/link";
+
 export const MonkeytypeStats = () => {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -29,7 +31,7 @@ export const MonkeytypeStats = () => {
       if (records && records.length > 0) {
         return Math.max(...records.map((r: any) => r.wpm)).toFixed(0);
       }
-    } catch (e) {}
+    } catch (e) { }
     return "-";
   };
 
@@ -43,7 +45,7 @@ export const MonkeytypeStats = () => {
   const getChartData = () => {
     if (!stats || !stats.personalBests) return [];
     const records: any[] = [];
-    
+
     const processCategory = (category: any) => {
       if (!category) return;
       Object.keys(category).forEach((key) => {
@@ -59,10 +61,10 @@ export const MonkeytypeStats = () => {
         });
       });
     };
-    
+
     processCategory(stats.personalBests.time);
     processCategory(stats.personalBests.words);
-    
+
     records.sort((a, b) => a.timestamp - b.timestamp);
     return records;
   };
@@ -87,17 +89,17 @@ export const MonkeytypeStats = () => {
   };
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-6">
       <div className="space-y-2">
-        <div className="flex items-center gap-1.5 text-xl font-medium text-zinc-200">
-          <SiMonkeytype className="text-yellow-500" />
-          <h2 className="capitalize">Monkeytype Stats</h2>
+        <div className="flex items-center justify-center sm:justify-start gap-2 text-lg sm:text-xl font-semibold text-zinc-200">
+          <SiMonkeytype className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-yellow-500" />
+          <h2 className="capitalize truncate">Monkeytype Stats</h2>
         </div>
-        <div className="flex flex-col justify-between gap-2 text-neutral-600 md:flex-row lg:items-center">
-          <p className="text-xs sm:text-sm text-center sm:text-left text-zinc-500">Typing statistics and performance progression.</p>
-          <a target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm text-yellow-500 hover:text-yellow-400 transition-colors duration-200 font-medium" href={`https://monkeytype.com/profile/${stats?.name || "hasbixyz"}`}>
-            @{stats?.name || "hasbixyz"}
-          </a>
+        <div className="flex flex-col items-center gap-2 sm:gap-3 text-zinc-500 sm:flex-row sm:justify-between sm:items-center">
+          <p className="text-xs sm:text-sm text-center sm:text-left">Typing statistics and performance progression.</p>
+          <Link target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm text-yellow-500 hover:text-yellow-400 transition-colors duration-200 font-medium" href={`https://monkeytype.com/profile/${stats?.name}`}>
+            @{stats?.name}
+          </Link>
         </div>
       </div>
 
@@ -157,26 +159,26 @@ export const MonkeytypeStats = () => {
             ) : chartData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                  <XAxis 
-                    dataKey="date" 
-                    stroke="#52525b" 
-                    fontSize={11} 
-                    tickLine={false} 
+                  <XAxis
+                    dataKey="date"
+                    stroke="#52525b"
+                    fontSize={11}
+                    tickLine={false}
                     axisLine={false}
                     minTickGap={20}
                   />
-                  <YAxis 
-                    stroke="#52525b" 
-                    fontSize={11} 
-                    tickLine={false} 
+                  <YAxis
+                    stroke="#52525b"
+                    fontSize={11}
+                    tickLine={false}
                     axisLine={false}
                     domain={['dataMin - 10', 'dataMax + 10']}
                   />
                   <Tooltip content={<CustomTooltip />} />
-                  <Line 
-                    type="monotone" 
-                    dataKey="wpm" 
-                    stroke="#eab308" 
+                  <Line
+                    type="monotone"
+                    dataKey="wpm"
+                    stroke="#eab308"
                     strokeWidth={2}
                     dot={{ r: 3, fill: "#eab308", strokeWidth: 0 }}
                     activeDot={{ r: 5, fill: "#facc15" }}

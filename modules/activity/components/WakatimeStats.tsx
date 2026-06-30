@@ -23,15 +23,16 @@ export const WakatimeStats = () => {
   }, []);
 
   return (
-    <section className="space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xl font-medium text-zinc-200">
-        <div className="flex items-center gap-2">
-          <SiWakatime className="text-white" />
-          <h2 className="capitalize">Weekly Coding Stats</h2>
+    <section className="space-y-6">
+      <div className="space-y-2">
+        <div className="flex items-center justify-center sm:justify-start gap-2 text-lg sm:text-xl font-semibold text-zinc-200">
+          <SiWakatime className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+          <h2 className="capitalize truncate">Weekly Coding Stats</h2>
+        </div>
+        <div className="flex flex-col items-center gap-2 sm:gap-3 text-zinc-500 sm:flex-row sm:justify-between sm:items-center">
+          <p className="text-xs sm:text-sm text-center sm:text-left">My coding activity over the last 7 days tracked via WakaTime.</p>
         </div>
       </div>
-      
-      <p className="text-xs sm:text-sm text-zinc-500">My coding activity over the last 7 days tracked via WakaTime.</p>
 
       <SpotlightCard className="bg-zinc-900/40 hover:bg-zinc-900/60 transition-colors duration-300 border border-zinc-800/80 rounded-xl shadow-lg p-5">
         {loading ? (
@@ -53,9 +54,9 @@ export const WakatimeStats = () => {
           <div className="space-y-6">
             <div className="flex items-center justify-between pb-2 border-b border-zinc-800/60">
               <span className="text-sm font-medium text-zinc-400">Total Coding Time</span>
-              <span className="text-sm font-bold text-[#4ade80] tracking-wide">{data?.total_time || "0 hrs"}</span>
+              <span className="text-sm font-bold tracking-wide">{data?.total_time || "0 hrs"}</span>
             </div>
-            
+
             <div className="space-y-5">
               {data?.languages?.length > 0 ? (
                 data.languages.map((lang: any) => (
@@ -65,11 +66,11 @@ export const WakatimeStats = () => {
                       <span className="text-zinc-400 group-hover:text-zinc-200 transition-colors">{lang.percent}%</span>
                     </div>
                     <div className="w-full h-2 bg-zinc-800/80 rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className="h-full rounded-full transition-all duration-1000 ease-out relative overflow-hidden"
-                        style={{ 
+                        style={{
                           width: `${lang.percent}%`,
-                          backgroundColor: lang.color || '#4ade80'
+                          backgroundColor: lang.color || '#ffffffff'
                         }}
                       >
                         <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
