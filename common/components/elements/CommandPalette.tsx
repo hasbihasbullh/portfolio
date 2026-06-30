@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Search, Home, User, Award, Folder, Activity, Mail, FileText, Github, Copy, Check } from "lucide-react";
+import { Search, Home, User, Award, Folder, Activity, Mail, FileText, Github, Copy, Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { projects } from "@/common/data/projectData";
 import { profileData } from "@/common/data/profileData";
@@ -153,7 +153,7 @@ export function CommandPalette() {
           <Search className="w-3.5 h-3.5 group-hover:text-zinc-300 transition-colors" />
           <span>Quick search...</span>
         </span>
-        <kbd className="pointer-events-none select-none bg-zinc-900 border border-zinc-700/60 px-1.5 py-0.5 rounded text-[10px] text-zinc-500 font-mono flex items-center gap-0.5">
+        <kbd className="pointer-events-none select-none bg-zinc-900 border border-zinc-700/60 px-1.5 py-0.5 rounded text-[10px] text-zinc-500 font-mono hidden lg:flex items-center gap-0.5">
           <span>Ctrl</span>
           <span>K</span>
         </kbd>
@@ -169,7 +169,7 @@ export function CommandPalette() {
               }
             }}
             onKeyDown={handleKeyDown}
-            className="fixed top-[20%] left-1/2 -translate-x-1/2 z-50 w-full max-w-xl bg-zinc-950/95 border border-zinc-800 rounded-xl shadow-2xl shadow-black/80 overflow-hidden flex flex-col p-0 outline-none animate-in fade-in zoom-in-95 duration-200"
+            className="fixed top-[20%] left-0 right-0 mx-auto z-50 w-[92%] sm:w-full max-w-xl bg-zinc-950/95 border border-zinc-800 rounded-xl shadow-2xl shadow-black/80 overflow-hidden flex flex-col p-0 outline-none animate-in fade-in zoom-in-95 duration-200"
           >
             <Dialog.Title className="sr-only">Search Command Palette</Dialog.Title>
             <Dialog.Description className="sr-only">Quick search and navigation shortcut</Dialog.Description>
@@ -182,7 +182,10 @@ export function CommandPalette() {
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full bg-transparent border-0 outline-none text-zinc-100 placeholder-zinc-500 py-4 text-sm"
               />
-              <Dialog.Close className="bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 px-2 py-1 rounded text-xs transition-colors">Esc</Dialog.Close>
+              <Dialog.Close className="bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 px-2 py-1 rounded text-xs transition-colors flex items-center justify-center">
+                <span className="hidden lg:inline">Esc</span>
+                <X className="w-3.5 h-3.5 lg:hidden" />
+              </Dialog.Close>
             </div>
 
             {/* List Results */}
@@ -219,7 +222,7 @@ export function CommandPalette() {
                                 {item.subtitle && <p className="text-[10px] text-zinc-500 truncate max-w-sm sm:max-w-md">{item.subtitle}</p>}
                               </div>
                             </div>
-                            {isSelected && <span className="text-[10px] text-zinc-500 bg-zinc-900 border border-zinc-700/50 px-1.5 py-0.5 rounded font-mono">Enter</span>}
+                            {isSelected && <span className="hidden lg:inline-block text-[10px] text-zinc-500 bg-zinc-900 border border-zinc-700/50 px-1.5 py-0.5 rounded font-mono">Enter</span>}
                           </div>
                         );
                       })}
@@ -230,7 +233,7 @@ export function CommandPalette() {
             </div>
 
             {/* Footer hints */}
-            <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-900/40 border-t border-zinc-800/60 text-[10px] text-zinc-500">
+            <div className="hidden lg:flex items-center justify-between px-4 py-2.5 bg-zinc-900/40 border-t border-zinc-800/60 text-[10px] text-zinc-500">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
                   <kbd className="bg-zinc-900 px-1 py-0.5 rounded border border-zinc-700/60 text-[9px] font-mono">↑↓</kbd>
