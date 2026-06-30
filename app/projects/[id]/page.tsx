@@ -1,6 +1,4 @@
 import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
-import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
-import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
 import { FooterContent } from "@/common/components/layouts/FooterContent";
 import { projects } from "@/common/data/projectData";
 import { Card } from "@/common/components/ui/card";
@@ -70,13 +68,8 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
   }
 
   return (
-    <div className="flex min-h-screen">
-      <DesktopSidebar />
-      <MobileNavbar />
-
-      <div className="flex-1 lg:ml-80 overflow-y-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
-          <AnimateEaseOut>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
+      <AnimateEaseOut>
             {/* Enhanced Navigation */}
             <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
               <Link href="/projects">
@@ -180,9 +173,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
             <RelatedProjects projectId={project.id} />
             <FooterContent />
-          </AnimateEaseOut>
-        </div>
-      </div>
+      </AnimateEaseOut>
     </div>
   );
 }

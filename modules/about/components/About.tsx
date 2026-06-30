@@ -14,7 +14,7 @@ export default function About() {
   };
 
   return (
-    <div className="flex-1 lg:ml-80 overflow-y-auto">
+    <div className="w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
         <AnimateEaseOut>
           <AboutHeader />

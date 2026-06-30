@@ -37,7 +37,7 @@ const Projects = () => {
   }, [searchTerm, filterCategory]);
 
   return (
-    <div className="flex-1 lg:ml-80 overflow-y-auto">
+    <div className="w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
         <AnimateEaseOut>
           <ProjectsHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterCategory={filterCategory} setFilterCategory={setFilterCategory} />

@@ -6,6 +6,8 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 import { METADATA } from "@/common/constants/metadata";
+import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
+import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -64,7 +66,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="ambient-glow-orb-2" />
           <div className="ambient-grid" />
         </div>
-        <div className="relative z-10">{children}</div>
+        <div className="relative z-10 flex min-h-screen">
+          <DesktopSidebar />
+          <MobileNavbar />
+          <main className="flex-1 w-full lg:ml-80 overflow-x-hidden">
+            {children}
+          </main>
+        </div>
         <Analytics />
         <SpeedInsights />
       </body>

@@ -69,7 +69,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex-1 lg:ml-80 overflow-y-auto">
+    <div className="w-full">
       {socialError && (
         <div role="alert" className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-red-500/90 backdrop-blur-sm text-zinc-200 px-4 py-3 rounded-lg shadow-lg animate-in slide-in-from-top-2 duration-300">
           <AlertCircle size={16} />

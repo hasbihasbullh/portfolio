@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 export function MobileNavbar() {
@@ -29,7 +30,7 @@ export function MobileNavbar() {
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-full overflow-hidden bg-zinc-400">
                 {profileData.image ? (
-                  <Image src={profileData.image} alt={profileData.name || "Profile"} width={40} height={40} className="w-full h-full object-cover" />
+                  <Image src={profileData.image} alt={`${profileData.name} profile`} width={40} height={40} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-white text-xs bg-gray-500">?</div>
                 )}
@@ -47,23 +48,31 @@ export function MobileNavbar() {
           </div>
         </div>
 
-        {isDropdownOpen && (
-          <div className="bg-zinc-900 border-t border-zinc-800">
-            <div className="px-4 py-2">
-              <div className="grid grid-cols-2 gap-2">
-                {navigationItems.map((item) => {
-                  const active = isActive(item.href);
-                  return (
-                    <Link key={item.name} href={item.href} className={`flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${active ? "bg-zinc-800 text-white" : "text-zinc-400 hover:bg-zinc-800 hover:text-white"}`}>
-                      <item.icon className={`mr-2 h-4 w-4 ${active ? "text-white" : "text-zinc-400 group-hover:text-white"}`} />
-                      {item.name}
-                    </Link>
-                  );
-                })}
+        <AnimatePresence>
+          {isDropdownOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="bg-zinc-900 border-t border-zinc-800 overflow-hidden"
+            >
+              <div className="px-4 py-2">
+                <div className="grid grid-cols-2 gap-2">
+                  {navigationItems.map((item) => {
+                    const active = isActive(item.href);
+                    return (
+                      <Link key={item.name} href={item.href} onClick={() => setIsDropdownOpen(false)} className={`flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${active ? "bg-zinc-800 text-white" : "text-zinc-400 hover:bg-zinc-800 hover:text-white"}`}>
+                        <item.icon className={`mr-2 h-4 w-4 ${active ? "text-white" : "text-zinc-400 group-hover:text-white"}`} />
+                        {item.name}
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </div>
   );

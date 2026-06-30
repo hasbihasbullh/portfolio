@@ -1,7 +1,5 @@
 import React from "react";
 import { Metadata } from "next";
-import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
-import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
 import Home from "@/modules/home";
 
 import { METADATA } from "@/common/constants/metadata";
@@ -15,11 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return (
-    <div className="flex min-h-screen">
-      <DesktopSidebar />
-      <MobileNavbar />
-      <Home />
-    </div>
-  );
+  return <Home />;
 }

@@ -1,4 +1,4 @@
-"use client";
+
 import React from "react";
 import { education } from "@/common/data";
 import { EducationCard } from "./EducationCard";

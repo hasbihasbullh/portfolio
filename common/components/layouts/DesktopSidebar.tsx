@@ -11,10 +11,9 @@ import { CommandPalette } from "../elements/CommandPalette";
 export function DesktopSidebar() {
   const pathname = usePathname();
 
-  const safeUsername = (() => {
-    const u = profileData.username ?? "";
-    return u.includes(" & ") ? u.split(" & ")[0] : u;
-  })();
+  const safeUsername = profileData?.username?.includes(" & ")
+    ? profileData.username.split(" & ")[0]
+    : profileData?.username || "";
 
   const isActive = (href: string) => {
     return pathname === href || pathname?.startsWith(href + "/");

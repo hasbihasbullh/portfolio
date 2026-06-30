@@ -1,4 +1,4 @@
-"use client";
+
 import React from "react";
 import { experiences } from "@/common/data";
 import { ExperienceCard } from "./ExperienceCard";

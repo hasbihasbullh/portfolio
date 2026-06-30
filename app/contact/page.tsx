@@ -1,7 +1,5 @@
 import React from "react";
 import { Metadata } from "next";
-import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
-import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
 import Contact from "@/modules/contact";
 
 import { METADATA } from "@/common/constants/metadata";
@@ -17,11 +15,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function ContactPage() {
-  return (
-    <div className="flex min-h-screen">
-      <DesktopSidebar />
-      <MobileNavbar />
-      <Contact />
-    </div>
-  );
+  return <Contact />;
 }
