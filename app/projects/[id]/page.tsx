@@ -119,7 +119,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                   <div className="absolute top-4 right-4 flex gap-2">
                     {Boolean(project.link) && (
                       <Link
-                        href={project.link}
+                        href={project.link || ""}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-white text-zinc-900 hover:bg-zinc-300 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
@@ -131,7 +131,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                     )}
                     {Boolean(project.githubLink) && (
                       <Link
-                        href={project.githubLink}
+                        href={project.githubLink || ""}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-zinc-800 text-white hover:bg-zinc-500 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
@@ -148,7 +148,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
               <div className="mb-16 flex gap-4">
                 {Boolean(project.link) && (
                   <Link
-                    href={project.link}
+                    href={project.link || ""}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-white text-zinc-900 hover:bg-zinc-300 rounded-full flex items-center justify-center shadow-lg px-6 py-3 text-sm font-medium gap-2"
@@ -159,7 +159,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 )}
                 {Boolean(project.githubLink) && (
                   <Link
-                    href={project.githubLink}
+                    href={project.githubLink || ""}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-zinc-800 text-white hover:bg-zinc-700 rounded-full flex items-center justify-center shadow-lg px-6 py-3 text-sm font-medium gap-2"

@@ -28,7 +28,7 @@ export async function GET() {
     const stats = data.data;
     
     // Pick top 4 languages safely
-    const languages = (stats?.languages || []).slice(0, 4).map((lang: any) => ({
+    const languages = (stats?.languages || []).slice(0, 4).map((lang: { name: string; percent: number; color?: string }) => ({
       name: lang.name,
       percent: lang.percent,
       color: lang.color || "#4ade80", // fallback color
