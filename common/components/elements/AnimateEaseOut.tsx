@@ -11,7 +11,7 @@ export const AnimateEaseOut: React.FC<AnimateEaseOutProps> = ({ children, classN
   return (
     <motion.div
       className={`pt-20 lg:pt-0 ${className}`}
-      initial={{ y: 50, opacity: 0 }}
+      initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{
         duration: 0.8,

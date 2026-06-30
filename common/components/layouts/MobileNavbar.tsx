@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { CommandPalette } from "../elements/CommandPalette";
 
 export function MobileNavbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -24,7 +25,12 @@ export function MobileNavbar() {
 
   return (
     <div className="lg:hidden">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-zinc-900 border-b border-zinc-800">
+      <motion.nav 
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="fixed top-0 left-0 right-0 z-50 bg-zinc-900 border-b border-zinc-800"
+      >
         <div className="px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -58,13 +64,26 @@ export function MobileNavbar() {
               className="bg-zinc-900 border-t border-zinc-800 overflow-hidden"
             >
               <div className="px-4 py-2">
+                <div className="mb-2">
+                  <CommandPalette />
+                </div>
                 <div className="grid grid-cols-2 gap-2">
                   {navigationItems.map((item) => {
                     const active = isActive(item.href);
                     return (
-                      <Link key={item.name} href={item.href} onClick={() => setIsDropdownOpen(false)} className={`flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${active ? "bg-zinc-800 text-white" : "text-zinc-400 hover:bg-zinc-800 hover:text-white"}`}>
-                        <item.icon className={`mr-2 h-4 w-4 ${active ? "text-white" : "text-zinc-400 group-hover:text-white"}`} />
-                        {item.name}
+                      <Link key={item.name} href={item.href} onClick={() => setIsDropdownOpen(false)} className={`relative group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors overflow-hidden ${active ? "text-white" : "text-zinc-400 hover:text-white"}`}>
+                        {active && (
+                          <motion.div
+                            layoutId="mobile-active-pill"
+                            className="absolute inset-0 bg-zinc-800 rounded-lg z-0"
+                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          />
+                        )}
+                        {!active && (
+                          <div className="absolute inset-0 bg-zinc-800/0 group-hover:bg-zinc-800/20 rounded-lg z-0 transition-colors duration-200" />
+                        )}
+                        <item.icon className={`relative z-10 mr-2 h-4 w-4 ${active ? "text-white" : "text-zinc-400 group-hover:text-white"}`} />
+                        <span className="relative z-10">{item.name}</span>
                       </Link>
                     );
                   })}
@@ -73,7 +92,7 @@ export function MobileNavbar() {
             </motion.div>
           )}
         </AnimatePresence>
-      </nav>
+      </motion.nav>
     </div>
   );
 }

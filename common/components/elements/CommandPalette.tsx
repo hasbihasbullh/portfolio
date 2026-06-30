@@ -163,6 +163,11 @@ export function CommandPalette() {
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm transition-opacity duration-300" />
           <Dialog.Content
+            onOpenAutoFocus={(e) => {
+              if (window.innerWidth < 1024) {
+                e.preventDefault();
+              }
+            }}
             onKeyDown={handleKeyDown}
             className="fixed top-[20%] left-1/2 -translate-x-1/2 z-50 w-full max-w-xl bg-zinc-950/95 border border-zinc-800 rounded-xl shadow-2xl shadow-black/80 overflow-hidden flex flex-col p-0 outline-none animate-in fade-in zoom-in-95 duration-200"
           >
@@ -172,7 +177,6 @@ export function CommandPalette() {
             <div className="flex items-center gap-3 px-4 border-b border-zinc-800/80">
               <Search className="w-5 h-5 text-zinc-400 flex-shrink-0" />
               <input
-                autoFocus
                 placeholder="Type a command or search projects..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
