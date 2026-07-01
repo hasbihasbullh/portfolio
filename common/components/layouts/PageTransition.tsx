@@ -7,11 +7,13 @@ import React from "react";
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  // Strip locale (e.g., /en/about -> /about, /id -> /) to prevent transition on language change
+  const key = pathname.replace(/^\/(en|id)/, "") || "/";
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={pathname}
+        key={key}
         initial={{ opacity: 1 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, y: -20 }}

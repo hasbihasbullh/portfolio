@@ -3,10 +3,13 @@ import React from "react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import { projects } from "@/common/data";
 import { GalleryVerticalEnd } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export function ProjectsShowcaseCard() {
+  const t = useTranslations("Home.Projects");
+
   return (
     <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-3 grid grid-cols-2 gap-2 h-full w-full" spotlightColor="rgba(99, 102, 241, 0.12)">
       <div className="flex flex-col p-6 item-start">
@@ -15,8 +18,8 @@ export function ProjectsShowcaseCard() {
             <GalleryVerticalEnd aria-label="Projects icon" />
           </div>
         </Link>
-        <h2 className="mb-1 mt-3 text-sm font-medium text-zinc-300">Projects Showcase</h2>
-        <p className="text-xs text-zinc-400">A selection of real apps built to solve real problems.</p>
+        <h2 className="mb-1 mt-3 text-sm font-medium text-zinc-300">{t("title")}</h2>
+        <p className="text-xs text-zinc-400">{t("description")}</p>
       </div>
       <div className="flex flex-col p-0">
         <div className="max-h-[300px] overflow-y-auto p-2 [scrollbar-width:none] [-ms-overflow-style:none] [::-webkit-scrollbar{display:none}]">

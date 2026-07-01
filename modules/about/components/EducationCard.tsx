@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MapPin, Clock, GraduationCap } from "lucide-react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import { Education } from "@/common/data";
+import { useTranslations } from "next-intl";
 
 interface EducationCardProps {
   education: Education;
@@ -12,6 +13,8 @@ interface EducationCardProps {
 export function EducationCard({ education }: EducationCardProps) {
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const t = useTranslations(`About.Education.${education.id}`);
 
   const handleImageError = () => {
     setImageError(true);
@@ -73,7 +76,7 @@ export function EducationCard({ education }: EducationCardProps) {
 
           {/* Degree */}
           <div className="mb-4 sm:mb-3">
-            <p className="text-sm sm:text-base text-zinc-300 font-medium">{education.degree}</p>
+            <p className="text-sm sm:text-base text-zinc-300 font-medium">{t("degree")}</p>
           </div>
 
           {/* Duration and Location */}
@@ -91,7 +94,7 @@ export function EducationCard({ education }: EducationCardProps) {
           {/* Description */}
           {education.description && (
             <div className="border-l-2 border-zinc-700/50 pl-4 mb-4 sm:mb-0">
-              <p className="text-sm text-zinc-400 leading-relaxed">{education.description}</p>
+              <p className="text-sm text-zinc-400 leading-relaxed">{t("description")}</p>
             </div>
           )}
 

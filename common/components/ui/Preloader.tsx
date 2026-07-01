@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { hasShownPreloader, setPreloaderShown } from "@/common/utils/preloaderState";
 
 const words = [
   "Hello",
@@ -17,13 +18,22 @@ const words = [
 export const Preloader = () => {
   const [index, setIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    setHasMounted(true);
+    
+    if (hasShownPreloader) {
+      setIsLoading(false);
+      return;
+    }
+
     // Disable scrolling while preloader is active
     document.body.style.overflow = "hidden";
 
     const timeout = setTimeout(() => {
       setIsLoading(false);
+      setPreloaderShown(true);
       // Re-enable scrolling after exit animation completes
       setTimeout(() => {
         document.body.style.overflow = "";
@@ -48,6 +58,8 @@ export const Preloader = () => {
 
     return () => clearTimeout(timer);
   }, [index]);
+
+  if (!hasMounted) return null;
 
   return (
     <AnimatePresence mode="wait">

@@ -2,6 +2,7 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
+import { isLanguageSwitching } from "@/common/utils/preloaderState";
 import { WelcomeCard } from "./WelcomeCard";
 import { AboutMeCard } from "./AboutMeCard";
 import { SkillsToolsCard } from "./SkillsToolsCard";
@@ -40,7 +41,7 @@ export default function Home() {
           <div className="mb-8 lg:mb-10">
             <motion.div
               variants={containerVariants}
-              initial="hidden"
+              initial={isLanguageSwitching ? false : "hidden"}
               animate="show"
               className="grid grid-cols-1 gap-2 md:grid-cols-4"
             >

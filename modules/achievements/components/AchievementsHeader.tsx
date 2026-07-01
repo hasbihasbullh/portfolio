@@ -4,6 +4,7 @@ import { Input } from "@/common/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/common/components/ui/select";
 import { Separator } from "@/common/components/ui/separator";
 import { Search, Filter } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type FilterType = "all" | "certificate" | "badge";
 
@@ -20,12 +21,14 @@ export function AchievementsHeader({
   filterType,
   setFilterType,
 }: AchievementsHeaderProps) {
+  const t = useTranslations("Achievements.header");
+
   return (
     <div className="mb-8 lg:mb-12">
       <div className="space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-zinc-50">
-            Achievements
+            {t("title")}
           </h1>
 
           {/* Search and Filter Controls - Hidden on mobile */}
@@ -33,7 +36,7 @@ export function AchievementsHeader({
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-zinc-400" />
               <Input
-                placeholder="Search certificates..."
+                placeholder={t("search")}
                 value={searchTerm}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setSearchTerm(e.target.value)
@@ -52,26 +55,26 @@ export function AchievementsHeader({
                 aria-label="Filter certificates by type"
               >
                 <Filter className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="Filter by type" />
+                <SelectValue placeholder={t("filter")} />
               </SelectTrigger>
               <SelectContent className="bg-zinc-900 border-zinc-800">
                 <SelectItem
                   value="all"
                   className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-100"
                 >
-                  All
+                  {t("filterAll")}
                 </SelectItem>
                 <SelectItem
                   value="certificate"
                   className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-100"
                 >
-                  Certificates
+                  {t("filterCertificates")}
                 </SelectItem>
                 <SelectItem
                   value="badge"
                   className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-100"
                 >
-                  Badges
+                  {t("filterBadges")}
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -79,7 +82,7 @@ export function AchievementsHeader({
         </div>
 
         <p className="text-zinc-400 text-base lg:text-lg max-w-1xl">
-          A showcase of my professional certificates and badges, highlighting my skills and accomplishments in technology and innovation.
+          {t("description")}
         </p>
 
         <Separator className="my-6 bg-zinc-800" />

@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import { Project } from "@/common/data/projectData";
 import Image from "next/image";
-import Link from "next/link";
 import { ImageOff, Star } from "lucide-react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 interface ProjectCardProps {
   project: Project;
@@ -12,6 +13,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const [hasImageError, setHasImageError] = useState(false);
+  const t = useTranslations(`Projects.${project.id}`);
 
   return (
     <SpotlightCard className="bg-zinc-900/50 border-zinc-800 group overflow-hidden transition-all duration-300 cursor-pointer !p-0">
@@ -56,7 +58,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <span className="text-zinc-500 text-xs shrink-0">{project.launchDate}</span>
           </div>
 
-          <p className="text-zinc-400 text-sm leading-relaxed line-clamp-2">{project.description}</p>
+          <p className="text-zinc-400 text-sm leading-relaxed line-clamp-2">{t("description")}</p>
 
           {/* Tech Stack - Minimalist text format */}
           <div className="pt-2 flex flex-wrap gap-x-2 gap-y-1 items-center">

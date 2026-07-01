@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MapPin, Clock, ChevronDown, ChevronUp, Briefcase, Code, Zap } from "lucide-react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import { Experience } from "@/common/data";
+import { useTranslations } from "next-intl";
 
 interface ExperienceCardProps {
   experience: Experience;
@@ -15,6 +16,8 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isExpanded, setIsExpanded] = useState(expanded || false);
+
+  const t = useTranslations(`About.Experience.${experience.id}`);
 
   const handleImageError = () => {
     setImageError(true);
@@ -87,7 +90,7 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
         <div className="flex-1 min-w-0 text-center sm:text-left">
           {/* Header */}
           <div className="flex flex-col items-center gap-3 mb-4 sm:flex-row sm:items-start sm:justify-between sm:mb-2">
-            <h3 className="text-lg sm:text-xl font-semibold text-zinc-200 leading-tight">{experience.title}</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-zinc-200 leading-tight">{t("title")}</h3>
             <div className="flex gap-2 flex-shrink-0">
               <span className={`px-2 py-1 text-xs rounded-full border ${typeConfig.color} capitalize`}>{experience.type}</span>
               <span className={`px-2 py-1 text-xs rounded-full border ${workModeConfig.color}`}>{workModeConfig.label}</span>
@@ -103,7 +106,7 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
           <div className="flex flex-col items-center gap-3 text-sm text-zinc-400 mb-4 sm:flex-row sm:items-center sm:gap-6">
             <div className="flex items-center">
               <Clock className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span>{experience.duration}</span>
+              <span>{t("duration")}</span>
             </div>
             <div className="flex items-center">
               <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
@@ -114,7 +117,7 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
           {/* Description */}
           {experience.description && (
             <div className="border-l-2 border-zinc-700/50 pl-4 mb-4">
-              <p className="text-sm text-zinc-400 leading-relaxed">{experience.description}</p>
+              <p className="text-sm text-zinc-400 leading-relaxed">{t("description")}</p>
             </div>
           )}
 
@@ -138,10 +141,10 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
             <div id={`responsibilities-${experience.id}`} className="mt-4 pt-4 border-t border-zinc-700/50 transition-all duration-300">
               <h4 className="text-sm font-medium text-zinc-300 mb-3">Key Responsibilities:</h4>
               <ul className="space-y-2">
-                {experience.responsibilities.map((responsibility, index) => (
+                {experience.responsibilities.map((_, index) => (
                   <li key={index} className="flex items-start text-sm text-zinc-400">
                     <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full mt-2 mr-3 flex-shrink-0" />
-                    <span className="leading-relaxed">{responsibility}</span>
+                    <span className="leading-relaxed">{t(`resp${index + 1}` as any)}</span>
                   </li>
                 ))}
               </ul>

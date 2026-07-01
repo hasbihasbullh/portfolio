@@ -3,24 +3,28 @@ import React from "react";
 import { profileData } from "@/common/data";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import { FileText } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 export function WelcomeCard() {
+  const t = useTranslations("Home.Welcome");
+  const tProfile = useTranslations("Profile");
+
   return (
     <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-2 h-full w-full" spotlightColor="rgba(255, 255, 255, 0.12)">
       <div className="p-6 space-y-6">
         <div className="text-center space-y-4">
           <div className="space-y-2">
             <h1 className="text-3xl md:text-3xl font-bold text-white">
-              <span className="text-xl md:text-xl">Hi 👋 , my name is</span>
+              <span className="text-xl md:text-xl">{t("greeting")}</span>
               <span className="bg-gradient-to-r from-zinc-400 to-zinc-400 bg-clip-text text-transparent block">{profileData.name}</span>
             </h1>
-            <p className="text-zinc-200 text-sm">{profileData.position}</p>
-            <p className="text-sm text-zinc-400 max-w-lg mx-auto leading-relaxed">Creating beautiful, functional, and user-centered digital experiences. Always excited to work on meaningful projects that make a difference.</p>
+            <p className="text-zinc-200 text-sm">{tProfile("position")}</p>
+            <p className="text-sm text-zinc-400 max-w-lg mx-auto leading-relaxed">{t("description")}</p>
           </div>
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-500/10 border border-zinc-500/20 rounded-full">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-xs text-green-400">Available for new opportunities</span>
+            <span className="text-xs text-green-400">{t("available")}</span>
           </div>
         </div>
         <div className="border-t border-zinc-800/50"></div>
@@ -34,7 +38,7 @@ export function WelcomeCard() {
                 className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-zinc-200 text-zinc-900 rounded-lg text-sm font-medium hover:bg-zinc-200 transition-all shadow-sm"
               >
                 <FileText className="w-4 h-4" />
-                <span>View Resume</span>
+                <span>{t("resume")}</span>
               </Link>
             </div>
           </div>

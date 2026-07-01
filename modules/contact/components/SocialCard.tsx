@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface SocialCard {
   title: string;
@@ -19,6 +20,8 @@ interface SocialCardProps {
 }
 
 export function SocialCard({ socialCard }: SocialCardProps) {
+  const t = useTranslations("Contact.social");
+
   const handleKeyDown = (event: React.KeyboardEvent, onClick: () => void) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -29,8 +32,8 @@ export function SocialCard({ socialCard }: SocialCardProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold text-zinc-50 mb-2">Other ways to connect</h2>
-        <p className="text-zinc-400 text-sm">Prefer social media? Find me on these platforms.</p>
+        <h2 className="text-xl font-semibold text-zinc-50 mb-2">{t("title")}</h2>
+        <p className="text-zinc-400 text-sm">{t("description")}</p>
       </div>
       <div className="grid grid-cols-1 gap-4">
         {socialCard.map((card, index) => {
@@ -57,7 +60,7 @@ export function SocialCard({ socialCard }: SocialCardProps) {
                   <h3 className="text-zinc-200 text-sm font-bold pr-8">{card.title}</h3>
                   <p className="text-gray-300 text-xs leading-relaxed pr-4">{card.description}</p>
                   <div className={`flex items-center gap-1 text-zinc-200 text-xs font-medium transition-all duration-300 ${!isDisabled && "group-hover:gap-2 group-focus:gap-2"}`}>
-                    <span>{isDisabled ? "Not Available" : card.action}</span>
+                    <span>{isDisabled ? t("notAvailable") : card.action}</span>
                     {!isDisabled && <ArrowUpRight size={12} className="group-hover:rotate-45 group-focus:rotate-45 transition-transform duration-300" />}
                   </div>
                 </div>

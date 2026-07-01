@@ -1,18 +1,23 @@
 "use client";
 import { navigationItems } from "@/common/constants/navigation";
 import { profileData } from "@/common/data/profileData";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Menu as MenuIcon, X as XIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/routing";
 import { CommandPalette } from "../elements/CommandPalette";
 import { usePreloader } from "@/common/context/PreloaderContext";
+import { useTranslations } from "next-intl";
+import { LanguageToggle } from "../elements/LanguageToggle";
+import { hasShownPreloader, isLanguageSwitching } from "@/common/utils/preloaderState";
 
 export function MobileNavbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations("Navigation");
+  const tProfile = useTranslations("Profile");
 
   useEffect(() => {
     setIsDropdownOpen(false);
@@ -28,8 +33,8 @@ export function MobileNavbar() {
   return (
     <div className="lg:hidden">
       <motion.nav 
-        initial={{ y: -50, opacity: 0 }}
-        animate={isPreloaderDone ? { y: 0, opacity: 1 } : { y: -50, opacity: 0 }}
+        initial={isLanguageSwitching ? false : { y: -50, opacity: 0 }}
+        animate={(hasShownPreloader || isPreloaderDone) ? { y: 0, opacity: 1 } : { y: -50, opacity: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 bg-zinc-900 border-b border-zinc-800"
       >
@@ -43,16 +48,22 @@ export function MobileNavbar() {
                   <div className="w-full h-full flex items-center justify-center text-white text-xs bg-gray-500">?</div>
                 )}
               </div>
-              <div>
+              <div className="flex flex-col items-start gap-1">
                 <h2 className="text-white font-semibold text-sm">{profileData?.name || "Anonymous"}</h2>
-                <p className="text-zinc-400 text-xs">{safePosition}</p>
+                <p className="text-zinc-400 text-xs">{tProfile("position")}</p>
               </div>
             </div>
 
-            <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="flex items-center space-x-2 text-white bg-zinc-800 px-3 py-2 rounded-lg">
-              <span className="text-sm">Menu</span>
-              <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`} />
-            </button>
+            <div className="flex items-center space-x-3">
+              <LanguageToggle variant="icon" />
+              <button 
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
+                className="flex items-center justify-center text-white bg-zinc-800 w-8 h-8 rounded-lg"
+                aria-label="Toggle menu"
+              >
+                {isDropdownOpen ? <XIcon className="w-4 h-4" /> : <MenuIcon className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -85,7 +96,7 @@ export function MobileNavbar() {
                           <div className="absolute inset-0 bg-zinc-800/0 group-hover:bg-zinc-800/20 rounded-lg z-0 transition-colors duration-200" />
                         )}
                         <item.icon className={`relative z-10 mr-2 h-4 w-4 ${active ? "text-white" : "text-zinc-400 group-hover:text-white"}`} />
-                        <span className="relative z-10">{item.name}</span>
+                        <span className="relative z-10">{t(item.name as any)}</span>
                       </Link>
                     );
                   })}

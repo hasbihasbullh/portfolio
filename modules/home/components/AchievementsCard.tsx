@@ -4,10 +4,13 @@ import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import Folder from "@/common/components/elements/Folder";
 import { achievementsData } from "@/common/data";
 import { Award } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export function AchievementsCard() {
+  const t = useTranslations("Home.Achievements");
+
   const achievementItems = achievementsData.slice(0, 3).map((achievement, index) => (
     <Link key={achievement.id} href={achievement.credentialUrl} aria-label={`View ${achievement.title}`} target="_blank">
       <Image
@@ -30,8 +33,8 @@ export function AchievementsCard() {
             <Award aria-label="Achievements icon" />
           </div>
         </Link>
-        <h2 className="mb-1 mt-3 text-sm font-medium text-zinc-300">Achievements</h2>
-        <p className="text-xs text-zinc-400">Milestones from programs, projects, and communities.</p>
+        <h2 className="mb-1 mt-3 text-sm font-medium text-zinc-300">{t("title")}</h2>
+        <p className="text-xs text-zinc-400">{t("description")}</p>
       </div>
       <div className="mb-4 mt-9 flex w-full items-center justify-center">
         <Folder size={0.9} color="#4BD3FF" className="custom-folder" items={achievementItems} />

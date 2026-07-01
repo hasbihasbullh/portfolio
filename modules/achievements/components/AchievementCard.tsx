@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Award, ExternalLink } from "lucide-react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import { getTypeIcon, getTypeBadgeVariant } from "./achievementUtils";
+import { useTranslations } from "next-intl";
 
 interface AchievementCardProps {
   achievement: Achievement;
@@ -19,6 +20,8 @@ export function AchievementCard({
   hasImageError,
   handleImageError,
 }: AchievementCardProps) {
+  const t = useTranslations("Achievements.card");
+
   return (
     <SpotlightCard
       className="bg-zinc-900/50 border-zinc-800 group overflow-hidden transition-all duration-300 cursor-pointer !p-0"
@@ -29,7 +32,7 @@ export function AchievementCard({
           // Fallback when image fails to load
           <div className="w-full h-full flex flex-col items-center justify-center text-zinc-400 bg-zinc-800">
             <Award className="w-12 h-12 mb-2 opacity-50" />
-            <span className="text-sm text-center px-4">Certificate Image</span>
+            <span className="text-sm text-center px-4">{t("certificateImage")}</span>
           </div>
         ) : (
           <Image
@@ -57,7 +60,7 @@ export function AchievementCard({
             }`}
           >
             {getTypeIcon(achievement.type)}
-            <span className="capitalize text-xs">{achievement.type}</span>
+            <span className="capitalize text-xs">{t(`type.${achievement.type}`)}</span>
           </Badge>
         </div>
 
@@ -81,7 +84,7 @@ export function AchievementCard({
             className="gap-2 bg-transparent text-white hover:bg-white/20"
             onClick={() => window.open(achievement.credentialUrl, "_blank", "noopener,noreferrer")}
           >
-            View Credentials
+            {t("viewCredentials")}
             <ExternalLink className="h-4 w-4" />
           </Button>
         </div>
@@ -93,7 +96,7 @@ export function AchievementCard({
           {achievement.title}
         </h3>
         <p className="font-medium text-zinc-400">{achievement.issuer}</p>
-        <p className="text-sm font-medium text-zinc-700">Issued on</p>
+        <p className="text-sm font-medium text-zinc-700">{t("issuedOn")}</p>
         <div className="flex items-center gap-2 text-sm text-zinc-400">
           <span>{achievement.issuedOn}</span>
         </div>

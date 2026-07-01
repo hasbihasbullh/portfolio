@@ -2,10 +2,12 @@ import React from "react";
 import { SiGithub } from "react-icons/si";
 import GitHubCalendar from "react-github-calendar";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import { useTranslations } from "next-intl";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 export const GitHubContributions: React.FC = () => {
+  const t = useTranslations("Activity.github");
   const username = "hasbihasbullh";
 
   return (
@@ -13,11 +15,11 @@ export const GitHubContributions: React.FC = () => {
       <div className="space-y-2">
         <div className="flex items-center justify-center sm:justify-start gap-2 text-lg sm:text-xl font-semibold text-zinc-200">
           <SiGithub className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-green-500" />
-          <h2 className="capitalize truncate">GitHub Contributions</h2>
+          <h2 className="capitalize truncate">{t("title")}</h2>
         </div>
 
         <div className="flex flex-col items-center gap-2 sm:gap-3 text-zinc-500 sm:flex-row sm:justify-between sm:items-center">
-          <p className="text-xs sm:text-sm text-center sm:text-left">My GitHub activity and statistics over time.</p>
+          <p className="text-xs sm:text-sm text-center sm:text-left">{t("description")}</p>
           <Link target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm text-green-500 hover:text-green-300 transition-colors duration-200 font-medium" href={`https://github.com/${username}`}>
             @{username}
           </Link>
@@ -42,7 +44,7 @@ export const GitHubContributions: React.FC = () => {
                 React.cloneElement(block, {
                   "data-tooltip-id": "react-tooltip",
                   "data-tooltip-html": `
-                    <strong>${activity.count}</strong> contribution${activity.count !== 1 ? "s" : ""}<br/>
+                    <strong>${activity.count}</strong> ${t("contribution")}${activity.count !== 1 ? "s" : ""}<br/>
                     <span style="opacity: 0.8;">${activity.date}</span>
                   `,
                 })

@@ -1,0 +1,290 @@
+{
+  "Navigation": {
+    "Home": "Home",
+    "About": "About",
+    "Achievements": "Achievements",
+    "Projects": "Projects",
+    "Activity": "Activity",
+    "Contact": "Contact"
+  },
+  "Profile": {
+    "position": "Software Developer",
+    "location": "Sukabumi, West Java, Indonesia",
+    "status": "Available for Projects",
+    "contactText": "Let's connect"
+  },
+  "Home": {
+    "Welcome": {
+      "greeting": "Hi 👋 , my name is",
+      "description": "Creating beautiful, functional, and user-centered digital experiences. Always excited to work on meaningful projects that make a difference.",
+      "available": "Available for new opportunities",
+      "resume": "View Resume"
+    },
+    "About": {
+      "title": "About Me",
+      "description": "Who I am and what I do."
+    },
+    "Achievements": {
+      "title": "Achievements",
+      "description": "Certifications and awards."
+    },
+    "Projects": {
+      "title": "Projects",
+      "description": "Selected works & side projects."
+    },
+    "Skills": {
+      "title": "Skills & Tools",
+      "description": "What I use to build things."
+    }
+  },
+  "About": {
+    "header": {
+      "title": "About Me",
+      "p1": "I am a passionate and detail-oriented software developer with a robust background in full-stack web development and digital marketing. My expertise spans crafting dynamic, user-centric web applications using modern frameworks like Laravel, Next.js, and React.js, complemented by a strong ability to strategize and execute impactful digital advertising campaigns.",
+      "p2": "My career is driven by a deep curiosity for leveraging technology to solve complex challenges and deliver measurable value. From developing scalable CRUD applications to optimizing e-commerce platforms and managing WordPress ecosystems, I thrive at the intersection of technical innovation and business strategy. I am committed to building intuitive digital solutions that empower businesses and enhance user experiences."
+    },
+    "Experience": {
+      "title": "Professional Experience",
+      "solusiku": {
+        "title": "Advertiser Training",
+        "duration": "Mar 2024 - May 2024 • 3 Months",
+        "description": "Gained hands-on experience in digital marketing and advertising across multiple platforms.",
+        "resp1": "Designed engaging image and video content for various products and campaigns",
+        "resp2": "Managed and optimized advertising campaigns on Facebook Ads and TikTok Ads platforms",
+        "resp3": "Set up and configured online marketplaces on Shopee, TikTok, Lazada, and other e-commerce platforms",
+        "resp4": "Analyzed campaign performance and provided optimization recommendations"
+      },
+      "lead": {
+        "title": "Junior Web Administrator",
+        "duration": "Oct 2023 - Mar 2024 • 6 Months",
+        "description": "Responsible for web administration and data management for an educational institution.",
+        "resp1": "Maintained accurate student database with regular data entry and updates",
+        "resp2": "Administered and maintained WordPress-based institutional website",
+        "resp3": "Ensured website security and performed regular backups",
+        "resp4": "Coordinated with academic staff for data accuracy and system improvements"
+      },
+      "disnaker-trans": {
+        "title": "International Training Program",
+        "duration": "Sep 2023 - Sep 2023 • 21 Days",
+        "description": "Intensive training program focused on professional development and language skills enhancement.",
+        "resp1": "Participated in comprehensive English proficiency enhancement sessions",
+        "resp2": "Completed intensive 21-day professional development training program",
+        "resp3": "Engaged in cross-cultural communication workshops",
+        "resp4": "Received certification in international workplace communication"
+      },
+      "inti-persero": {
+        "title": "Technical Apprentice",
+        "duration": "Mar 2019 - May 2019 • 3 Months",
+        "description": "Technical apprenticeship program focusing on software development and IT infrastructure management.",
+        "resp1": "Developed and implemented a comprehensive CRUD application for student data management",
+        "resp2": "Performed systematic data entry for tools and equipment inventory using web-based systems",
+        "resp3": "Conducted routine computer maintenance and troubleshooting for office workstations",
+        "resp4": "Assisted senior developers in system testing and quality assurance processes"
+      },
+      "description": "A journey through my diverse roles in web development, digital marketing, and technical administration, showcasing my ability to deliver impactful solutions."
+    },
+    "Education": {
+      "title": "Education",
+      "univ-linggabuana-pgri": {
+        "degree": "Bachelor's degree, Informatics (S.Kom)",
+        "description": "Currently pursuing Bachelor's degree in Informatics with focus on software engineering and web development."
+      },
+      "smk-pasim-plus": {
+        "degree": "Vocational High School, Software Engineering (RPL)",
+        "description": "Specialized in Software Engineering with comprehensive training in programming, database management, and web development."
+      },
+      "mts-azzainiyyah": {
+        "degree": "Islamic Junior High School (MTs)",
+        "description": "Islamic-based education with strong foundation in mathematics, science, and religious studies."
+      }
+    }
+  },
+  "Projects": {
+    "header": {
+      "title": "Projects",
+      "description": "A showcase of both private and open-source projects I've built or contributed to. Each project represents a unique challenge and learning experience.",
+      "search": "Search projects...",
+      "filter": "Filter by category",
+      "filterAll": "All Categories",
+      "filterApp": "Application",
+      "filterWebApp": "Web Application"
+    },
+    "pojok-coffee": {
+      "description": "A simple e-commerce platform for coffee lovers, offering selected coffee beans from across Indonesia. Features a product catalog, shopping cart, checkout, and an informative blog, built as a frontend-only demonstration with a modern tech stack for responsiveness and interactivity."
+    },
+    "if24-unlip": {
+      "description": "A modern web application built with Next.js App Router, Tailwind CSS, and TypeScript for the Informatika 2024 UNLIP Class, designed for internal tools, academic collaboration, or community engagement."
+    },
+    "lucky-kamera": {
+      "description": "A web-based platform for camera rental services, allowing users to browse, rent, and manage camera equipment with a user-friendly interface and secure booking system."
+    }
+  },
+  "Achievements": {
+    "header": {
+      "title": "Achievements",
+      "description": "A showcase of my professional certificates and badges, highlighting my skills and accomplishments in technology and innovation.",
+      "search": "Search certificates...",
+      "filter": "Filter by type",
+      "filterAll": "All",
+      "filterCertificates": "Certificates",
+      "filterBadges": "Badges"
+    },
+    "card": {
+      "certificateImage": "Certificate Image",
+      "viewCredentials": "View Credentials",
+      "issuedOn": "Issued on",
+      "type": {
+        "certificate": "Certificate",
+        "badge": "Badge"
+      }
+    }
+  },
+  "Contact": {
+    "header": {
+      "title": "Let's Connect",
+      "description": "Ready to collaborate on something amazing? I'd love to hear from you."
+    },
+    "form": {
+      "title": "Send a Message",
+      "name": "Name *",
+      "namePlaceholder": "Your name",
+      "email": "Email *",
+      "emailPlaceholder": "your.email@example.com",
+      "subject": "Subject *",
+      "subjectPlaceholder": "What's this about?",
+      "message": "Message *",
+      "messagePlaceholder": "Tell me about your project, idea, or just say hello...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "errorNameReq": "Name is required",
+      "errorNameMin": "Name must be at least 2 characters",
+      "errorNameMax": "Name must be at most 50 characters",
+      "errorEmailReq": "Email is required",
+      "errorEmailValid": "Please enter a valid email address",
+      "errorEmailMax": "Email address is too long",
+      "errorSubReq": "Subject is required",
+      "errorSubMin": "Subject must be at least 5 characters",
+      "errorSubMax": "Subject must be at most 100 characters",
+      "errorMsgReq": "Message is required",
+      "errorMsgMin": "Message must be at least 10 characters",
+      "errorMsgMax": "Message must be at most 1000 characters",
+      "errorSubmit": "Failed to send message. Please try again."
+    },
+    "social": {
+      "title": "Other ways to connect",
+      "description": "Prefer social media? Find me on these platforms.",
+      "notAvailable": "Not Available",
+      "errorUnavailable": "link is not available",
+      "errorFailed": "Failed to open",
+      "errorTryAgain": "Please try again.",
+      "instagram": {
+        "title": "Follow My Journey",
+        "description": "Follow my creative journey and daily insights",
+        "action": "Go to Instagram"
+      },
+      "linkedin": {
+        "title": "Let's Connect",
+        "description": "Connect with me professionally on LinkedIn",
+        "action": "Go to LinkedIn"
+      },
+      "github": {
+        "title": "Explore the Code",
+        "description": "Dive into my open-source projects & contributions.",
+        "action": "Go to GitHub"
+      }
+    }
+  },
+  "Activity": {
+    "header": {
+      "title": "Activity",
+      "description": "A dynamic platform Information, designed to track and visualize real-time development activities, contributions, and performance metrics."
+    },
+    "github": {
+      "title": "GitHub Contributions",
+      "description": "My GitHub activity and statistics over time.",
+      "contribution": "contribution"
+    },
+    "monkeytype": {
+      "title": "Monkeytype Stats",
+      "description": "Typing statistics and performance progression.",
+      "15s": "15s Best WPM",
+      "60s": "60s Best WPM",
+      "started": "Tests Started",
+      "time": "Time Typed",
+      "progression": "WPM Progression (Personal Bests)",
+      "noData": "No typing data available."
+    },
+    "wakatime": {
+      "title": "Weekly Coding Stats",
+      "description": "My coding activity over the last 7 days tracked via WakaTime.",
+      "totalTime": "Total Coding Time",
+      "noData": "No coding data available for this week."
+    }
+  },
+  "Footer": {
+    "madeWith": "Made by",
+    "rights": "All rights reserved"
+  },
+  "Metadata": {
+    "description": "Personal portfolio of M Hasbi Hasbullah, a freelance web developer and designer specializing in user-centered design and modern web development, available for projects worldwide.",
+    "pages": {
+      "about": {
+        "title": "About",
+        "description": "A short story of"
+      },
+      "achievements": {
+        "title": "Achievements",
+        "description": "A showcase of my professional certificates and badges"
+      },
+      "activity": {
+        "title": "Activity",
+        "description": "A dynamic platform Information, designed to track and visualize real-time development activities"
+      },
+      "projects": {
+        "title": "Projects",
+        "description": "A selection of real apps built to solve real problems"
+      },
+      "contact": {
+        "title": "Contact",
+        "description": "Ready to collaborate on something amazing?"
+      }
+    }
+  },
+  "CommandPalette": {
+    "trigger": "Quick search...",
+    "placeholder": "Type a command or search projects...",
+    "noResults": "No results found for",
+    "hints": {
+      "navigate": "to navigate",
+      "select": "to select",
+      "close": "to close",
+      "press": "Press"
+    },
+    "categories": {
+      "Navigation": "Navigation",
+      "Projects": "Projects",
+      "Quick Actions": "Quick Actions"
+    },
+    "actions": {
+      "home": "Go to Home",
+      "homeSub": "Navigate to home page",
+      "about": "Go to About",
+      "aboutSub": "Learn more about me, my experience & education",
+      "achievements": "Go to Achievements",
+      "achievementsSub": "View my certificates and badges",
+      "projects": "Go to Projects",
+      "projectsSub": "Explore my works and portfolio projects",
+      "activity": "Go to Activity",
+      "activitySub": "Check GitHub and typing statistics",
+      "contact": "Go to Contact",
+      "contactSub": "Send me a message or get in touch",
+      "resume": "Download Resume",
+      "resumeSub": "Open CV / Resume PDF",
+      "github": "View GitHub Profile",
+      "githubSub": "Explore open-source repos",
+      "copyEmail": "Copy Email Address",
+      "emailCopied": "Email Copied!"
+    }
+  }
+}

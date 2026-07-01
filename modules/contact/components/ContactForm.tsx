@@ -7,6 +7,7 @@ import { Textarea } from "@/common/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/common/components/ui/card";
 import { Label } from "@/common/components/ui/label";
 import { MAX_LENGTHS } from "@/common/constants/form";
+import { useTranslations } from "next-intl";
 
 interface FormData {
   name: string;
@@ -23,6 +24,7 @@ interface FormErrors {
 }
 
 export function ContactForm() {
+  const t = useTranslations("Contact.form");
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -59,35 +61,35 @@ export function ContactForm() {
   const validateForm = (): boolean => {
     const errors: FormErrors = {};
     if (!formData.name.trim()) {
-      errors.name = "Name is required";
+      errors.name = t("errorNameReq");
     } else if (formData.name.trim().length < 2) {
-      errors.name = "Name must be at least 2 characters";
+      errors.name = t("errorNameMin");
     } else if (formData.name.length > MAX_LENGTHS.name) {
-      errors.name = `Name must be at most ${MAX_LENGTHS.name} characters`;
+      errors.name = t("errorNameMax");
     }
 
     if (!formData.email.trim()) {
-      errors.email = "Email is required";
+      errors.email = t("errorEmailReq");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errors.email = "Please enter a valid email address";
+      errors.email = t("errorEmailValid");
     } else if (formData.email.length > MAX_LENGTHS.email) {
-      errors.email = "Email address is too long";
+      errors.email = t("errorEmailMax");
     }
 
     if (!formData.subject.trim()) {
-      errors.subject = "Subject is required";
+      errors.subject = t("errorSubReq");
     } else if (formData.subject.trim().length < 5) {
-      errors.subject = "Subject must be at least 5 characters";
+      errors.subject = t("errorSubMin");
     } else if (formData.subject.length > MAX_LENGTHS.subject) {
-      errors.subject = `Subject must be at most ${MAX_LENGTHS.subject} characters`;
+      errors.subject = t("errorSubMax");
     }
 
     if (!formData.message.trim()) {
-      errors.message = "Message is required";
+      errors.message = t("errorMsgReq");
     } else if (formData.message.trim().length < 10) {
-      errors.message = "Message must be at least 10 characters";
+      errors.message = t("errorMsgMin");
     } else if (formData.message.length > MAX_LENGTHS.message) {
-      errors.message = `Message must be at most ${MAX_LENGTHS.message} characters`;
+      errors.message = t("errorMsgMax");
     }
 
     setFormErrors(errors);
@@ -128,7 +130,7 @@ export function ContactForm() {
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (err: unknown) {
       console.error("Form submission error:", err);
-      const message = err instanceof Error ? err.message : String(err ?? "Failed to send message. Please try again.");
+      const message = err instanceof Error ? err.message : String(err ?? t("errorSubmit"));
       showError(message);
     } finally {
       setIsSubmitting(false);
@@ -146,14 +148,14 @@ export function ContactForm() {
       {isSubmitted && (
         <div role="status" className="fixed top-20 right-4 z-50 flex items-center gap-2 bg-green-500/90 backdrop-blur-sm text-zinc-200 px-4 py-3 rounded-lg shadow-lg animate-in slide-in-from-top-2 duration-300">
           <CheckCircle size={16} />
-          <span className="text-sm font-medium">Message sent successfully!</span>
+          <span className="text-sm font-medium">{t("success")}</span>
         </div>
       )}
       <Card className="bg-zinc-900/50 border-zinc-800 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="text-zinc-50 flex items-center gap-2">
             <MessageSquare className="w-5 h-5" />
-            Send a Message
+            {t("title")}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -167,13 +169,13 @@ export function ContactForm() {
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-zinc-200 flex items-center gap-2">
                   <User className="w-4 h-4" />
-                  Name *
+                  {t("name")}
                 </Label>
                 <Input
                   id="name"
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                  placeholder="Your name"
+                  placeholder={t("namePlaceholder")}
                   maxLength={MAX_LENGTHS.name}
                   className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20"
                   disabled={isSubmitting}
@@ -189,14 +191,14 @@ export function ContactForm() {
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-zinc-200 flex items-center gap-2">
                   <Mail className="w-4 h-4" />
-                  Email *
+                  {t("email")}
                 </Label>
                 <Input
                   id="email"
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
-                  placeholder="your.email@example.com"
+                  placeholder={t("emailPlaceholder")}
                   maxLength={MAX_LENGTHS.email}
                   className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20"
                   disabled={isSubmitting}
@@ -212,13 +214,13 @@ export function ContactForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="subject" className="text-zinc-200">
-                Subject *
+                {t("subject")}
               </Label>
               <Input
                 id="subject"
                 value={formData.subject}
                 onChange={(e) => handleInputChange("subject", e.target.value)}
-                placeholder="What's this about?"
+                placeholder={t("subjectPlaceholder")}
                 maxLength={MAX_LENGTHS.subject}
                 className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20"
                 disabled={isSubmitting}
@@ -233,13 +235,13 @@ export function ContactForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="message" className="text-zinc-200">
-                Message *
+                {t("message")}
               </Label>
               <Textarea
                 id="message"
                 value={formData.message}
                 onChange={(e) => handleInputChange("message", e.target.value)}
-                placeholder="Tell me about your project, idea, or just say hello..."
+                placeholder={t("messagePlaceholder")}
                 rows={6}
                 maxLength={MAX_LENGTHS.message}
                 className="bg-zinc-800/50 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-blue-500 focus:ring-blue-500/20 resize-none"
@@ -262,12 +264,12 @@ export function ContactForm() {
               {isSubmitting ? (
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-zinc-200/20 border-t-zinc-200 rounded-full animate-spin" />
-                  Sending...
+                  {t("sending")}
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <Send className="w-4 h-4" />
-                  Send Message
+                  {t("send")}
                 </div>
               )}
             </Button>

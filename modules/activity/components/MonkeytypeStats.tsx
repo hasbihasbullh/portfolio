@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import { SiMonkeytype } from "react-icons/si";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { useTranslations } from "next-intl";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 export const MonkeytypeStats = () => {
+  const t = useTranslations("Activity.monkeytype");
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -93,10 +95,10 @@ export const MonkeytypeStats = () => {
       <div className="space-y-2">
         <div className="flex items-center justify-center sm:justify-start gap-2 text-lg sm:text-xl font-semibold text-zinc-200">
           <SiMonkeytype className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-yellow-500" />
-          <h2 className="capitalize truncate">Monkeytype Stats</h2>
+          <h2 className="capitalize truncate">{t("title")}</h2>
         </div>
         <div className="flex flex-col items-center gap-2 sm:gap-3 text-zinc-500 sm:flex-row sm:justify-between sm:items-center">
-          <p className="text-xs sm:text-sm text-center sm:text-left">Typing statistics and performance progression.</p>
+          <p className="text-xs sm:text-sm text-center sm:text-left">{t("description")}</p>
           <Link target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm text-yellow-500 hover:text-yellow-400 transition-colors duration-200 font-medium" href={`https://monkeytype.com/profile/${stats?.name}`}>
             @{stats?.name}
           </Link>
@@ -106,7 +108,7 @@ export const MonkeytypeStats = () => {
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden rounded-2xl border-[1.5px] flex flex-col p-4 text-center">
-            <span className="text-sm text-zinc-400">15s Best WPM</span>
+            <span className="text-sm text-zinc-400">{t("15s")}</span>
             <div className="mt-2">
               {loading ? (
                 <div className="h-6 w-16 bg-zinc-800 animate-pulse rounded mx-auto"></div>
@@ -117,7 +119,7 @@ export const MonkeytypeStats = () => {
           </SpotlightCard>
 
           <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden rounded-2xl border-[1.5px] flex flex-col p-4 text-center">
-            <span className="text-sm text-zinc-400">60s Best WPM</span>
+            <span className="text-sm text-zinc-400">{t("60s")}</span>
             <div className="mt-2">
               {loading ? (
                 <div className="h-6 w-16 bg-zinc-800 animate-pulse rounded mx-auto"></div>
@@ -128,7 +130,7 @@ export const MonkeytypeStats = () => {
           </SpotlightCard>
 
           <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden rounded-2xl border-[1.5px] flex flex-col p-4 text-center">
-            <span className="text-sm text-zinc-400">Tests Started</span>
+            <span className="text-sm text-zinc-400">{t("started")}</span>
             <div className="mt-2">
               {loading ? (
                 <div className="h-6 w-16 bg-zinc-800 animate-pulse rounded mx-auto"></div>
@@ -139,7 +141,7 @@ export const MonkeytypeStats = () => {
           </SpotlightCard>
 
           <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden rounded-2xl border-[1.5px] flex flex-col p-4 text-center">
-            <span className="text-sm text-zinc-400">Time Typed</span>
+            <span className="text-sm text-zinc-400">{t("time")}</span>
             <div className="mt-2">
               {loading ? (
                 <div className="h-6 w-16 bg-zinc-800 animate-pulse rounded mx-auto"></div>
@@ -152,7 +154,7 @@ export const MonkeytypeStats = () => {
 
         {/* Chart Section */}
         <div className="bg-zinc-900/60 border border-zinc-800/80 rounded-xl shadow-lg p-6 lg:mt-6 w-full">
-          <h3 className="text-sm font-medium text-zinc-400 mb-6 text-center sm:text-left">WPM Progression (Personal Bests)</h3>
+          <h3 className="text-sm font-medium text-zinc-400 mb-6 text-center sm:text-left">{t("progression")}</h3>
           <div className="h-[250px] w-full">
             {loading ? (
               <div className="w-full h-full bg-zinc-800/50 animate-pulse rounded-lg"></div>
@@ -187,7 +189,7 @@ export const MonkeytypeStats = () => {
               </ResponsiveContainer>
             ) : (
               <div className="w-full h-full flex items-center justify-center text-zinc-500 text-sm">
-                No typing data available.
+                {t("noData")}
               </div>
             )}
           </div>

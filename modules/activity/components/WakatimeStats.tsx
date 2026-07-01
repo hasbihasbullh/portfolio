@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { SiWakatime } from "react-icons/si";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
+import { useTranslations } from "next-intl";
 
 export const WakatimeStats = () => {
+  const t = useTranslations("Activity.wakatime");
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -27,10 +29,10 @@ export const WakatimeStats = () => {
       <div className="space-y-2">
         <div className="flex items-center justify-center sm:justify-start gap-2 text-lg sm:text-xl font-semibold text-zinc-200">
           <SiWakatime className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
-          <h2 className="capitalize truncate">Weekly Coding Stats</h2>
+          <h2 className="capitalize truncate">{t("title")}</h2>
         </div>
         <div className="flex flex-col items-center gap-2 sm:gap-3 text-zinc-500 sm:flex-row sm:justify-between sm:items-center">
-          <p className="text-xs sm:text-sm text-center sm:text-left">My coding activity over the last 7 days tracked via WakaTime.</p>
+          <p className="text-xs sm:text-sm text-center sm:text-left">{t("description")}</p>
         </div>
       </div>
 
@@ -53,7 +55,7 @@ export const WakatimeStats = () => {
         ) : (
           <div className="space-y-6">
             <div className="flex items-center justify-between pb-2 border-b border-zinc-800/60">
-              <span className="text-sm font-medium text-zinc-400">Total Coding Time</span>
+              <span className="text-sm font-medium text-zinc-400">{t("totalTime")}</span>
               <span className="text-sm font-bold tracking-wide">{data?.total_time || "0 hrs"}</span>
             </div>
 
@@ -79,7 +81,7 @@ export const WakatimeStats = () => {
                   </div>
                 ))
               ) : (
-                <div className="text-sm text-zinc-500 py-4 text-center">No coding data available for this week.</div>
+                <div className="text-sm text-zinc-500 py-4 text-center">{t("noData")}</div>
               )}
             </div>
           </div>

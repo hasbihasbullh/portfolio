@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Search, Home, User, Award, Folder, Activity, Mail, FileText, Github, Copy, Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { projects } from "@/common/data/projectData";
 import { profileData } from "@/common/data/profileData";
 
@@ -22,6 +23,8 @@ export function CommandPalette() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [copied, setCopied] = useState(false);
   const router = useRouter();
+  const t = useTranslations("CommandPalette");
+  const tProjects = useTranslations("Projects");
   const listRef = useRef<HTMLDivElement>(null);
 
   // Toggle Command Palette with Keyboard Shortcut (disabled on mobile < 1024px)
@@ -59,23 +62,23 @@ export function CommandPalette() {
   // Commands List
   const items: CommandItem[] = [
     // Navigation
-    { id: "nav-home", title: "Go to Home", subtitle: "Navigate to home page", category: "Navigation", icon: Home, action: () => handleNavigate("/") },
-    { id: "nav-about", title: "Go to About", subtitle: "Learn more about me, my experience & education", category: "Navigation", icon: User, action: () => handleNavigate("/about") },
-    { id: "nav-achievements", title: "Go to Achievements", subtitle: "View my certificates and badges", category: "Navigation", icon: Award, action: () => handleNavigate("/achievements") },
-    { id: "nav-projects", title: "Go to Projects", subtitle: "Explore my works and portfolio projects", category: "Navigation", icon: Folder, action: () => handleNavigate("/projects") },
-    { id: "nav-activity", title: "Go to Activity", subtitle: "Check GitHub and typing statistics", category: "Navigation", icon: Activity, action: () => handleNavigate("/activity") },
-    { id: "nav-contact", title: "Go to Contact", subtitle: "Send me a message or get in touch", category: "Navigation", icon: Mail, action: () => handleNavigate("/contact") },
+    { id: "nav-home", title: t("actions.home"), subtitle: t("actions.homeSub"), category: "Navigation", icon: Home, action: () => handleNavigate("/") },
+    { id: "nav-about", title: t("actions.about"), subtitle: t("actions.aboutSub"), category: "Navigation", icon: User, action: () => handleNavigate("/about") },
+    { id: "nav-achievements", title: t("actions.achievements"), subtitle: t("actions.achievementsSub"), category: "Navigation", icon: Award, action: () => handleNavigate("/achievements") },
+    { id: "nav-projects", title: t("actions.projects"), subtitle: t("actions.projectsSub"), category: "Navigation", icon: Folder, action: () => handleNavigate("/projects") },
+    { id: "nav-activity", title: t("actions.activity"), subtitle: t("actions.activitySub"), category: "Navigation", icon: Activity, action: () => handleNavigate("/activity") },
+    { id: "nav-contact", title: t("actions.contact"), subtitle: t("actions.contactSub"), category: "Navigation", icon: Mail, action: () => handleNavigate("/contact") },
 
     // Quick Actions
-    { id: "action-resume", title: "Download Resume", subtitle: "Open CV / Resume PDF", category: "Quick Actions", icon: FileText, action: () => handleOpenLink("/document/resume.pdf") },
-    { id: "action-github", title: "View GitHub Profile", subtitle: "Explore open-source repos", category: "Quick Actions", icon: Github, action: () => handleOpenLink(profileData.social?.github || "") },
-    { id: "action-copy-email", title: copied ? "Email Copied!" : "Copy Email Address", subtitle: profileData.email, category: "Quick Actions", icon: copied ? Check : Copy, action: handleCopyEmail },
+    { id: "action-resume", title: t("actions.resume"), subtitle: t("actions.resumeSub"), category: "Quick Actions", icon: FileText, action: () => handleOpenLink("/document/resume.pdf") },
+    { id: "action-github", title: t("actions.github"), subtitle: t("actions.githubSub"), category: "Quick Actions", icon: Github, action: () => handleOpenLink(profileData.social?.github || "") },
+    { id: "action-copy-email", title: copied ? t("actions.emailCopied") : t("actions.copyEmail"), subtitle: profileData.email, category: "Quick Actions", icon: copied ? Check : Copy, action: handleCopyEmail },
 
     // Project quick links
     ...projects.map((p) => ({
       id: `project-${p.id}`,
       title: p.title,
-      subtitle: p.description,
+      subtitle: tProjects(`${p.id}.description`),
       category: "Projects" as const,
       icon: Folder,
       action: () => handleNavigate(`/projects/${p.id}`),
@@ -151,7 +154,7 @@ export function CommandPalette() {
       >
         <span className="flex items-center gap-2">
           <Search className="w-3.5 h-3.5 group-hover:text-zinc-300 transition-colors" />
-          <span>Quick search...</span>
+          <span>{t("trigger")}</span>
         </span>
         <kbd className="pointer-events-none select-none bg-zinc-900 border border-zinc-700/60 px-1.5 py-0.5 rounded text-[10px] text-zinc-500 font-mono hidden lg:flex items-center gap-0.5">
           <span>Ctrl</span>
@@ -177,7 +180,7 @@ export function CommandPalette() {
             <div className="flex items-center gap-3 px-4 border-b border-zinc-800/80">
               <Search className="w-5 h-5 text-zinc-400 flex-shrink-0" />
               <input
-                placeholder="Type a command or search projects..."
+                placeholder={t("placeholder")}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full bg-transparent border-0 outline-none text-zinc-100 placeholder-zinc-500 py-4 text-sm"
@@ -192,13 +195,13 @@ export function CommandPalette() {
             <div className="max-h-[350px] overflow-y-auto custom-scroll p-2">
               {filteredItems.length === 0 ? (
                 <div className="py-12 text-center text-sm text-zinc-500">
-                  No results found for &quot;<span className="text-zinc-400 font-medium">{search}</span>&quot;
+                  {t("noResults")} &quot;<span className="text-zinc-400 font-medium">{search}</span>&quot;
                 </div>
               ) : (
                 <div ref={listRef} className="space-y-4">
                   {Object.entries(groupedItems).map(([category, catItems]) => (
                     <div key={category} className="space-y-1">
-                      <h3 className="px-3 pt-2 pb-1 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">{category}</h3>
+                      <h3 className="px-3 pt-2 pb-1 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">{t(`categories.${category as any}`)}</h3>
                       {catItems.map((item) => {
                         const globalIndex = flatGroupedList.findIndex((i) => i.id === item.id);
                         const isSelected = globalIndex === selectedIndex;
@@ -237,16 +240,16 @@ export function CommandPalette() {
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
                   <kbd className="bg-zinc-900 px-1 py-0.5 rounded border border-zinc-700/60 text-[9px] font-mono">↑↓</kbd>
-                  <span>to navigate</span>
+                  <span>{t("hints.navigate")}</span>
                 </span>
                 <span className="flex items-center gap-1">
                   <kbd className="bg-zinc-900 px-1 py-0.5 rounded border border-zinc-700/60 text-[9px] font-mono">Enter</kbd>
-                  <span>to select</span>
+                  <span>{t("hints.select")}</span>
                 </span>
               </div>
               <div>
                 <span>
-                  Press <kbd className="bg-zinc-900 px-1 py-0.5 rounded border border-zinc-700/60 text-[9px] font-mono">Esc</kbd> to close
+                  {t("hints.press")} <kbd className="bg-zinc-900 px-1 py-0.5 rounded border border-zinc-700/60 text-[9px] font-mono">Esc</kbd> {t("hints.close")}
                 </span>
               </div>
             </div>

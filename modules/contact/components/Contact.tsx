@@ -8,17 +8,18 @@ import { ContactHeader } from "./ContactHeader";
 import { ContactForm } from "./ContactForm";
 import { SocialCard } from "./SocialCard";
 import { FooterContent } from "@/common/components/layouts/FooterContent";
+import { useTranslations } from "next-intl";
 
 const Contact = () => {
   const [socialError, setSocialError] = useState<string | null>(null);
-
+  const t = useTranslations("Contact.social");
 
   const socialCard = useMemo(
     () => [
       {
-        title: "Follow My Journey",
-        description: "Follow my creative journey and daily insights",
-        action: "Go to Instagram",
+        title: t("instagram.title"),
+        description: t("instagram.description"),
+        action: t("instagram.action"),
         gradient: "from-purple-700 via-pink-700 to-orange-700",
         icon: SiInstagram,
         iconBg: "bg-pink-700/20",
@@ -27,9 +28,9 @@ const Contact = () => {
         link: profileData.social?.instagram,
       },
       {
-        title: "Let's Connect",
-        description: "Connect with me professionally on LinkedIn",
-        action: "Go to LinkedIn",
+        title: t("linkedin.title"),
+        description: t("linkedin.description"),
+        action: t("linkedin.action"),
         gradient: "from-blue-700 via-blue-800 to-cyan-800",
         icon: SiLinkedin,
         iconBg: "bg-blue-700/20",
@@ -38,9 +39,9 @@ const Contact = () => {
         link: profileData.social?.linkedin,
       },
       {
-        title: "Explore the Code",
-        description: "Dive into my open-source projects & contributions.",
-        action: "Go to GitHub",
+        title: t("github.title"),
+        description: t("github.description"),
+        action: t("github.action"),
         gradient: "from-gray-800 via-gray-900 to-zinc-950",
         icon: SiGithub,
         iconBg: "bg-gray-700/20",
@@ -55,7 +56,7 @@ const Contact = () => {
   const handleSocialClick = (url: string | undefined, platform: string) => {
     try {
       if (!url) {
-        setSocialError(`${platform} link is not available`);
+        setSocialError(`${platform} ${t("errorUnavailable")}`);
         setTimeout(() => setSocialError(null), 3000);
         return;
       }
@@ -63,7 +64,7 @@ const Contact = () => {
       setSocialError(null);
     } catch (err) {
       console.error(`Failed to open ${platform} link:`, err);
-      setSocialError(`Failed to open ${platform}. Please try again.`);
+      setSocialError(`${t("errorFailed")} ${platform}. ${t("errorTryAgain")}`);
       setTimeout(() => setSocialError(null), 3000);
     }
   };
