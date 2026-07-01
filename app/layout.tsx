@@ -8,7 +8,6 @@ import "./globals.css";
 import { METADATA } from "@/common/constants/metadata";
 import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
 import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
-import { PageTransition } from "@/common/components/layouts/PageTransition";
 import { Preloader } from "@/common/components/ui/Preloader";
 import { PreloaderProvider } from "@/common/context/PreloaderContext";
 
@@ -75,9 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <DesktopSidebar />
             <MobileNavbar />
             <main className="flex-1 w-full lg:ml-80 overflow-x-hidden">
-              <PageTransition>
-                {children}
-              </PageTransition>
+              {children}
             </main>
           </div>
         </PreloaderProvider>
