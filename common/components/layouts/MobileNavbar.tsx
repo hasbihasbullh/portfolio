@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { CommandPalette } from "../elements/CommandPalette";
+import { usePreloader } from "@/common/context/PreloaderContext";
 
 export function MobileNavbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -22,12 +23,13 @@ export function MobileNavbar() {
   };
 
   const safePosition = profileData?.position ? profileData.position.split(" & ")[0] : "";
+  const { isPreloaderDone } = usePreloader();
 
   return (
     <div className="lg:hidden">
       <motion.nav 
         initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        animate={isPreloaderDone ? { y: 0, opacity: 1 } : { y: -50, opacity: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 bg-zinc-900 border-b border-zinc-800"
       >

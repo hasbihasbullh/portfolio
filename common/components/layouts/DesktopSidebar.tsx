@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { navigationItems } from "@/common/constants/navigation";
 import { profileData } from "@/common/data/profileData";
 import { CommandPalette } from "../elements/CommandPalette";
+import { usePreloader } from "@/common/context/PreloaderContext";
 
 export function DesktopSidebar() {
   const pathname = usePathname();
@@ -19,10 +20,12 @@ export function DesktopSidebar() {
     return pathname === href || pathname?.startsWith(href + "/");
   };
 
+  const { isPreloaderDone } = usePreloader();
+
   return (
     <motion.div
       initial={{ x: -50, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
+      animate={isPreloaderDone ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="hidden lg:flex lg:fixed lg:inset-y-0 lg:left-0 lg:w-80 lg:flex-col lg:z-50"
     >

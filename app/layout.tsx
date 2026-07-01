@@ -8,6 +8,9 @@ import "./globals.css";
 import { METADATA } from "@/common/constants/metadata";
 import { DesktopSidebar } from "@/common/components/layouts/DesktopSidebar";
 import { MobileNavbar } from "@/common/components/layouts/MobileNavbar";
+import { PageTransition } from "@/common/components/layouts/PageTransition";
+import { Preloader } from "@/common/components/ui/Preloader";
+import { PreloaderProvider } from "@/common/context/PreloaderContext";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -60,19 +63,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="msapplication-TileImage" content="/web-app-manifest-192x192.png" />
       </head>
       <body className={montserrat.className}>
+        <Preloader />
         {/* Ambient Glow Background */}
         <div className="ambient-glow-container">
           <div className="ambient-glow-orb-1" />
           <div className="ambient-glow-orb-2" />
           <div className="ambient-grid" />
         </div>
-        <div className="relative z-10 flex min-h-screen">
-          <DesktopSidebar />
-          <MobileNavbar />
-          <main className="flex-1 w-full lg:ml-80 overflow-x-hidden">
-            {children}
-          </main>
-        </div>
+        <PreloaderProvider>
+          <div className="relative z-10 flex min-h-screen">
+            <DesktopSidebar />
+            <MobileNavbar />
+            <main className="flex-1 w-full lg:ml-80 overflow-x-hidden">
+              <PageTransition>
+                {children}
+              </PageTransition>
+            </main>
+          </div>
+        </PreloaderProvider>
         <Analytics />
         <SpeedInsights />
       </body>
