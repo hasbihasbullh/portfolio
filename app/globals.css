@@ -440,7 +440,7 @@ html {
   max-height: 600px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-  filter: blur(80px);
+  /* filter: blur(80px); Removed for mobile performance */
   animation: ambient-drift-1 25s infinite alternate ease-in-out;
   will-change: transform;
 }
@@ -455,9 +455,15 @@ html {
   max-height: 600px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
-  filter: blur(80px);
+  /* filter: blur(80px); Removed for mobile performance */
   animation: ambient-drift-2 30s infinite alternate ease-in-out;
   will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .ambient-glow-orb-1, .ambient-glow-orb-2 {
+    filter: blur(80px);
+  }
 }
 
 .ambient-grid {

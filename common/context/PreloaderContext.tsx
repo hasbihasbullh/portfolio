@@ -15,12 +15,16 @@ export const PreloaderProvider = ({ children }: { children: React.ReactNode }) =
       return;
     }
 
-    // This matches the time when the preloader starts to fade out (2500ms) + 600ms of its 800ms fade out duration
+    const desktop = window.innerWidth >= 768;
+    const baseDelay = desktop ? 2500 : 1200;
+    const fadeOffset = desktop ? 600 : 300;
+
+    // This matches the time when the preloader starts to fade out + part of its fade out duration
     // We add this offset so the animation triggers right as the preloader is mostly transparent
     const timer = setTimeout(() => {
       setIsPreloaderDone(true);
       setPreloaderShown(true);
-    }, 3100); 
+    }, baseDelay + fadeOffset); 
 
     return () => clearTimeout(timer);
   }, []);
