@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Search, Home, User, Award, Folder, Activity, Mail, FileText, Github, Copy, Check, X } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { projects } from "@/common/data/projectData";
 import { profileData } from "@/common/data/profileData";
