@@ -1,6 +1,5 @@
 "use client";
 import { navigationItems } from "@/common/constants/navigation";
-import { profileData } from "@/common/data/profileData";
 import { ChevronDown, Menu as MenuIcon, X as XIcon } from "lucide-react";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
@@ -13,11 +12,15 @@ import { useTranslations } from "next-intl";
 import { LanguageToggle } from "../elements/LanguageToggle";
 import { hasShownPreloader, isLanguageSwitching } from "@/common/utils/preloaderState";
 
-export function MobileNavbar() {
+export function MobileNavbar({ sanityProfile, sanityProjects = [] }: { sanityProfile?: any, sanityProjects?: any[] }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("Navigation");
   const tProfile = useTranslations("Profile");
+
+  const name = sanityProfile?.name || "M Hasbi Hasbullah";
+  const imageUrl = sanityProfile?.imageUrl || "/placeholder.svg";
+  const role = sanityProfile?.role || tProfile("position");
 
   useEffect(() => {
     setIsDropdownOpen(false);
@@ -27,7 +30,6 @@ export function MobileNavbar() {
     return pathname === href || pathname?.startsWith(href + "/");
   };
 
-  const safePosition = profileData?.position ? profileData.position.split(" & ")[0] : "";
   const { isPreloaderDone } = usePreloader();
 
   return (
@@ -41,16 +43,16 @@ export function MobileNavbar() {
         <div className="px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-zinc-400">
-                {profileData.image ? (
-                  <Image src={profileData.image} alt={`${profileData.name} profile`} width={40} height={40} className="w-full h-full object-cover" />
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-zinc-400 ring-1 ring-zinc-800">
+                {imageUrl ? (
+                  <Image src={imageUrl} alt={`${name} profile`} width={40} height={40} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-white text-xs bg-gray-500">?</div>
                 )}
               </div>
               <div className="flex flex-col items-start gap-1">
-                <h2 className="text-white font-semibold text-sm">{profileData?.name || "Anonymous"}</h2>
-                <p className="text-zinc-400 text-xs">{tProfile("position")}</p>
+                <h2 className="text-white font-semibold text-sm">{name}</h2>
+                <p className="text-zinc-400 text-xs">{role}</p>
               </div>
             </div>
 
@@ -78,7 +80,7 @@ export function MobileNavbar() {
             >
               <div className="px-4 py-2">
                 <div className="mb-2">
-                  <CommandPalette />
+                  <CommandPalette sanityProfile={sanityProfile} sanityProjects={sanityProjects} />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {navigationItems.map((item) => {

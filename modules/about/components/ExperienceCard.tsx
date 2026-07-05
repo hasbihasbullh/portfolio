@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { MapPin, Clock, ChevronDown, ChevronUp, Briefcase, Code, Zap } from "lucide-react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
-import { Experience } from "@/common/data";
-import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 interface ExperienceCardProps {
-  experience: Experience;
+  experience: any;
   expanded?: boolean;
   toggleExpand?: (id: string) => void;
 }
@@ -17,7 +16,11 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
   const [isLoading, setIsLoading] = useState(true);
   const [isExpanded, setIsExpanded] = useState(expanded || false);
 
-  const t = useTranslations(`About.Experience.${experience.id}`);
+  const locale = useLocale();
+
+  const position = experience.position?.[locale] || experience.position?.en || experience.position;
+  const duration = experience.duration?.[locale] || experience.duration?.en || experience.duration;
+  const description = experience.description?.[locale] || experience.description?.en || experience.description;
 
   const handleImageError = () => {
     setImageError(true);
@@ -32,7 +35,7 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
     const newExpanded = !isExpanded;
     setIsExpanded(newExpanded);
     if (toggleExpand) {
-      toggleExpand(experience.id);
+      toggleExpand(experience._id || experience.id || "");
     }
   };
 
@@ -56,8 +59,8 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
     return configs[workMode as keyof typeof configs] || configs.onsite;
   };
 
-  const typeConfig = getTypeConfig(experience.type);
-  const workModeConfig = getWorkModeConfig(experience.workMode);
+  const typeConfig = getTypeConfig(experience.type || "full-time");
+  const workModeConfig = getWorkModeConfig(experience.workMode || "onsite");
   const TypeIcon = typeConfig.icon;
 
   return (
@@ -69,7 +72,7 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
           <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 bg-zinc-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center p-3 border border-zinc-700/50 relative overflow-hidden">
             {isLoading && <div className="absolute inset-0 bg-gradient-to-br from-zinc-700 to-zinc-800 animate-pulse" />}
 
-            {!imageError ? (
+            {!imageError && experience.logo ? (
               <Image
                 src={experience.logo}
                 alt={`${experience.company} logo`}
@@ -90,11 +93,13 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
         <div className="flex-1 min-w-0 text-center sm:text-left">
           {/* Header */}
           <div className="flex flex-col items-center gap-3 mb-4 sm:flex-row sm:items-start sm:justify-between sm:mb-2">
-            <h3 className="text-lg sm:text-xl font-semibold text-zinc-200 leading-tight">{t("title")}</h3>
-            <div className="flex gap-2 flex-shrink-0">
-              <span className={`px-2 py-1 text-xs rounded-full border ${typeConfig.color} capitalize`}>{experience.type}</span>
-              <span className={`px-2 py-1 text-xs rounded-full border ${workModeConfig.color}`}>{workModeConfig.label}</span>
-            </div>
+            <h3 className="text-lg sm:text-xl font-semibold text-zinc-200 leading-tight">{position}</h3>
+            {experience.type && experience.workMode && (
+              <div className="flex gap-2 flex-shrink-0">
+                <span className={`px-2 py-1 text-xs rounded-full border ${typeConfig.color} capitalize`}>{experience.type}</span>
+                <span className={`px-2 py-1 text-xs rounded-full border ${workModeConfig.color}`}>{workModeConfig.label}</span>
+              </div>
+            )}
           </div>
 
           {/* Company */}
@@ -106,28 +111,30 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
           <div className="flex flex-col items-center gap-3 text-sm text-zinc-400 mb-4 sm:flex-row sm:items-center sm:gap-6">
             <div className="flex items-center">
               <Clock className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span>{t("duration")}</span>
+              <span>{duration}</span>
             </div>
-            <div className="flex items-center">
-              <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span>{experience.location}</span>
-            </div>
+            {experience.location && (
+              <div className="flex items-center">
+                <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                <span>{experience.location}</span>
+              </div>
+            )}
           </div>
 
           {/* Description */}
-          {experience.description && (
+          {description && (
             <div className="border-l-2 border-zinc-700/50 pl-4 mb-4">
-              <p className="text-sm text-zinc-400 leading-relaxed">{t("description")}</p>
+              <p className="text-sm text-zinc-400 leading-relaxed">{description}</p>
             </div>
           )}
 
           {/* Expand/Collapse Button */}
-          {experience.responsibilities && experience.responsibilities.length > 0 && (
+          {Array.isArray(experience.responsibilities) && experience.responsibilities.length > 0 && (
             <div className="flex justify-center sm:justify-start">
               <button
                 onClick={handleToggleExpand}
                 aria-expanded={isExpanded}
-                aria-controls={`responsibilities-${experience.id}`}
+                aria-controls={`responsibilities-${experience._id || experience.id || ""}`}
                 className="flex items-center text-zinc-400 hover:text-zinc-200 text-sm transition-colors rounded-md px-2 py-1"
               >
                 {isExpanded ? <ChevronUp className="w-4 h-4 mr-1" /> : <ChevronDown className="w-4 h-4 mr-1" />}
@@ -137,14 +144,14 @@ export function ExperienceCard({ experience, expanded, toggleExpand }: Experienc
           )}
 
           {/* Responsibilities */}
-          {isExpanded && experience.responsibilities && (
-            <div id={`responsibilities-${experience.id}`} className="mt-4 pt-4 border-t border-zinc-700/50 transition-all duration-300">
+          {isExpanded && Array.isArray(experience.responsibilities) && (
+            <div id={`responsibilities-${experience._id || experience.id || ""}`} className="mt-4 pt-4 border-t border-zinc-700/50 transition-all duration-300">
               <h4 className="text-sm font-medium text-zinc-300 mb-3">Key Responsibilities:</h4>
               <ul className="space-y-2">
-                {experience.responsibilities.map((_, index) => (
+                {experience.responsibilities.map((resp: any, index: number) => (
                   <li key={index} className="flex items-start text-sm text-zinc-400">
                     <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full mt-2 mr-3 flex-shrink-0" />
-                    <span className="leading-relaxed">{t(`resp${index + 1}` as any)}</span>
+                    <span className="leading-relaxed">{resp[locale] || resp.en || resp}</span>
                   </li>
                 ))}
               </ul>

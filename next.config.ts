@@ -4,12 +4,6 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
-  typescript: {
-    ignoreBuildErrors: false,
-  },
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [25, 50, 75, 85, 90, 100],

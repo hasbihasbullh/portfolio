@@ -39,64 +39,15 @@
   },
   "About": {
     "header": {
-      "title": "About Me",
-      "p1": "I am a passionate and detail-oriented software developer with a robust background in full-stack web development and digital marketing. My expertise spans crafting dynamic, user-centric web applications using modern frameworks like Laravel, Next.js, and React.js, complemented by a strong ability to strategize and execute impactful digital advertising campaigns.",
-      "p2": "My career is driven by a deep curiosity for leveraging technology to solve complex challenges and deliver measurable value. From developing scalable CRUD applications to optimizing e-commerce platforms and managing WordPress ecosystems, I thrive at the intersection of technical innovation and business strategy. I am committed to building intuitive digital solutions that empower businesses and enhance user experiences."
+      "title": "About Me"
     },
     "Experience": {
       "title": "Professional Experience",
-      "solusiku": {
-        "title": "Advertiser Training",
-        "duration": "Mar 2024 - May 2024 • 3 Months",
-        "description": "Gained hands-on experience in digital marketing and advertising across multiple platforms.",
-        "resp1": "Designed engaging image and video content for various products and campaigns",
-        "resp2": "Managed and optimized advertising campaigns on Facebook Ads and TikTok Ads platforms",
-        "resp3": "Set up and configured online marketplaces on Shopee, TikTok, Lazada, and other e-commerce platforms",
-        "resp4": "Analyzed campaign performance and provided optimization recommendations"
-      },
-      "lead": {
-        "title": "Junior Web Administrator",
-        "duration": "Oct 2023 - Mar 2024 • 6 Months",
-        "description": "Responsible for web administration and data management for an educational institution.",
-        "resp1": "Maintained accurate student database with regular data entry and updates",
-        "resp2": "Administered and maintained WordPress-based institutional website",
-        "resp3": "Ensured website security and performed regular backups",
-        "resp4": "Coordinated with academic staff for data accuracy and system improvements"
-      },
-      "disnaker-trans": {
-        "title": "International Training Program",
-        "duration": "Sep 2023 - Sep 2023 • 21 Days",
-        "description": "Intensive training program focused on professional development and language skills enhancement.",
-        "resp1": "Participated in comprehensive English proficiency enhancement sessions",
-        "resp2": "Completed intensive 21-day professional development training program",
-        "resp3": "Engaged in cross-cultural communication workshops",
-        "resp4": "Received certification in international workplace communication"
-      },
-      "inti-persero": {
-        "title": "Technical Apprentice",
-        "duration": "Mar 2019 - May 2019 • 3 Months",
-        "description": "Technical apprenticeship program focusing on software development and IT infrastructure management.",
-        "resp1": "Developed and implemented a comprehensive CRUD application for student data management",
-        "resp2": "Performed systematic data entry for tools and equipment inventory using web-based systems",
-        "resp3": "Conducted routine computer maintenance and troubleshooting for office workstations",
-        "resp4": "Assisted senior developers in system testing and quality assurance processes"
-      },
       "description": "A journey through my diverse roles in web development, digital marketing, and technical administration, showcasing my ability to deliver impactful solutions."
     },
     "Education": {
       "title": "Education",
-      "univ-linggabuana-pgri": {
-        "degree": "Bachelor's degree, Informatics (S.Kom)",
-        "description": "Currently pursuing Bachelor's degree in Informatics with focus on software engineering and web development."
-      },
-      "smk-pasim-plus": {
-        "degree": "Vocational High School, Software Engineering (RPL)",
-        "description": "Specialized in Software Engineering with comprehensive training in programming, database management, and web development."
-      },
-      "mts-azzainiyyah": {
-        "degree": "Islamic Junior High School (MTs)",
-        "description": "Islamic-based education with strong foundation in mathematics, science, and religious studies."
-      }
+      "description": "My academic journey in software engineering and informatics, equipping me with a strong technical foundation."
     }
   },
   "Projects": {
@@ -108,15 +59,6 @@
       "filterAll": "All Categories",
       "filterApp": "Application",
       "filterWebApp": "Web Application"
-    },
-    "pojok-coffee": {
-      "description": "A simple e-commerce platform for coffee lovers, offering selected coffee beans from across Indonesia. Features a product catalog, shopping cart, checkout, and an informative blog, built as a frontend-only demonstration with a modern tech stack for responsiveness and interactivity."
-    },
-    "if24-unlip": {
-      "description": "A modern web application built with Next.js App Router, Tailwind CSS, and TypeScript for the Informatika 2024 UNLIP Class, designed for internal tools, academic collaboration, or community engagement."
-    },
-    "lucky-kamera": {
-      "description": "A web-based platform for camera rental services, allowing users to browse, rent, and manage camera equipment with a user-friendly interface and secure booking system."
     }
   },
   "Achievements": {

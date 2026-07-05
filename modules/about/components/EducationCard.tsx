@@ -3,18 +3,21 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { MapPin, Clock, GraduationCap } from "lucide-react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
-import { Education } from "@/common/data";
-import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 interface EducationCardProps {
-  education: Education;
+  education: any;
 }
 
 export function EducationCard({ education }: EducationCardProps) {
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const t = useTranslations(`About.Education.${education.id}`);
+  const locale = useLocale();
+  const title = education.title || education.institution;
+  const major = education.major?.[locale] || education.major?.en || education.major || education.degree;
+  const details = education.details?.[locale] || education.details?.en || education.details || education.description;
+  const duration = education.year || education.duration;
 
   const handleImageError = () => {
     setImageError(true);
@@ -49,10 +52,10 @@ export function EducationCard({ education }: EducationCardProps) {
           <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 bg-zinc-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center p-3 border border-zinc-700/50 relative overflow-hidden">
             {isLoading && <div className="absolute inset-0 bg-gradient-to-br from-zinc-700 to-zinc-800 animate-pulse" />}
 
-            {!imageError ? (
+            {!imageError && education.logo ? (
               <Image
                 src={education.logo}
-                alt={`${education.title} logo`}
+                alt={`${title} logo`}
                 width={100}
                 height={100}
                 className={`w-full h-full object-contain transition-all duration-300 ${isLoading ? "opacity-0" : "opacity-100"} group-hover:scale-105`}
@@ -70,31 +73,33 @@ export function EducationCard({ education }: EducationCardProps) {
         <div className="flex-1 min-w-0 text-center sm:text-left">
           {/* Header with Status */}
           <div className="flex flex-col items-center gap-3 mb-4 sm:flex-row sm:items-start sm:justify-between sm:mb-2">
-            <h3 className="text-lg sm:text-xl font-semibold text-zinc-200 leading-tight">{education.title}</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-zinc-200 leading-tight">{title}</h3>
             {getStatusBadge(education.status)}
           </div>
 
           {/* Degree */}
           <div className="mb-4 sm:mb-3">
-            <p className="text-sm sm:text-base text-zinc-300 font-medium">{t("degree")}</p>
+            <p className="text-sm sm:text-base text-zinc-300 font-medium">{major}</p>
           </div>
 
           {/* Duration and Location */}
           <div className="flex flex-col items-center gap-3 text-sm text-zinc-400 mb-4 sm:items-start sm:gap-2">
             <div className="flex items-center">
               <Clock className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span>{education.duration}</span>
+              <span>{duration}</span>
             </div>
-            <div className="flex items-center">
-              <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span>{education.location}</span>
-            </div>
+            {education.location && (
+              <div className="flex items-center">
+                <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                <span>{education.location}</span>
+              </div>
+            )}
           </div>
 
           {/* Description */}
-          {education.description && (
+          {details && (
             <div className="border-l-2 border-zinc-700/50 pl-4 mb-4 sm:mb-0">
-              <p className="text-sm text-zinc-400 leading-relaxed">{t("description")}</p>
+              <p className="text-sm text-zinc-400 leading-relaxed">{details}</p>
             </div>
           )}
 

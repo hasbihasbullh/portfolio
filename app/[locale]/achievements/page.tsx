@@ -18,6 +18,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function AchievementsPage() {
-  return <Achievements />;
+import { client } from "@/sanity/lib/client";
+import { achievementsQuery, profileQuery } from "@/sanity/lib/queries";
+
+export default async function AchievementsPage() {
+  const [achievements, profile] = await Promise.all([
+    client.fetch(achievementsQuery),
+    client.fetch(profileQuery)
+  ]);
+  return <Achievements sanityAchievements={achievements} sanityProfile={profile} />;
 }

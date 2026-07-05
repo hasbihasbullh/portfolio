@@ -2,13 +2,12 @@
 import React from "react";
 import { Alert, AlertDescription } from "@/common/components/ui/alert";
 import { Search } from "lucide-react";
-import { Achievement } from "@/common/data";
 import { AchievementCard } from "./AchievementCard";
 
 interface AchievementsGridProps {
-  filteredAchievements: Achievement[];
-  imageErrors: Record<number, boolean>;
-  handleImageError: (achievementId: number) => void;
+  filteredAchievements: any[];
+  imageErrors: Record<string, boolean>;
+  handleImageError: (achievementId: string) => void;
 }
 
 export function AchievementsGrid({
@@ -35,9 +34,9 @@ export function AchievementsGrid({
       ) : (
         filteredAchievements.map((item) => (
           <AchievementCard
-            key={item.id}
+            key={item._id || item.id || Math.random().toString()}
             achievement={item}
-            hasImageError={imageErrors[item.id]}
+            hasImageError={imageErrors[item._id || item.id]}
             handleImageError={handleImageError}
           />
         ))

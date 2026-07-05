@@ -1,6 +1,5 @@
 
 import React from "react";
-import { experiences } from "@/common/data";
 import { ExperienceCard } from "./ExperienceCard";
 import { Briefcase } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -8,9 +7,10 @@ import { useTranslations } from "next-intl";
 interface ExperienceSectionProps {
   expandedCard: string | null;
   toggleExpand: (id: string) => void;
+  sanityExperiences?: any[];
 }
 
-export function ExperienceSection({ expandedCard, toggleExpand }: ExperienceSectionProps) {
+export function ExperienceSection({ expandedCard, toggleExpand, sanityExperiences = [] }: ExperienceSectionProps) {
   const t = useTranslations("About.Experience");
 
   return (
@@ -22,12 +22,12 @@ export function ExperienceSection({ expandedCard, toggleExpand }: ExperienceSect
         </div>
         <p className="text-zinc-400 mb-6">{t("description")}</p>
         <div className="space-y-6">
-          {experiences.map((exp) => (
+          {sanityExperiences.map((exp, index) => (
             <ExperienceCard
-              key={exp.id}
+              key={exp._id || String(index)}
               experience={exp}
-              expanded={expandedCard === exp.id}
-              toggleExpand={toggleExpand}
+              expanded={expandedCard === (exp._id || String(index))}
+              toggleExpand={() => toggleExpand(exp._id || String(index))}
             />
           ))}
         </div>

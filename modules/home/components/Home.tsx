@@ -33,7 +33,16 @@ const itemVariants: Variants = {
   },
 };
 
-export default function Home() {
+interface HomeProps {
+  sanityProfile?: any;
+  sanityProjects?: any[];
+  sanityExperiences?: any[];
+  sanityEducation?: any[];
+  sanitySkills?: any[];
+  sanityAchievements?: any[];
+}
+
+export default function Home({ sanityProfile, sanityProjects, sanityExperiences, sanityEducation, sanitySkills, sanityAchievements }: HomeProps) {
   return (
     <div className="w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
@@ -46,19 +55,19 @@ export default function Home() {
               className="grid grid-cols-1 gap-2 md:grid-cols-4"
             >
               <motion.div variants={itemVariants} className="md:col-span-2 flex flex-col">
-                <WelcomeCard />
+                <WelcomeCard sanityProfile={sanityProfile} />
               </motion.div>
               <motion.div variants={itemVariants} className="md:col-span-1 flex flex-col">
-                <AboutMeCard />
+                <AboutMeCard sanityProfile={sanityProfile} />
               </motion.div>
               <motion.div variants={itemVariants} className="md:col-span-1 flex flex-col">
-                <SkillsToolsCard />
+                <SkillsToolsCard sanitySkills={sanitySkills} />
               </motion.div>
               <motion.div variants={itemVariants} className="md:col-span-1 flex flex-col">
-                <AchievementsCard />
+                <AchievementsCard sanityAchievements={sanityAchievements} />
               </motion.div>
               <motion.div variants={itemVariants} className="md:col-span-3 flex flex-col">
-                <ProjectsShowcaseCard />
+                <ProjectsShowcaseCard sanityProjects={sanityProjects} />
               </motion.div>
             </motion.div>
           </div>

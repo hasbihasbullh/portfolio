@@ -14,6 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function ContactPage() {
-  return <Contact />;
+import { client } from "@/sanity/lib/client";
+import { profileQuery } from "@/sanity/lib/queries";
+
+export default async function ContactPage() {
+  const profile = await client.fetch(profileQuery);
+  return <Contact sanityProfile={profile} />;
 }

@@ -18,6 +18,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function AboutPage() {
-  return <About />;
+import { client } from "@/sanity/lib/client";
+import { profileQuery, experiencesQuery, educationQuery } from "@/sanity/lib/queries";
+
+export default async function AboutPage() {
+  const [profile, experiences, education] = await Promise.all([
+    client.fetch(profileQuery),
+    client.fetch(experiencesQuery),
+    client.fetch(educationQuery)
+  ]);
+  return <About sanityProfile={profile} sanityExperiences={experiences} sanityEducation={education} />;
 }

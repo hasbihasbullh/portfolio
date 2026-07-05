@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
-import { profileData } from "@/common/data/profileData";
 import { SiInstagram, SiLinkedin, SiGithub } from "react-icons/si";
 import { AlertCircle } from "lucide-react";
 import { ContactHeader } from "./ContactHeader";
@@ -10,7 +9,7 @@ import { SocialCard } from "./SocialCard";
 import { FooterContent } from "@/common/components/layouts/FooterContent";
 import { useTranslations } from "next-intl";
 
-const Contact = () => {
+const Contact = ({ sanityProfile }: { sanityProfile?: any }) => {
   const [socialError, setSocialError] = useState<string | null>(null);
   const t = useTranslations("Contact.social");
 
@@ -23,9 +22,9 @@ const Contact = () => {
         gradient: "from-purple-700 via-pink-700 to-orange-700",
         icon: SiInstagram,
         iconBg: "bg-pink-700/20",
-        onClick: () => handleSocialClick(profileData.social?.instagram, "Instagram"),
+        onClick: () => handleSocialClick(sanityProfile?.socials?.instagram, "Instagram"),
         accent: "",
-        link: profileData.social?.instagram,
+        link: sanityProfile?.socials?.instagram,
       },
       {
         title: t("linkedin.title"),
@@ -34,9 +33,9 @@ const Contact = () => {
         gradient: "from-blue-700 via-blue-800 to-cyan-800",
         icon: SiLinkedin,
         iconBg: "bg-blue-700/20",
-        onClick: () => handleSocialClick(profileData.social?.linkedin, "LinkedIn"),
+        onClick: () => handleSocialClick(sanityProfile?.socials?.linkedin, "LinkedIn"),
         accent: "",
-        link: profileData.social?.linkedin,
+        link: sanityProfile?.socials?.linkedin,
       },
       {
         title: t("github.title"),
@@ -45,9 +44,9 @@ const Contact = () => {
         gradient: "from-gray-800 via-gray-900 to-zinc-950",
         icon: SiGithub,
         iconBg: "bg-gray-700/20",
-        onClick: () => handleSocialClick(profileData.social?.github, "GitHub"),
+        onClick: () => handleSocialClick(sanityProfile?.socials?.github, "GitHub"),
         accent: "",
-        link: profileData.social?.github,
+        link: sanityProfile?.socials?.github,
       },
     ],
     []
@@ -84,7 +83,7 @@ const Contact = () => {
             <ContactForm />
             <SocialCard socialCard={socialCard} />
           </div>
-          <FooterContent />
+          <FooterContent sanityProfile={sanityProfile} />
         </AnimateEaseOut>
       </div>
     </div>

@@ -12,6 +12,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
-  return <Home />;
+import { client } from "@/sanity/lib/client";
+import { profileQuery, projectsQuery, experiencesQuery, educationQuery, skillsQuery, achievementsQuery } from "@/sanity/lib/queries";
+
+export default async function HomePage() {
+  const [profile, projects, experiences, education, skills, achievements] = await Promise.all([
+    client.fetch(profileQuery),
+    client.fetch(projectsQuery),
+    client.fetch(experiencesQuery),
+    client.fetch(educationQuery),
+    client.fetch(skillsQuery),
+    client.fetch(achievementsQuery)
+  ]);
+
+  return <Home 
+    sanityProfile={profile} 
+    sanityProjects={projects?.length > 0 ? projects : undefined}
+    sanityExperiences={experiences?.length > 0 ? experiences : undefined}
+    sanityEducation={education?.length > 0 ? education : undefined}
+    sanitySkills={skills?.length > 0 ? skills : undefined}
+    sanityAchievements={achievements?.length > 0 ? achievements : undefined}
+  />;
 }
+

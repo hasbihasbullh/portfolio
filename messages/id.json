@@ -39,64 +39,15 @@
   },
   "About": {
     "header": {
-      "title": "Tentang Saya",
-      "p1": "Saya adalah seorang pengembang perangkat lunak yang bersemangat dan teliti dengan latar belakang kuat dalam pengembangan web full-stack dan pemasaran digital. Keahlian saya meliputi pembuatan aplikasi web dinamis yang berpusat pada pengguna menggunakan kerangka kerja modern seperti Laravel, Next.js, dan React.js, dilengkapi dengan kemampuan merancang dan menjalankan kampanye periklanan digital yang berdampak.",
-      "p2": "Karier saya didorong oleh rasa ingin tahu yang mendalam untuk memanfaatkan teknologi dalam memecahkan tantangan kompleks dan memberikan nilai yang terukur. Mulai dari mengembangkan aplikasi CRUD yang terukur hingga mengoptimalkan platform e-commerce dan mengelola ekosistem WordPress, saya berkembang di persimpangan antara inovasi teknis dan strategi bisnis. Saya berkomitmen untuk membangun solusi digital intuitif yang memberdayakan bisnis dan meningkatkan pengalaman pengguna."
+      "title": "Tentang Saya"
     },
     "Experience": {
       "title": "Pengalaman Profesional",
-      "solusiku": {
-        "title": "Pelatihan Pengiklan",
-        "duration": "Mar 2024 - Mei 2024 • 3 Bulan",
-        "description": "Mendapatkan pengalaman langsung dalam pemasaran digital dan periklanan di berbagai platform.",
-        "resp1": "Merancang konten gambar dan video yang menarik untuk berbagai produk dan kampanye",
-        "resp2": "Mengelola dan mengoptimalkan kampanye periklanan di platform Facebook Ads dan TikTok Ads",
-        "resp3": "Menyiapkan dan mengonfigurasi marketplace online di Shopee, TikTok, Lazada, dan platform e-commerce lainnya",
-        "resp4": "Menganalisis kinerja kampanye dan memberikan rekomendasi optimasi"
-      },
-      "lead": {
-        "title": "Administrator Web Junior",
-        "duration": "Okt 2023 - Mar 2024 • 6 Bulan",
-        "description": "Bertanggung jawab atas administrasi web dan manajemen data untuk sebuah lembaga pendidikan.",
-        "resp1": "Memelihara database siswa yang akurat dengan entri dan pembaruan data secara berkala",
-        "resp2": "Mengelola dan memelihara situs web institusi berbasis WordPress",
-        "resp3": "Memastikan keamanan situs web dan melakukan pencadangan berkala",
-        "resp4": "Berkoordinasi dengan staf akademik untuk keakuratan data dan perbaikan sistem"
-      },
-      "disnaker-trans": {
-        "title": "Program Pelatihan Internasional",
-        "duration": "Sep 2023 - Sep 2023 • 21 Hari",
-        "description": "Program pelatihan intensif yang berfokus pada pengembangan profesional dan peningkatan kemampuan bahasa.",
-        "resp1": "Berpartisipasi dalam sesi peningkatan kemahiran bahasa Inggris yang komprehensif",
-        "resp2": "Menyelesaikan program pelatihan pengembangan profesional intensif selama 21 hari",
-        "resp3": "Terlibat dalam lokakarya komunikasi lintas budaya",
-        "resp4": "Menerima sertifikasi komunikasi tempat kerja internasional"
-      },
-      "inti-persero": {
-        "title": "Pemagang Teknis",
-        "duration": "Mar 2019 - Mei 2019 • 3 Bulan",
-        "description": "Program magang teknis yang berfokus pada pengembangan perangkat lunak dan manajemen infrastruktur TI.",
-        "resp1": "Mengembangkan dan mengimplementasikan aplikasi CRUD komprehensif untuk manajemen data siswa",
-        "resp2": "Melakukan entri data sistematis untuk inventaris alat dan perlengkapan menggunakan sistem berbasis web",
-        "resp3": "Melakukan perawatan komputer rutin dan pemecahan masalah untuk workstation kantor",
-        "resp4": "Membantu pengembang senior dalam pengujian sistem dan proses jaminan kualitas"
-      },
       "description": "Sebuah perjalanan melalui beragam peran saya dalam pengembangan web, pemasaran digital, dan administrasi teknis, yang menunjukkan kemampuan saya dalam memberikan solusi yang berdampak."
     },
     "Education": {
       "title": "Pendidikan",
-      "univ-linggabuana-pgri": {
-        "degree": "Sarjana Strata 1, Informatika (S.Kom)",
-        "description": "Saat ini menempuh pendidikan Sarjana Informatika dengan fokus pada rekayasa perangkat lunak dan pengembangan web."
-      },
-      "smk-pasim-plus": {
-        "degree": "Sekolah Menengah Kejuruan, Rekayasa Perangkat Lunak (RPL)",
-        "description": "Mengkhususkan diri dalam Rekayasa Perangkat Lunak dengan pelatihan komprehensif dalam pemrograman, manajemen basis data, dan pengembangan web."
-      },
-      "mts-azzainiyyah": {
-        "degree": "Madrasah Tsanawiyah (MTs)",
-        "description": "Pendidikan berbasis Islam dengan dasar yang kuat dalam matematika, sains, dan studi agama."
-      }
+      "description": "Perjalanan akademis saya di bidang rekayasa perangkat lunak dan informatika membekali saya dengan landasan teknis yang kuat."
     }
   },
   "Projects": {
@@ -108,15 +59,6 @@
       "filterAll": "Semua Kategori",
       "filterApp": "Aplikasi",
       "filterWebApp": "Aplikasi Web"
-    },
-    "pojok-coffee": {
-      "description": "Platform e-commerce sederhana untuk pecinta kopi, menawarkan biji kopi pilihan dari seluruh Indonesia. Dilengkapi katalog produk, keranjang belanja, checkout, dan blog informatif. Dibangun sebagai demonstrasi antarmuka dengan teknologi modern untuk responsivitas."
-    },
-    "if24-unlip": {
-      "description": "Aplikasi web modern yang dibangun dengan Next.js App Router, Tailwind CSS, dan TypeScript untuk Kelas Informatika 2024 UNLIP, dirancang untuk alat internal, kolaborasi akademik, atau keterlibatan komunitas."
-    },
-    "lucky-kamera": {
-      "description": "Platform berbasis web untuk layanan penyewaan kamera, memungkinkan pengguna menelusuri, menyewa, dan mengelola peralatan kamera dengan antarmuka yang ramah pengguna dan sistem pemesanan yang aman."
     }
   },
   "Achievements": {

@@ -2,12 +2,18 @@
 import React from "react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import MarqueeElement from "@/common/components/elements/MarqueeElement";
-import { skills } from "@/common/data";
+import { getIconComponent } from "@/common/utils/iconMapper";
 import { Blocks } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-export function SkillsToolsCard() {
+export function SkillsToolsCard({ sanitySkills }: { sanitySkills?: any[] }) {
   const t = useTranslations("Home.Skills");
+
+  const frontendSkills = sanitySkills?.filter((s) => s.category === "frontend") || [];
+  const backendSkills = sanitySkills?.filter((s) => s.category === "backend") || [];
+  const toolsSkills = sanitySkills?.filter((s) => s.category === "tools") || [];
+  const mobileSkills = sanitySkills?.filter((s) => s.category === "mobile") || [];
+  const aiSkills = sanitySkills?.filter((s) => s.category === "ai") || [];
 
   return (
     <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-1 flex flex-col h-full w-full" spotlightColor="rgba(16, 185, 129, 0.12)">
@@ -22,8 +28,8 @@ export function SkillsToolsCard() {
         <div className="space-y-3 lg:space-y-6 mb-6 md:mb-0">
           <MarqueeElement direction="right" withPadding={false}>
             <div className="flex items-center gap-3 px-2">
-              {skills.frontend?.map((skill, index) => {
-                const IconComponent = skill.icon;
+              {frontendSkills.map((skill, index) => {
+                const IconComponent = getIconComponent(skill.icon);
                 return (
                   <div key={`frontend-${index}`} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-500/10 border border-zinc-500/20 rounded-full whitespace-nowrap">
                     <IconComponent className="w-3 h-3 text-zinc-400" />
@@ -35,8 +41,8 @@ export function SkillsToolsCard() {
           </MarqueeElement>
           <MarqueeElement direction="left" withPadding={false}>
             <div className="flex items-center gap-3 px-2">
-              {skills.backend?.map((skill, index) => {
-                const IconComponent = skill.icon;
+              {backendSkills.map((skill, index) => {
+                const IconComponent = getIconComponent(skill.icon);
                 return (
                   <div key={`backend-${index}`} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-500/10 border border-zinc-500/20 rounded-full whitespace-nowrap">
                     <IconComponent className="w-3 h-3 text-zinc-400" />
@@ -48,8 +54,8 @@ export function SkillsToolsCard() {
           </MarqueeElement>
           <MarqueeElement direction="right" withPadding={false}>
             <div className="flex items-center gap-3 px-2">
-              {skills.tools?.map((skill, index) => {
-                const IconComponent = skill.icon;
+              {toolsSkills.map((skill, index) => {
+                const IconComponent = getIconComponent(skill.icon);
                 return (
                   <div key={`tools-${index}`} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-500/10 border border-zinc-500/20 rounded-full whitespace-nowrap">
                     <IconComponent className="w-3 h-3 text-zinc-400" />
@@ -61,8 +67,8 @@ export function SkillsToolsCard() {
           </MarqueeElement>
           <MarqueeElement direction="left" withPadding={false}>
             <div className="flex items-center gap-3 px-2">
-              {skills.mobile?.map((skill, index) => {
-                const IconComponent = skill.icon;
+              {mobileSkills.map((skill, index) => {
+                const IconComponent = getIconComponent(skill.icon);
                 return (
                   <div key={`mobile-${index}`} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-500/10 border border-zinc-500/20 rounded-full whitespace-nowrap">
                     <IconComponent className="w-3 h-3 text-zinc-400" />
@@ -70,8 +76,8 @@ export function SkillsToolsCard() {
                   </div>
                 );
               })}
-              {skills.ai?.map((skill, index) => {
-                const IconComponent = skill.icon;
+              {aiSkills.map((skill, index) => {
+                const IconComponent = getIconComponent(skill.icon);
                 return (
                   <div key={`ai-${index}`} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-500/10 border border-zinc-500/20 rounded-full whitespace-nowrap">
                     <IconComponent className="w-3 h-3 text-zinc-400" />

@@ -5,8 +5,6 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Search, Home, User, Award, Folder, Activity, Mail, FileText, Github, Copy, Check, X } from "lucide-react";
 import { useRouter } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { projects } from "@/common/data/projectData";
-import { profileData } from "@/common/data/profileData";
 
 interface CommandItem {
   id: string;
@@ -17,7 +15,7 @@ interface CommandItem {
   action: () => void;
 }
 
-export function CommandPalette() {
+export function CommandPalette({ sanityProfile, sanityProjects = [] }: { sanityProfile?: any, sanityProjects?: any[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -41,7 +39,8 @@ export function CommandPalette() {
   }, []);
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText(profileData.email);
+    const email = sanityProfile?.email || "hasbihasbullh@gmail.com";
+    navigator.clipboard.writeText(email);
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
@@ -70,18 +69,18 @@ export function CommandPalette() {
     { id: "nav-contact", title: t("actions.contact"), subtitle: t("actions.contactSub"), category: "Navigation", icon: Mail, action: () => handleNavigate("/contact") },
 
     // Quick Actions
-    { id: "action-resume", title: t("actions.resume"), subtitle: t("actions.resumeSub"), category: "Quick Actions", icon: FileText, action: () => handleOpenLink("/document/resume.pdf") },
-    { id: "action-github", title: t("actions.github"), subtitle: t("actions.githubSub"), category: "Quick Actions", icon: Github, action: () => handleOpenLink(profileData.social?.github || "") },
-    { id: "action-copy-email", title: copied ? t("actions.emailCopied") : t("actions.copyEmail"), subtitle: profileData.email, category: "Quick Actions", icon: copied ? Check : Copy, action: handleCopyEmail },
+    { id: "action-resume", title: t("actions.resume"), subtitle: t("actions.resumeSub"), category: "Quick Actions", icon: FileText, action: () => handleOpenLink(sanityProfile?.resumeUrl || "/document/resume.pdf") },
+    { id: "action-github", title: t("actions.github"), subtitle: t("actions.githubSub"), category: "Quick Actions", icon: Github, action: () => handleOpenLink(sanityProfile?.socials?.github || "") },
+    { id: "action-copy-email", title: copied ? t("actions.emailCopied") : t("actions.copyEmail"), subtitle: sanityProfile?.email || "hasbihasbullh@gmail.com", category: "Quick Actions", icon: copied ? Check : Copy, action: handleCopyEmail },
 
     // Project quick links
-    ...projects.map((p) => ({
-      id: `project-${p.id}`,
-      title: p.title,
-      subtitle: tProjects(`${p.id}.description`),
+    ...sanityProjects.map((p) => ({
+      id: `project-${p.slug?.current || p._id}`,
+      title: p.title?.en || p.title || "",
+      subtitle: p.description?.en || p.description || "",
       category: "Projects" as const,
       icon: Folder,
-      action: () => handleNavigate(`/projects/${p.id}`),
+      action: () => handleNavigate(`/projects/${p.slug?.current || p._id}`),
     })),
   ];
 

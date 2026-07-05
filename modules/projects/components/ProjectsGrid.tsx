@@ -2,11 +2,10 @@
 import React from "react";
 import { Alert, AlertDescription } from "@/common/components/ui/alert";
 import { Search } from "lucide-react";
-import { Project } from "@/common/data/projectData";
 import { ProjectCard } from "./ProjectCard";
 
 interface ProjectsGridProps {
-  filteredProjects: Project[];
+  filteredProjects: any[];
 }
 
 export function ProjectsGrid({ filteredProjects }: ProjectsGridProps) {
@@ -27,7 +26,7 @@ export function ProjectsGrid({ filteredProjects }: ProjectsGridProps) {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={project._id || project.id || project.slug?.current} project={project} />
           ))}
         </div>
       )}

@@ -1,23 +1,24 @@
 "use client";
 import React, { useState } from "react";
-import { Project } from "@/common/data/projectData";
 import Image from "next/image";
 import { ImageOff, Star } from "lucide-react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 interface ProjectCardProps {
-  project: Project;
+  project: any;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const [hasImageError, setHasImageError] = useState(false);
-  const t = useTranslations(`Projects.${project.id}`);
+  const locale = useLocale();
+  const slug = project.slug?.current || project._id;
+  const title = project.title?.[locale] || project.title?.en || project.title || "Project";
 
   return (
     <SpotlightCard className="bg-zinc-900/50 border-zinc-800 group overflow-hidden transition-all duration-300 cursor-pointer !p-0">
-      <Link href={`/projects/${project.id}`} className="flex flex-col gap-5 block outline-none h-full w-full">
+      <Link href={`/projects/${slug}`} className="flex flex-col gap-5 block outline-none h-full w-full">
         {/* Project Image */}
         <div className="relative w-full aspect-[16/9] overflow-hidden bg-zinc-800">
           {project.isPinned && (
@@ -36,8 +37,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
           ) : (
             <Image
-              src={project.image}
-              alt={`${project.title} screenshot`}
+              src={project.imageUrl || project.image || "/placeholder.svg"}
+              alt={`${title} screenshot`}
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] group-focus-visible:scale-[1.03]"
               onError={() => setHasImageError(true)}
@@ -54,18 +55,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {/* Content */}
         <div className="flex flex-col gap-2.5 px-4 pb-4">
           <div className="flex items-center justify-between gap-4">
-            <h2 className="text-zinc-100 text-xl font-medium tracking-tight group-hover:text-white transition-colors">{project.title}</h2>
-            <span className="text-zinc-500 text-xs shrink-0">{project.launchDate}</span>
+            <h2 className="text-zinc-100 text-xl font-medium tracking-tight group-hover:text-white transition-colors">{title}</h2>
           </div>
 
-          <p className="text-zinc-400 text-sm leading-relaxed line-clamp-2">{t("description")}</p>
+          <p className="text-zinc-400 text-sm leading-relaxed line-clamp-2">{project.description?.[locale] || project.description?.en || project.description}</p>
 
           {/* Tech Stack - Minimalist text format */}
           <div className="pt-2 flex flex-wrap gap-x-2 gap-y-1 items-center">
-            {project.technologies.map((tech, i) => (
+            {(project.techStack || project.technologies)?.map((tech: any, i: number) => (
               <React.Fragment key={i}>
-                <span className="text-zinc-500 text-xs tracking-wide">{tech.name}</span>
-                {i < project.technologies.length - 1 && <span className="text-zinc-700 text-xs">&bull;</span>}
+                <span className="text-zinc-500 text-xs tracking-wide">{tech.name || tech}</span>
+                {i < (project.techStack || project.technologies).length - 1 && <span className="text-zinc-700 text-xs">&bull;</span>}
               </React.Fragment>
             ))}
           </div>

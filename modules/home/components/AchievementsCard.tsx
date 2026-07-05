@@ -2,28 +2,32 @@
 import React from "react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import Folder from "@/common/components/elements/Folder";
-import { achievementsData } from "@/common/data";
 import { Award } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
-export function AchievementsCard() {
+export function AchievementsCard({ sanityAchievements }: { sanityAchievements?: any[] }) {
   const t = useTranslations("Home.Achievements");
 
-  const achievementItems = achievementsData.slice(0, 3).map((achievement, index) => (
-    <Link key={achievement.id} href={achievement.credentialUrl} aria-label={`View ${achievement.title}`} target="_blank">
-      <Image
-        src={achievement.image}
-        alt={`Achievement: ${achievement.title} from ${achievement.issuer}`}
-        width={85}
-        height={60}
-        className="object-cover w-full h-full rounded-lg"
-        priority={index === 0}
-        loading={index > 0 ? "lazy" : undefined}
-      />
-    </Link>
-  ));
+  const displayAchievements = sanityAchievements && sanityAchievements.length > 0 ? sanityAchievements : [];
+
+  const achievementItems = displayAchievements.slice(0, 3).map((achievement, index) => {
+    const title = achievement.title?.en || achievement.title || "Achievement";
+    return (
+      <Link key={achievement.id || index} href={achievement.certificateUrl || achievement.credentialUrl || "#"} aria-label={`View ${title}`} target="_blank">
+        <Image
+          src={achievement.imageUrl || achievement.image || "/placeholder.svg"}
+          alt={`Achievement: ${title} from ${achievement.issuer}`}
+          width={85}
+          height={60}
+          className="object-cover w-full h-full rounded-lg"
+          priority={index === 0}
+          loading={index > 0 ? "lazy" : undefined}
+        />
+      </Link>
+    );
+  });
 
   return (
     <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-1 flex flex-col h-full w-full" spotlightColor="rgba(6, 182, 212, 0.12)">

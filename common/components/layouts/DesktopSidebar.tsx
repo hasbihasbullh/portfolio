@@ -4,21 +4,20 @@ import Image from "next/image";
 import { Link, usePathname } from "@/i18n/routing";
 import { motion } from "framer-motion";
 import { navigationItems } from "@/common/constants/navigation";
-import { profileData } from "@/common/data/profileData";
 import { CommandPalette } from "../elements/CommandPalette";
 import { usePreloader } from "@/common/context/PreloaderContext";
 import { useTranslations } from "next-intl";
 import { LanguageToggle } from "../elements/LanguageToggle";
 import { hasShownPreloader, isLanguageSwitching } from "@/common/utils/preloaderState";
 
-export function DesktopSidebar() {
+export function DesktopSidebar({ sanityProfile, sanityProjects = [] }: { sanityProfile?: any, sanityProjects?: any[] }) {
   const pathname = usePathname();
   const t = useTranslations("Navigation");
   const tFooter = useTranslations("Footer");
 
-  const safeUsername = profileData?.username?.includes(" & ")
-    ? profileData.username.split(" & ")[0]
-    : profileData?.username || "";
+  const name = sanityProfile?.name || "M Hasbi Hasbullah";
+  const imageUrl = sanityProfile?.imageUrl || "/placeholder.svg";
+  const safeUsername = "@hasbihasbullh";
 
   const isActive = (href: string) => {
     return pathname === href || pathname?.startsWith(href + "/");
@@ -37,9 +36,11 @@ export function DesktopSidebar() {
         {/* Profile Section */}
         <div className="p-8 text-center">
           <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-zinc-400 ring-2 ring-transparent hover:ring-zinc-600 transition-all duration-300">
-            <Image src={profileData.image} alt={`${profileData.name} profile`} width={96} height={96} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+            {imageUrl && (
+              <Image src={imageUrl} alt={`${name} profile`} width={96} height={96} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+            )}
           </div>
-          <h2 className="text-xl font-semibold text-white mb-1">{profileData.name}</h2>
+          <h2 className="text-xl font-semibold text-white mb-1">{name}</h2>
           <p className="text-zinc-400 text-sm mb-4">{safeUsername}</p>
           <div className="flex justify-center">
             <LanguageToggle />
@@ -49,7 +50,7 @@ export function DesktopSidebar() {
         {/* Navigation */}
         <nav className="flex-1 px-4 overflow-y-auto sidebar-scroll space-y-4" aria-label="Primary">
           <div className="px-1">
-            <CommandPalette />
+            <CommandPalette sanityProfile={sanityProfile} sanityProjects={sanityProjects} />
           </div>
           <ul className="space-y-1">
             {navigationItems.map((item) => {
@@ -85,7 +86,7 @@ export function DesktopSidebar() {
         <div className="p-6 border-t border-zinc-800">
           <p className="text-zinc-400 text-xs text-center leading-relaxed">
             Copyright ©{new Date().getFullYear()} <br /> 
-            <Link href="/" className="hover:text-white transition-colors duration-300 font-semibold">{profileData.name}</Link>. {tFooter("rights")}.
+            <Link href="/" className="hover:text-white transition-colors duration-300 font-semibold">{name}</Link>. {tFooter("rights")}.
           </p>
         </div>
       </aside>

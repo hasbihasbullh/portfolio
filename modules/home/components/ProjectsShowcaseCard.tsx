@@ -1,14 +1,15 @@
 "use client";
 import React from "react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
-import { projects } from "@/common/data";
 import { GalleryVerticalEnd } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
-export function ProjectsShowcaseCard() {
+export function ProjectsShowcaseCard({ sanityProjects }: { sanityProjects?: any[] }) {
   const t = useTranslations("Home.Projects");
+
+  const displayProjects = sanityProjects && sanityProjects.length > 0 ? sanityProjects : [];
 
   return (
     <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-3 grid grid-cols-2 gap-2 h-full w-full" spotlightColor="rgba(99, 102, 241, 0.12)">
@@ -23,25 +24,31 @@ export function ProjectsShowcaseCard() {
       </div>
       <div className="flex flex-col p-0">
         <div className="max-h-[300px] overflow-y-auto p-2 [scrollbar-width:none] [-ms-overflow-style:none] [::-webkit-scrollbar{display:none}]">
-          {projects.map((project, index) => (
-            <div key={project.id} className="mb-4 cursor-pointer" role="listitem">
-              <Link href={project.link} passHref aria-label={`View ${project.title} project`} target="_blank" >
-                <div className="rounded-xl bg-zinc-300 p-[3px] dark:bg-zinc-800">
-                  <div className="overflow-hidden rounded-lg">
-                    <Image
-                      alt={project.title}
-                      width={150}
-                      height={100}
-                      className="h-auto w-full rounded-lg shadow-xl object-cover transition-transform duration-700 ease-in-out"
-                      src={project.image || "/placeholder.svg"}
-                      priority={index < 2}
-                      loading={index >= 2 ? "lazy" : undefined}
-                    />
+          {displayProjects.map((project, index) => {
+            const title = project.title?.en || project.title || "Project";
+            const link = project.liveUrl || project.githubUrl || "#";
+            const image = project.imageUrl || project.image || "/placeholder.svg";
+
+            return (
+              <div key={project._id || project.slug?.current || index} className="mb-4 cursor-pointer" role="listitem">
+                <Link href={link} passHref aria-label={`View ${title} project`} target="_blank" >
+                  <div className="rounded-xl bg-zinc-300 p-[3px] dark:bg-zinc-800">
+                    <div className="overflow-hidden rounded-lg">
+                      <Image
+                        alt={title}
+                        width={150}
+                        height={100}
+                        className="h-auto w-full rounded-lg shadow-xl object-cover transition-transform duration-700 ease-in-out"
+                        src={image}
+                        priority={index < 2}
+                        loading={index >= 2 ? "lazy" : undefined}
+                      />
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     </SpotlightCard>

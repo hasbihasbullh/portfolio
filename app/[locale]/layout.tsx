@@ -14,6 +14,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { client } from "@/sanity/lib/client";
+import { profileQuery, projectsQuery } from "@/sanity/lib/queries";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -57,7 +59,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
   };
 }
-
 export default async function RootLayout({ 
   children,
   params
@@ -72,6 +73,10 @@ export default async function RootLayout({
   }
 
   const messages = await getMessages();
+  const [profile, projects] = await Promise.all([
+    client.fetch(profileQuery),
+    client.fetch(projectsQuery)
+  ]);
 
   return (
     <html lang={locale} className="dark">
@@ -95,8 +100,8 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <PreloaderProvider>
             <div className="relative z-10 flex min-h-screen">
-              <DesktopSidebar />
-              <MobileNavbar />
+              <DesktopSidebar sanityProfile={profile} sanityProjects={projects} />
+              <MobileNavbar sanityProfile={profile} sanityProjects={projects} />
               <main className="flex-1 w-full lg:ml-80 overflow-x-hidden">
                 {children}
               </main>

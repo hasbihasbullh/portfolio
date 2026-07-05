@@ -1,26 +1,28 @@
 "use client";
 import React, { useMemo } from "react";
-import { Project, projects } from "@/common/data/projectData";
 import { ProjectCard } from "./ProjectCard";
 
 interface RelatedProjectsProps {
   projectId: string;
+  allProjects?: any[];
 }
 
-export function RelatedProjects({ projectId }: RelatedProjectsProps) {
+export function RelatedProjects({ projectId, allProjects = [] }: RelatedProjectsProps) {
   const relatedProjects = useMemo(() => {
-    const currentProject = projects.find((p) => p.id === projectId);
+    const currentProject = allProjects.find((p) => p.slug?.current === projectId || p._id === projectId);
     if (!currentProject) return [];
     // 1. Find projects in the same category
     // 2. Or projects sharing at least one technology
     // 3. Exclude the current project
     // 4. Limit to 2 projects
-    const filtered = projects.filter((p) => {
-      if (p.id === currentProject.id) return false;
+    const filtered = allProjects.filter((p) => {
+      const pId = p.slug?.current || p._id;
+      const cId = currentProject.slug?.current || currentProject._id;
+      if (pId === cId) return false;
 
-      const sameCategory = p.category === currentProject.category;
-      const sharedTech = p.technologies.some((tech) =>
-        currentProject.technologies.some((currTech) => currTech.name === tech.name)
+      const sameCategory = p.category && p.category === currentProject.category;
+      const sharedTech = p.techStack?.some((tech: any) =>
+        currentProject.techStack?.some((currTech: any) => (currTech.name || currTech) === (tech.name || tech))
       );
 
       return sameCategory || sharedTech;
@@ -28,9 +30,9 @@ export function RelatedProjects({ projectId }: RelatedProjectsProps) {
 
     // Sort to get the newest related projects
     return filtered
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .sort((a, b) => new Date(b._createdAt || b.createdAt).getTime() - new Date(a._createdAt || a.createdAt).getTime())
       .slice(0, 2);
-  }, [projectId]);
+  }, [projectId, allProjects]);
 
   if (relatedProjects.length === 0) return null;
 
@@ -41,7 +43,7 @@ export function RelatedProjects({ projectId }: RelatedProjectsProps) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {relatedProjects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <ProjectCard key={project.slug?.current || project._id} project={project} />
         ))}
       </div>
     </div>

@@ -1,24 +1,26 @@
 import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
 import { FooterContent } from "@/common/components/layouts/FooterContent";
-import { projects } from "@/common/data/projectData";
+import { client } from "@/sanity/lib/client";
+import { projectBySlugQuery } from "@/sanity/lib/queries";
 import { Card } from "@/common/components/ui/card";
 import { Button } from "@/common/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/common/components/ui/tooltip";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { FaExternalLinkAlt, FaGithub, FaArrowLeft } from "react-icons/fa";
 import { Metadata } from "next";
 import { METADATA } from "@/common/constants/metadata";
 import { RelatedProjects } from "@/modules/projects/components/RelatedProjects";
+import { getIconComponent } from "@/common/utils/iconMapper";
 
 interface ProjectDetailPageProps {
   params: Promise<{ id: string }>;
 }
 
 export async function generateMetadata({ params }: ProjectDetailPageProps): Promise<Metadata> {
-  const { id } = await params;
-  const project = projects.find((p) => p.id === id);
+  const { id, locale } = await params as unknown as { id: string, locale: string };
+  const project = await client.fetch(projectBySlugQuery, { slug: id });
 
   if (!project) {
     return {
@@ -30,42 +32,56 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
     };
   }
 
+  const title = project.title?.[locale] || project.title?.en || project.title || "Project";
+  const desc = project.description?.[locale] || project.description?.en || project.description || "";
+
   return {
-    title: `${project.title} ${METADATA.exTitle}`,
-    description: `Explore ${project.title}, a project by ${METADATA.creator}: ${project.description}`,
+    title: `${title} - ${METADATA.exTitle}`,
+    description: `Explore ${title}, a project by ${METADATA.creator}: ${desc}`,
     alternates: {
       canonical: `/projects/${id}`,
     },
     openGraph: {
-      title: `${project.title} ${METADATA.exTitle}`,
-      description: project.description,
+      title: `${title} - ${METADATA.exTitle}`,
+      description: desc,
       url: `/projects/${id}`,
       siteName: METADATA.creator,
       images: [
         {
-          url: project.image,
+          url: project.imageUrl || project.image || "/placeholder.svg",
           width: 1200,
           height: 630,
-          alt: project.title,
+          alt: title,
         },
       ],
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${project.title} ${METADATA.exTitle}`,
-      description: project.description,
-      images: [project.image],
+      title: `${title} - ${METADATA.exTitle}`,
+      description: desc,
+      images: [project.imageUrl || project.image || "/placeholder.svg"],
     },
   };
 }
 
+import { profileQuery, projectsQuery } from "@/sanity/lib/queries";
+
 export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
-  const { id } = await params;
-  const project = projects.find((p) => p.id === id);
+  const { id, locale } = await params as unknown as { id: string, locale: string };
+  const [project, profile, allProjects] = await Promise.all([
+    client.fetch(projectBySlugQuery, { slug: id }),
+    client.fetch(profileQuery),
+    client.fetch(projectsQuery)
+  ]);
   if (!project) {
     notFound();
   }
+
+  const title = project.title?.[locale] || project.title?.en || project.title || "Project";
+  const desc = project.description?.[locale] || project.description?.en || project.description || "";
+  const link = project.liveUrl || project.linkDemo || project.link;
+  const linkGithub = project.githubUrl || project.linkGithub;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-16">
@@ -83,25 +99,26 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
               </Link>
             </div>
 
-            {/* Hero Section */}
             <div className="mb-6">
-              <h1 className="text-3xl lg:text-4xl font-bold text-white leading-tight mb-4 tracking-tight">{project.title}</h1>
-              <p className="text-zinc-300 text-lg leading-relaxed mb-4 max-w-1xl">{project.description}</p>
+              <h1 className="text-3xl lg:text-4xl font-bold text-white leading-tight mb-4 tracking-tight">{title}</h1>
+              <p className="text-zinc-300 text-lg leading-relaxed mb-4 max-w-1xl">{desc}</p>
               <div className="flex items-center gap-2.5">
                 <span className="text-zinc-400 font-medium text-base">Tech Stack:</span>
                 <TooltipProvider>
                   <div className="flex items-center gap-3 bg-zinc-900/50 backdrop-blur-sm px-4 py-2 rounded-lg border border-zinc-800">
-                    {project.technologies.map((tech, index) => {
-                      const TechIcon = tech.reactIcon;
+                    {project.techStack?.map((tech: any, index: number) => {
+                      const techName = tech.name || tech;
+                      const iconName = tech.icon || `Si${techName.replace(/\s+/g, '')}`;
+                      const TechIcon = getIconComponent(iconName);
                       return (
                         <Tooltip key={index}>
                           <TooltipTrigger asChild>
                             <div className="relative">
-                              <TechIcon className={`w-4 h-4 md:w-6 md:h-6 ${tech.color}`} />
+                              <TechIcon className={`w-4 h-4 md:w-6 md:h-6 ${tech.color || 'text-zinc-300'}`} />
                             </div>
                           </TooltipTrigger>
                           <TooltipContent side="top" className="bg-zinc-800 text-zinc-200 text-xs rounded px-2 py-1">
-                            {tech.name}
+                            {techName}
                           </TooltipContent>
                         </Tooltip>
                       );
@@ -112,14 +129,14 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
             </div>
 
             {/* Full Page Image Section or Fallback */}
-            {project.fullPageImage ? (
+            {project.fullPageImageUrl ? (
               <Card className="mb-16 overflow-hidden rounded-[2rem] border border-zinc-800 bg-zinc-900/80 shadow-[0_20px_60px_-40px_rgba(0,0,0,0.5)]">
                 <div className="relative w-full">
-                  <Image src={project.fullPageImage} alt={`${project.title} full page preview`} width={1600} height={900} className="w-full rounded-[2rem] object-contain" loading="lazy" sizes="100vw" quality={90} />
+                  <Image src={project.fullPageImageUrl} alt={`${title} full page preview`} width={1600} height={900} className="w-full rounded-[2rem] object-contain" loading="lazy" sizes="100vw" quality={90} />
                   <div className="absolute top-4 right-4 flex gap-2">
-                    {Boolean(project.link) && (
-                      <Link
-                        href={project.link || ""}
+                    {Boolean(link) && (
+                      <a
+                        href={link || ""}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-white text-zinc-900 hover:bg-zinc-300 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
@@ -127,11 +144,11 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                       >
                         <FaExternalLinkAlt className="w-4 h-4" />
                         <span className="hidden sm:inline">Open Preview</span>
-                      </Link>
+                      </a>
                     )}
-                    {Boolean(project.githubLink) && (
-                      <Link
-                        href={project.githubLink || ""}
+                    {Boolean(linkGithub) && (
+                      <a
+                        href={linkGithub || ""}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-zinc-800 text-white hover:bg-zinc-500 rounded-full flex items-center justify-center shadow-lg px-4 py-2 sm:px-4 sm:py-2 w-10 h-10 sm:w-auto sm:h-auto text-sm font-medium gap-2"
@@ -139,40 +156,40 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                       >
                         <FaGithub className="w-4 h-4" />
                         <span className="hidden sm:inline">Source Code</span>
-                      </Link>
+                      </a>
                     )}
                   </div>
                 </div>
               </Card>
             ) : (
               <div className="mb-16 flex gap-4">
-                {Boolean(project.link) && (
-                  <Link
-                    href={project.link || ""}
+                {Boolean(link) && (
+                  <a
+                    href={link || ""}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-white text-zinc-900 hover:bg-zinc-300 rounded-full flex items-center justify-center shadow-lg px-6 py-3 text-sm font-medium gap-2"
                   >
                     <FaExternalLinkAlt className="w-4 h-4" />
                     <span>Open Preview</span>
-                  </Link>
+                  </a>
                 )}
-                {Boolean(project.githubLink) && (
-                  <Link
-                    href={project.githubLink || ""}
+                {Boolean(linkGithub) && (
+                  <a
+                    href={linkGithub || ""}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-zinc-800 text-white hover:bg-zinc-700 rounded-full flex items-center justify-center shadow-lg px-6 py-3 text-sm font-medium gap-2"
                   >
                     <FaGithub className="w-4 h-4" />
                     <span>Source Code</span>
-                  </Link>
+                  </a>
                 )}
               </div>
             )}
 
-            <RelatedProjects projectId={project.id} />
-            <FooterContent />
+            <RelatedProjects projectId={project.slug?.current || project._id} allProjects={allProjects} />
+            <FooterContent sanityProfile={profile} />
       </AnimateEaseOut>
     </div>
   );

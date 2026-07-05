@@ -1,11 +1,10 @@
 
 import React from "react";
-import { education } from "@/common/data";
 import { EducationCard } from "./EducationCard";
 import { GraduationCap } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-export function EducationSection() {
+export function EducationSection({ sanityEducation = [] }: { sanityEducation?: any[] }) {
   const t = useTranslations("About.Education");
 
   return (
@@ -17,10 +16,10 @@ export function EducationSection() {
             <h2 className="text-2xl lg:text-3xl font-bold text-zinc-200">{t("title")}</h2>
           </div>
         </div>
-        <p className="text-zinc-400 mb-6">My academic journey in software engineering and informatics, equipping me with a strong technical foundation.</p>
+        <p className="text-zinc-400 mb-6">{t("description")}</p>
         <div className="space-y-6">
-          {education.map((edu) => (
-            <EducationCard key={edu.id} education={edu} />
+          {sanityEducation.map((edu, index) => (
+            <EducationCard key={edu._id || String(index)} education={edu} />
           ))}
         </div>
       </div>

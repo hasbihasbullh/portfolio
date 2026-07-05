@@ -1,34 +1,33 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import { AnimateEaseOut } from "@/common/components/elements/AnimateEaseOut";
-import { achievementsData, Achievement } from "@/common/data";
 import { AchievementsHeader } from "./AchievementsHeader";
 import { AchievementsGrid } from "./AchievementsGrid";
 import { FooterContent } from "@/common/components/layouts/FooterContent";
 
 type FilterType = "all" | "certificate" | "badge";
 
-export const Achievements = () => {
+export const Achievements = ({ sanityAchievements = [], sanityProfile }: { sanityAchievements?: any[], sanityProfile?: any }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filterType, setFilterType] = useState<FilterType>("all");
-  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   // Filter and search logic
-  const filteredAchievements = useMemo((): Achievement[] => {
-    let filtered: Achievement[] = achievementsData;
+  const filteredAchievements = useMemo(() => {
+    let filtered: any[] = sanityAchievements;
 
     if (filterType !== "all") {
       filtered = filtered.filter((item) => item.type === filterType);
     }
 
     if (searchTerm) {
-      filtered = filtered.filter((item: Achievement) => item.title.toLowerCase().includes(searchTerm.toLowerCase()) || item.issuer.toLowerCase().includes(searchTerm.toLowerCase()));
+      filtered = filtered.filter((item: any) => item.title?.en?.toLowerCase().includes(searchTerm.toLowerCase()) || item.title?.id?.toLowerCase().includes(searchTerm.toLowerCase()) || item.issuer?.toLowerCase().includes(searchTerm.toLowerCase()));
     }
 
     return filtered;
-  }, [searchTerm, filterType]);
+  }, [searchTerm, filterType, sanityAchievements]);
 
-  const handleImageError = (achievementId: number) => {
+  const handleImageError = (achievementId: string) => {
     setImageErrors((prev) => ({ ...prev, [achievementId]: true }));
   };
 
@@ -38,7 +37,7 @@ export const Achievements = () => {
         <AnimateEaseOut>
           <AchievementsHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterType={filterType} setFilterType={setFilterType} />
           <AchievementsGrid filteredAchievements={filteredAchievements} imageErrors={imageErrors} handleImageError={handleImageError} />
-          <FooterContent />
+          <FooterContent sanityProfile={sanityProfile} />
         </AnimateEaseOut>
       </div>
     </div>

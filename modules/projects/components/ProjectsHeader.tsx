@@ -6,16 +6,15 @@ import { Separator } from "@/common/components/ui/separator";
 import { Search, Filter } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-type FilterCategory = "all" | "Application" | "Web Application";
-
 interface ProjectsHeaderProps {
+  categories: string[];
   searchTerm: string;
   setSearchTerm: (value: string) => void;
-  filterCategory: FilterCategory;
-  setFilterCategory: (value: FilterCategory) => void;
+  filterCategory: string;
+  setFilterCategory: (value: string) => void;
 }
 
-export function ProjectsHeader({ searchTerm, setSearchTerm, filterCategory, setFilterCategory }: ProjectsHeaderProps) {
+export function ProjectsHeader({ categories, searchTerm, setSearchTerm, filterCategory, setFilterCategory }: ProjectsHeaderProps) {
   const t = useTranslations("Projects.header");
 
   return (
@@ -37,7 +36,7 @@ export function ProjectsHeader({ searchTerm, setSearchTerm, filterCategory, setF
               />
             </div>
 
-            <Select value={filterCategory} onValueChange={(value: FilterCategory) => setFilterCategory(value)}>
+            <Select value={filterCategory} onValueChange={(value: string) => setFilterCategory(value)}>
               <SelectTrigger className="w-full sm:w-48 bg-zinc-900 border-zinc-800 text-zinc-100" aria-label={t("filter")}>
                 <Filter className="w-4 h-4 mr-2" />
                 <SelectValue placeholder={t("filter")} />
@@ -46,12 +45,11 @@ export function ProjectsHeader({ searchTerm, setSearchTerm, filterCategory, setF
                 <SelectItem value="all" className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-100">
                   {t("filterAll")}
                 </SelectItem>
-                <SelectItem value="Application" className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-100">
-                  {t("filterApp")}
-                </SelectItem>
-                <SelectItem value="Web Application" className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-100">
-                  {t("filterWebApp")}
-                </SelectItem>
+                {categories.map((cat) => (
+                  <SelectItem key={cat} value={cat} className="text-zinc-100 focus:bg-zinc-800 focus:text-zinc-100">
+                    {cat}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
