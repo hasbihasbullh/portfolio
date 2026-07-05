@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+A personal portfolio website built with Next.js 16 App Router, TypeScript, and Sanity CMS. Designed to be fully dynamic, bilingual, and highly performant.
 
-First, run the development server:
+[Live Demo](https://hasbihasbullh.my.id)
+
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-black?style=flat-square&logo=framer&logoColor=blue)
+![Sanity](https://img.shields.io/badge/Sanity-F03E2F?style=flat-square&logo=sanity&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white)
+
+<!-- Insert your project screenshot here:
+![Screenshot](./public/screenshot.png)
+-->
+
+## Architecture & Tech Stack
+
+### Frontend Core
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS, Radix UI Primitives (for accessible interactive components)
+- **Animations:** Framer Motion (page transitions and micro-interactions)
+- **Internationalization:** `next-intl` (English & Indonesian routing without flicker)
+
+### Backend & Integrations
+- **Headless CMS:** Sanity Studio v3 (Embedded directly into `/studio`)
+- **Email Service:** Resend API (routed securely via Next.js backend API at `/api/contact`)
+- **Data Integrations:** WakaTime API, MonkeyType API, GitHub API (routed via `/api/activity`)
+- **Analytics:** Vercel Analytics, Vercel Speed Insights
+
+## Key Features
+
+### Bilingual Support (i18n)
+Full content translation between English (en) and Indonesian (id). Routing is handled automatically (e.g. `/en/about` and `/id/about`).
+
+### Fully Dynamic Content Management
+100% of the portfolio data is managed dynamically via Sanity CMS. The schemas include:
+- **Profile:** Bio, social links, resume, and gallery images.
+- **Projects:** Rich project data, tech stacks, links, and dynamic category filtering.
+- **Experience & Education:** Detailed timelines with dynamic logos.
+- **Achievements:** Certificate credentials, issuing dates, and badge types.
+- **Skills:** Tech skills categorized efficiently.
+
+### Real-Time API Integrations
+- **GitHub API:** Renders a live contribution graph.
+- **WakaTime API:** Displays real-time coding statistics and top programming languages.
+- **MonkeyType API:** Showcases live typing speed metrics.
+*(Note: API keys are securely hidden behind Next.js server-side route handlers to prevent exposure).*
+
+### Built for Performance & SEO
+- **Server-Side Rendering (SSR) & Static Generation:** Maximizing load speeds.
+- **Dynamic SEO:** Fully automated `sitemap.ts`, `robots.ts`, and Open Graph metadata generation.
+- **Custom Error Pages:** Beautifully designed custom 404 (`not-found.tsx`) and Error (`error.tsx`) states.
+
+## Prerequisites
+
+Ensure you have the following installed before proceeding:
+- [Node.js](https://nodejs.org/) (v18.17.0 or higher)
+- [Git](https://git-scm.com/)
+- A [Sanity.io](https://www.sanity.io/) account
+- A [Resend](https://resend.com/) account (for the contact form)
+
+## Local Setup Instructions
+
+Follow these steps to run the project locally.
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/hasbihasbullh/portfolio.git
+cd portfolio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Using npm:
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Environment Variables
 
-## Learn More
+Create a new `.env.local` file by copying the provided example template:
+```bash
+cp .env.example .env.local
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open `.env.local` and populate the keys. Here is how to obtain them:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Sanity CMS (`NEXT_PUBLIC_SANITY_PROJECT_ID`):**
+  1. Go to [Sanity Manage](https://www.sanity.io/manage).
+  2. Select your project and copy the **Project ID**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Resend Email API (`RESEND_API_KEY`):**
+  1. Go to [Resend](https://resend.com/) and create an account.
+  2. Navigate to **API Keys** and generate a new key.
+  3. (Optional) Verify your domain in the **Domains** section to send emails from a custom address.
+  4. Set `CONTACT_RECEIVER_EMAIL` to the email address where you want to receive messages from visitors.
 
-## Deploy on Vercel
+- **GitHub Integration (`GITHUB_USERNAME`):**
+  1. Simply input your public GitHub username (e.g., `hasbihasbullh`). No secret token is required for the public graph.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **WakaTime API (`WAKATIME_API_KEY`):**
+  1. Log in to [WakaTime](https://wakatime.com/).
+  2. Go to **Settings** -> **Account**.
+  3. Copy your **Secret API Key**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **MonkeyType Integration (`MONKEYTYPE_USERNAME`):**
+  1. Simply input your public MonkeyType username.
+
+### 4. Run the Development Server
+
+Start the Next.js development server:
+```bash
+npm run dev
+```
+
+The application will be available at [http://localhost:3000](http://localhost:3000).
+
+## Content Management (Sanity Studio)
+
+This project utilizes Sanity CMS. The dashboard is embedded directly into the Next.js application, meaning you don't need a separate repository to manage content.
+
+1. Ensure the development server is running (`npm run dev`).
+2. Navigate to [http://localhost:3000/studio](http://localhost:3000/studio).
+3. Log in with your Sanity credentials.
+4. You can now create, edit, or delete content. Any changes published here will immediately trigger a UI update on the frontend.
+
+## Folder Structure Overview
+
+- `/app` - Next.js App Router including:
+  - `/[locale]` - Pages grouped by language (Home, About, Projects, Activity, Contact).
+  - `/api` - Server-side API endpoints for third-party integrations to hide secret keys.
+  - `/studio` - The embedded Sanity CMS dashboard.
+- `/common` - Reusable UI components, layout elements, and configuration constants.
+- `/modules` - Feature-specific components grouped by page domain (e.g., `projects`, `activity`).
+- `/sanity` - Sanity CMS configurations, schema definitions, and GROQ queries.
+
+## Deployment
+
+This project is optimized for deployment on Vercel.
+
+1. Push your local repository to GitHub.
+2. Log in to [Vercel](https://vercel.com/) and create a new project.
+3. Import your GitHub repository.
+4. Add all the environment variables from your `.env.local` file into the Vercel project settings.
+5. Click **Deploy**.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
