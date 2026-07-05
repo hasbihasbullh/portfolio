@@ -2,7 +2,6 @@
 import React from "react";
 import SpotlightCard from "@/common/components/elements/SpotlightCard";
 import StackImages from "@/common/components/elements/StackImages";
-import { profileImages } from "@/common/constants/profileImages";
 import { CircleUser } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
@@ -11,10 +10,10 @@ export function AboutMeCard({ sanityProfile }: { sanityProfile?: any }) {
   const t = useTranslations("Home.About");
   const galleryUrls = sanityProfile?.galleryUrls || [];
   
-  // Transform dynamic Sanity images to StackImages format, fallback to static if empty
+  // Transform dynamic Sanity images to StackImages format
   const dynamicImages = galleryUrls.length > 0 
     ? galleryUrls.map((url: string, index: number) => ({ id: index + 1, img: url }))
-    : profileImages;
+    : [];
 
   return (
     <SpotlightCard className="bg-zinc-900/50 border-zinc-800 relative overflow-hidden !p-0 md:col-span-1 flex flex-col h-full w-full" spotlightColor="rgba(245, 158, 11, 0.12)">
