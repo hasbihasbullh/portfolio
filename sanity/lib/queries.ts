@@ -96,9 +96,10 @@ export const skillsQuery = groq`*[_type == "skill"] | order(order asc){
   icon
 }`
 
-export const achievementsQuery = groq`*[_type == "achievement"] | order(order asc){
+export const achievementsQuery = groq`*[_type == "achievement"] | order(date desc){
   title,
   issuer,
+  date,
   year,
   certificateUrl,
   credentialId,

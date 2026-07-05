@@ -17,9 +17,12 @@ export const achievement = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'year',
-      title: 'Year',
-      type: 'string',
+      name: 'date',
+      title: 'Date',
+      type: 'date',
+      options: {
+        dateFormat: 'DD-MM-YYYY',
+      }
     }),
 
     defineField({

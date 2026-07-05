@@ -23,6 +23,14 @@ export function AchievementCard({
   const locale = useLocale();
   const title = achievement.title?.[locale] || achievement.title?.en || achievement.title || "Achievement";
 
+  const formattedDate = achievement.date
+    ? new Date(achievement.date).toLocaleDateString(locale === "id" ? "id-ID" : "en-US", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    : "";
+
   return (
     <SpotlightCard
       className="bg-zinc-900/50 border-zinc-800 group overflow-hidden transition-all duration-300 cursor-pointer !p-0"
@@ -38,7 +46,7 @@ export function AchievementCard({
         ) : (
           <Image
             src={achievement.imageUrl || achievement.image || "/placeholder.svg"}
-            alt={`Sertifikat ${typeof title === 'string' ? title : JSON.stringify(title)} dari ${achievement.issuer} diterbitkan pada ${achievement.year}`}
+            alt={`Sertifikat ${typeof title === 'string' ? title : JSON.stringify(title)} dari ${achievement.issuer} diterbitkan pada ${formattedDate || achievement.year}`}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
@@ -99,7 +107,7 @@ export function AchievementCard({
         <p className="font-medium text-zinc-400">{achievement.issuer}</p>
         <p className="text-sm font-medium text-zinc-700">{t("issuedOn")}</p>
         <div className="flex items-center gap-2 text-sm text-zinc-400">
-          <span>{achievement.year || achievement.issuedOn}</span>
+          <span>{formattedDate || achievement.year || achievement.issuedOn}</span>
         </div>
       </div>
     </SpotlightCard>
