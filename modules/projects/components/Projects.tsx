@@ -26,7 +26,16 @@ const Projects = ({ sanityProjects = [], sanityProfile }: { sanityProjects?: any
     }
 
     if (searchTerm) {
-      filtered = filtered.filter((project: any) => project.title?.toLowerCase().includes(searchTerm.toLowerCase()) || project.description?.toLowerCase().includes(searchTerm.toLowerCase()));
+      const term = searchTerm.toLowerCase();
+      filtered = filtered.filter((project: any) => {
+        const titleMatch = project.title?.toLowerCase().includes(term);
+        const descEn = project.description?.en || "";
+        const descId = project.description?.id || "";
+        const descMatch = typeof project.description === 'string' 
+          ? project.description.toLowerCase().includes(term) 
+          : (descEn.toLowerCase().includes(term) || descId.toLowerCase().includes(term));
+        return titleMatch || descMatch;
+      });
     }
 
     // Urutkan proyek yang dipin di atas, lalu berdasarkan tanggal rilis (terbaru ke terlama)
@@ -34,8 +43,8 @@ const Projects = ({ sanityProjects = [], sanityProfile }: { sanityProjects?: any
       if (a.isPinned && !b.isPinned) return -1;
       if (!a.isPinned && b.isPinned) return 1;
       
-      const dateA = new Date(a.createdAt || a._createdAt).getTime();
-      const dateB = new Date(b.createdAt || b._createdAt).getTime();
+      const dateA = new Date(a.date || a.createdAt || a._createdAt).getTime();
+      const dateB = new Date(b.date || b.createdAt || b._createdAt).getTime();
       return dateB - dateA; // Descending order
     });
   }, [searchTerm, filterCategory, sanityProjects]);

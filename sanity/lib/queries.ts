@@ -1,6 +1,6 @@
 import { groq } from 'next-sanity'
 
-export const profileQuery = groq`*[_type == "profile"][0]{
+export const profileQuery = groq`*[_type == "profile" && _id == "profileSettings"][0]{
   name,
   role,
   "description": {
@@ -18,9 +18,10 @@ export const profileQuery = groq`*[_type == "profile"][0]{
   socials
 }`
 
-export const projectsQuery = groq`*[_type == "project"] | order(_createdAt desc){
+export const projectsQuery = groq`*[_type == "project"] | order(date desc, _createdAt desc){
   title,
   slug,
+  date,
   "description": {
     "en": description.en,
     "id": description.id
@@ -31,13 +32,14 @@ export const projectsQuery = groq`*[_type == "project"] | order(_createdAt desc)
   linkDemo,
   linkGithub,
   isPinned,
-  category,
+  "category": category->title,
   _createdAt
 }`
 
 export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $slug][0]{
   title,
   slug,
+  date,
   "description": {
     "en": description.en,
     "id": description.id
@@ -48,11 +50,11 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
   linkDemo,
   linkGithub,
   isPinned,
-  category,
+  "category": category->title,
   _createdAt
 }`
 
-export const experiencesQuery = groq`*[_type == "experience"] | order(order asc){
+export const experiencesQuery = groq`*[_type == "experience"] | order(orderRank){
   company,
   "position": {
     "en": position.en,
@@ -73,7 +75,7 @@ export const experiencesQuery = groq`*[_type == "experience"] | order(order asc)
   responsibilities
 }`
 
-export const educationQuery = groq`*[_type == "education"] | order(order asc){
+export const educationQuery = groq`*[_type == "education"] | order(orderRank){
   institution,
   "major": {
     "en": major.en,
@@ -90,7 +92,7 @@ export const educationQuery = groq`*[_type == "education"] | order(order asc){
   status
 }`
 
-export const skillsQuery = groq`*[_type == "skill"] | order(order asc){
+export const skillsQuery = groq`*[_type == "skill"] | order(orderRank){
   name,
   category,
   icon

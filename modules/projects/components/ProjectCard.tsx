@@ -16,6 +16,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const slug = project.slug?.current || project._id;
   const title = project.title?.[locale] || project.title?.en || project.title || "Project";
 
+  const formattedDate = project.date
+    ? new Date(project.date).toLocaleDateString(locale === "id" ? "id-ID" : "en-US", {
+        month: "long",
+        year: "numeric",
+      })
+    : "";
+
   return (
     <SpotlightCard className="bg-zinc-900/50 border-zinc-800 group overflow-hidden transition-all duration-300 cursor-pointer !p-0">
       <Link href={`/projects/${slug}`} className="flex flex-col gap-5 block outline-none h-full w-full">
@@ -36,7 +43,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               <span className="text-sm text-center px-4">Image unavailable</span>
             </div>
           ) : (
-            <Image
+             <Image
               src={project.imageUrl || project.image || "/placeholder.svg"}
               alt={`${title} screenshot`}
               fill
@@ -56,6 +63,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className="flex flex-col gap-2.5 px-4 pb-4">
           <div className="flex items-center justify-between gap-4">
             <h2 className="text-zinc-100 text-xl font-medium tracking-tight group-hover:text-white transition-colors">{title}</h2>
+            {formattedDate && <span className="text-zinc-500 text-xs shrink-0 capitalize">{formattedDate}</span>}
           </div>
 
           <p className="text-zinc-400 text-sm leading-relaxed line-clamp-2">{project.description?.[locale] || project.description?.en || project.description}</p>

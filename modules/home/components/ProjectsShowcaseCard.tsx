@@ -26,7 +26,7 @@ export function ProjectsShowcaseCard({ sanityProjects }: { sanityProjects?: any[
         <div className="max-h-[300px] overflow-y-auto p-2 [scrollbar-width:none] [-ms-overflow-style:none] [::-webkit-scrollbar{display:none}]">
           {displayProjects.map((project, index) => {
             const title = project.title?.en || project.title || "Project";
-            const link = project.liveUrl || project.githubUrl || "#";
+            const link = project.linkDemo || project.linkGithub || "#";
             const image = project.imageUrl || project.image || "/placeholder.svg";
 
             return (

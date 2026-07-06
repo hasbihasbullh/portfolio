@@ -1,37 +1,19 @@
 import { defineType, defineField } from 'sanity'
+import { Briefcase } from 'lucide-react'
+import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list'
 
 export const experience = defineType({
   name: 'experience',
   title: 'Experience',
   type: 'document',
+  icon: Briefcase,
+  orderings: [orderRankOrdering],
   fields: [
-    defineField({
-      name: 'company',
-      title: 'Company',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'position',
-      title: 'Position',
-      type: 'localeString',
-    }),
-    defineField({
-      name: 'duration',
-      title: 'Duration',
-      type: 'localeString', // e.g. "Jan 2021 - Present" and "Jan 2021 - Sekarang"
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'localeText',
-    }),
-    defineField({
-      name: 'logo',
-      title: 'Company Logo',
-      type: 'image',
-      options: { hotspot: true },
-    }),
+    defineField({ name: 'company', title: 'Company', type: 'string', validation: (Rule) => Rule.required() }),
+    defineField({ name: 'position', title: 'Position', type: 'localeString' }),
+    defineField({ name: 'duration', title: 'Duration', type: 'localeString' }),
+    defineField({ name: 'description', title: 'Description', type: 'localeText' }),
+    defineField({ name: 'logo', title: 'Company Logo', type: 'image', options: { hotspot: true } }),
     defineField({
       name: 'type',
       title: 'Employment Type',
@@ -58,30 +40,23 @@ export const experience = defineType({
         ],
       },
     }),
-    defineField({
-      name: 'location',
-      title: 'Location',
-      type: 'string',
-    }),
-    defineField({
-      name: 'responsibilities',
-      title: 'Responsibilities',
-      type: 'array',
-      of: [{ type: 'localeText' }],
-    }),
-    defineField({
-      name: 'order',
-      title: 'Order (for sorting)',
-      type: 'number',
-    })
+    defineField({ name: 'location', title: 'Location', type: 'string' }),
+    defineField({ name: 'responsibilities', title: 'Responsibilities', type: 'array', of: [{ type: 'localeText' }] }),
+    orderRankField({ type: 'experience' })
   ],
-  orderings: [
-    {
-      title: 'Order, Ascending',
-      name: 'orderAsc',
-      by: [
-        {field: 'order', direction: 'asc'}
-      ]
+  preview: {
+    select: {
+      title: 'position.en',
+      company: 'company',
+      media: 'logo',
+    },
+    prepare(selection) {
+      const {title, company, media} = selection
+      return {
+        title: title || company,
+        subtitle: title ? company : undefined,
+        media: media,
+      }
     }
-  ]
+  }
 })

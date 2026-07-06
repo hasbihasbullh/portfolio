@@ -101,6 +101,13 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
             <div className="mb-6">
               <h1 className="text-3xl lg:text-4xl font-bold text-white leading-tight mb-4 tracking-tight">{title}</h1>
+              
+              {project.date && (
+                <div className="flex items-center gap-2 mb-6 text-zinc-400">
+                  <span className="capitalize">{new Date(project.date).toLocaleDateString(locale === "id" ? "id-ID" : "en-US", { month: "long", year: "numeric" })}</span>
+                </div>
+              )}
+
               <p className="text-zinc-300 text-lg leading-relaxed mb-4 max-w-1xl">{desc}</p>
               <div className="flex items-center gap-2.5">
                 <span className="text-zinc-400 font-medium text-base">Tech Stack:</span>

@@ -1,16 +1,15 @@
 import { defineType, defineField } from 'sanity'
+import { Code2 } from 'lucide-react'
+import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list'
 
 export const skill = defineType({
   name: 'skill',
   title: 'Skill',
   type: 'document',
+  icon: Code2,
+  orderings: [orderRankOrdering],
   fields: [
-    defineField({
-      name: 'name',
-      title: 'Name',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
+    defineField({ name: 'name', title: 'Name', type: 'string', validation: (Rule) => Rule.required() }),
     defineField({
       name: 'category',
       title: 'Category',
@@ -30,10 +29,12 @@ export const skill = defineType({
       type: 'string',
       description: 'e.g. SiReact, SiNextdotjs',
     }),
-    defineField({
-      name: 'order',
-      title: 'Order',
-      type: 'number',
-    })
+    orderRankField({ type: 'skill' })
   ],
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'category',
+    }
+  }
 })

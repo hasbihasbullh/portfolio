@@ -18,6 +18,26 @@ export const localeString = defineType({
   ],
 })
 
+export const localeBlock = defineType({
+  title: 'Localized Rich Text',
+  name: 'localeBlock',
+  type: 'object',
+  fields: [
+    defineField({
+      title: 'English',
+      name: 'en',
+      type: 'array',
+      of: [{ type: 'block' }]
+    }),
+    defineField({
+      title: 'Indonesian',
+      name: 'id',
+      type: 'array',
+      of: [{ type: 'block' }]
+    }),
+  ],
+})
+
 export const localeText = defineType({
   title: 'Localized Text',
   name: 'localeText',
