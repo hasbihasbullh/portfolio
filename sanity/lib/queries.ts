@@ -14,7 +14,7 @@ export const profileQuery = groq`*[_type == "profile" && _id == "profileSettings
   "imageUrl": image.asset->url,
   "galleryUrls": gallery[].asset->url,
   email,
-  resumeUrl,
+  "resumeUrl": resumeUrl.asset->url,
   socials
 }`
 

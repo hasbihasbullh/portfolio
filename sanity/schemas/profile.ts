@@ -58,8 +58,9 @@ export const profile = defineType({
     }),
     defineField({
       name: 'resumeUrl',
-      title: 'Resume URL',
-      type: 'url',
+      title: 'Upload Resume (PDF)',
+      type: 'file',
+      options: { accept: '.pdf' },
       group: 'links',
     }),
     defineField({
