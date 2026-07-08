@@ -35,17 +35,19 @@ export function WelcomeCard({ sanityProfile }: { sanityProfile?: any }) {
         <div className="border-t border-zinc-800/50"></div>
         <div className="grid md:grid-cols-1 gap-6">
           <div className="space-y-3">
-            <div className="space-y-2">
-              <Link
-                href={sanityProfile?.resumeUrl || "/document/resume.pdf"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-zinc-200 text-zinc-900 rounded-lg text-sm font-medium hover:bg-zinc-200 transition-all shadow-sm"
-              >
-                <FileText className="w-4 h-4" />
-                <span>{t("resume")}</span>
-              </Link>
-            </div>
+            {sanityProfile?.resumeUrl && (
+              <div className="space-y-2">
+                <Link
+                  href={sanityProfile.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-zinc-200 text-zinc-900 rounded-lg text-sm font-medium hover:bg-zinc-200 transition-all shadow-sm"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>{t("resume")}</span>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -69,7 +69,7 @@ export function CommandPalette({ sanityProfile, sanityProjects = [] }: { sanityP
     { id: "nav-contact", title: t("actions.contact"), subtitle: t("actions.contactSub"), category: "Navigation", icon: Mail, action: () => handleNavigate("/contact") },
 
     // Quick Actions
-    { id: "action-resume", title: t("actions.resume"), subtitle: t("actions.resumeSub"), category: "Quick Actions", icon: FileText, action: () => handleOpenLink(sanityProfile?.resumeUrl || "/document/resume.pdf") },
+    ...(sanityProfile?.resumeUrl ? [{ id: "action-resume", title: t("actions.resume"), subtitle: t("actions.resumeSub"), category: "Quick Actions" as const, icon: FileText, action: () => handleOpenLink(sanityProfile.resumeUrl) }] : []),
     { id: "action-github", title: t("actions.github"), subtitle: t("actions.githubSub"), category: "Quick Actions", icon: Github, action: () => handleOpenLink(sanityProfile?.socials?.github || "") },
     { id: "action-copy-email", title: copied ? t("actions.emailCopied") : t("actions.copyEmail"), subtitle: sanityProfile?.email || "hasbihasbullh@gmail.com", category: "Quick Actions", icon: copied ? Check : Copy, action: handleCopyEmail },
 
